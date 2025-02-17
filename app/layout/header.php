@@ -25,4 +25,4 @@
 <body>
 
 <!-- Include the Home static navigation -->
-<?php include('/layout/navigation.php'); ?>
+<?php include('../layout/navigation.php'); ?>

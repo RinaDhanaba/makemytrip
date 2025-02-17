@@ -16,4 +16,4 @@ $menu_items = [
 ?>
 
 <!-- Include the Home static navigation -->
-<?php include('/layout/home-static-navigation.php'); ?>
+<?php include('../layout/home-static-navigation.php'); ?>
