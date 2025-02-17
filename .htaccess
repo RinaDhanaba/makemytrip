@@ -16,13 +16,8 @@ RewriteRule ^hotel/([a-zA-Z0-9_-]+)$ app/Hotel/$1.php [L]
 # Block direct access to layout files (header.php, footer.php)
 RewriteRule ^app/layout/.*$ - [F,L]
 
-# Alternative way to block access to files inside /app/layout/
-<FilesMatch "^app/layout/.*\.php$">
-    Require all denied
-</FilesMatch>
-
 # Prevent direct access to .htaccess itself
-<Files ~ "^\.ht">
+<Files .htaccess>
     Order Allow,Deny
     Deny from all
 </Files>
