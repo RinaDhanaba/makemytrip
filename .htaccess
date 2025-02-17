@@ -5,6 +5,9 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
+# Ensure the request to the root URL (/) points to app/page/index.php
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^$ /app/page/index.php [L]
 
 # Clean URLs: Redirects URLs to the corresponding .php files inside app/page/
 RewriteRule ^([a-zA-Z0-9_-]+)$ /app/page/$1.php [L]
@@ -14,8 +17,7 @@ RewriteRule ^app/layout/.*$ - [F,L]
 
 # Prevent direct access to .htaccess itself
 <Files .htaccess>
-    Order Allow,Deny
-    Deny from all
+    Require all denied
 </Files>
 
 # Custom 404 error page
@@ -23,6 +25,5 @@ ErrorDocument 404 /app/page/404.php
 
 # Block access to sensitive files like .env, .git, .htpasswd
 <FilesMatch "\.(env|git|htpasswd|ini|log|bak)$">
-    Order Allow,Deny
-    Deny from all
+    Require all denied
 </FilesMatch>
