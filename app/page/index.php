@@ -1,7 +1,7 @@
 <!-- Include the header -->
-<?php include('/layout/header.php'); ?>
+<?php include('./layout/header.php'); ?>
 
 
 
 <!-- Include the footer -->
-<?php include('/layout/footer.php'); ?>
+<?php include('./layout/footer.php'); ?>
