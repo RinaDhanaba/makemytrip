@@ -1,13 +1,11 @@
 <!-- Responsive Navigation Bar -->
 <nav class="navbar">
-    <ul class="nav-links">
-        <?php
-        // Loop through the array to create the navigation menu
-        foreach ($menu_items as $item => $data) {
-            echo '<li><a href="' . $data['link'] . '">' . $data['icon'] . ' ' . $item . '</a></li>';
-        }
-        ?>
-    </ul>
+<ul>
+    <?php foreach ($menu_items as $item => $data): ?>
+        <li><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></li>
+    <?php endforeach; ?>
+</ul>
+
     <div class="search">
         <input type="text" placeholder="Search...">
         <button>SEARCH</button>
