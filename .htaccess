@@ -1,18 +1,13 @@
 RewriteEngine On
 
-# Ensure requested file or directory exists before rewriting
+# Ensure existing files & directories are served normally
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Rewrite requests for flights and hotel listings
-RewriteRule ^flights/listing$ app/flights/flights-listing.php [L]
-RewriteRule ^hotel/listing$ app/Hotel/Hotel-listing.php [L]
-
-# Rewrite other pages inside "app/page/"
+# Rewrite page requests to /app/page/
 RewriteRule ^([a-zA-Z0-9_-]+)$ app/page/$1.php [L]
 
-# Block direct access to layout files
-<FilesMatch "^(header|footer)\.php$">
-    Order Allow,Deny
-    Deny from all
-</FilesMatch>
+# Allow access to everything except /app/layout/
+<Directory "/app/layout">
+    Require all denied
+</Directory>
