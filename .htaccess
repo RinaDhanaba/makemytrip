@@ -1,16 +1,19 @@
+# Enable Rewrite Engine
 RewriteEngine On
 
 # Ensure the request is not for an existing file or directory
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Redirect /page/{pagename} to /app/page/{pagename}.php
+
+# Redirect root URL to app/page/index.php internally
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^$ /app/page/index.php [L]
+
+
+# Clean URLs: Redirects .php extensions to pretty URLs
 RewriteRule ^page/([a-zA-Z0-9_-]+)$ app/page/$1.php [L]
-
-# Redirect /flights/{pagename} to /app/flights/{pagename}.php
 RewriteRule ^flights/([a-zA-Z0-9_-]+)$ app/flights/$1.php [L]
-
-# Redirect /hotel/{pagename} to /app/Hotel/{pagename}.php
 RewriteRule ^hotel/([a-zA-Z0-9_-]+)$ app/Hotel/$1.php [L]
 
 # Block direct access to layout files (header.php, footer.php)
@@ -22,5 +25,11 @@ RewriteRule ^app/layout/.*$ - [F,L]
     Deny from all
 </Files>
 
-# Handle 404 errors gracefully
+# Custom 404 error page
 ErrorDocument 404 /app/page/404.php
+
+# Block access to sensitive files like .env, .git, .htpasswd
+<FilesMatch "\.(env|git|htpasswd|ini|log|bak)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
