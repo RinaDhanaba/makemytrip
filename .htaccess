@@ -27,3 +27,6 @@ ErrorDocument 404 /app/page/404.php
 <FilesMatch "\.(env|git|htpasswd|ini|log|bak)$">
     Require all denied
 </FilesMatch>
+
+# Set the default index page to home page (index.html or index.php)
+DirectoryIndex app/page/index.php
