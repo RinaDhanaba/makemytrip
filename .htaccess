@@ -6,15 +6,8 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 
-# Redirect root URL to app/page/index.php internally
-RewriteCond %{REQUEST_URI} ^/$
-RewriteRule ^$ /app/page/index.php [L]
-
-
-# Clean URLs: Redirects .php extensions to pretty URLs
-RewriteRule ^page/([a-zA-Z0-9_-]+)$ app/page/$1.php [L]
-RewriteRule ^flights/([a-zA-Z0-9_-]+)$ app/flights/$1.php [L]
-RewriteRule ^hotel/([a-zA-Z0-9_-]+)$ app/Hotel/$1.php [L]
+# Clean URLs: Redirects URLs to the corresponding .php files inside app/page/
+RewriteRule ^([a-zA-Z0-9_-]+)$ /app/page/$1.php [L]
 
 # Block direct access to layout files (header.php, footer.php)
 RewriteRule ^app/layout/.*$ - [F,L]
