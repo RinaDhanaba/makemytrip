@@ -1,15 +1,5 @@
 RewriteEngine On
 
-# Ensure existing files & directories are served normally
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Handle root `/` request and redirect it to app/page/index.php
-RewriteRule ^$ app/page/index.php [L]
-
-# Rewrite other page requests to app/page/
-RewriteRule ^([a-zA-Z0-9_-]+)$ app/page/$1.php [L]
-
 
 # Allow access to everything except /app/layout/
 <Directory "/app/layout">
