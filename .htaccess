@@ -1,42 +1,14 @@
-# Enable mod_rewrite
 RewriteEngine On
 
-# Redirect all requests to app/index.php
+# Redirect requests to corresponding PHP files in /app/page/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /app/index.php?url=$1 [QSA,L]
+RewriteRule ^(flights/listing)$ app/flights/flights-listing.php [L]
+RewriteRule ^(hotel/listing)$ app/Hotel/Hotel-listing.php [L]
+RewriteRule ^([^/]+)$ app/page/$1.php [L]
 
-# Prevent direct access to .htaccess and sensitive files
-<FilesMatch "^\.">
+# Block direct access to layout files
+<Directory "app/layout">
     Order Allow,Deny
     Deny from all
-</FilesMatch>
-
-# Secure app directory (prevent direct access to PHP files)
-<Directory "/app">
-    Options -Indexes
-    AllowOverride All
 </Directory>
-
-# Enable caching (improves performance)
-<IfModule mod_expires.c>
-    ExpiresActive On
-    ExpiresByType text/html "access plus 1 hour"
-    ExpiresByType image/gif "access plus 1 month"
-    ExpiresByType image/jpeg "access plus 1 month"
-    ExpiresByType image/png "access plus 1 month"
-    ExpiresByType text/css "access plus 1 week"
-    ExpiresByType application/javascript "access plus 1 week"
-</IfModule>
-
-# Enable Gzip compression (reduces load time)
-<IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript
-</IfModule>
-
-# Prevent hotlinking (optional)
-<IfModule mod_rewrite.c>
-    RewriteCond %{HTTP_REFERER} !^$
-    RewriteCond %{HTTP_REFERER} !^https://(www\.)?yourdomain\.com/ [NC]
-    RewriteRule \.(jpg|jpeg|png|gif|bmp|svg|webp)$ - [F,NC]
-</IfModule>
