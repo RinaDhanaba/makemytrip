@@ -1,7 +1,31 @@
 RewriteEngine On
 
+# Ensure the request is not for an existing file or directory
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 
-# Allow access to everything except /app/layout/
-<Directory "/app/layout">
+# Redirect /page/{pagename} to /app/page/{pagename}.php
+RewriteRule ^page/([a-zA-Z0-9_-]+)$ app/page/$1.php [L]
+
+# Redirect /flights/{pagename} to /app/flights/{pagename}.php
+RewriteRule ^flights/([a-zA-Z0-9_-]+)$ app/flights/$1.php [L]
+
+# Redirect /hotel/{pagename} to /app/Hotel/{pagename}.php
+RewriteRule ^hotel/([a-zA-Z0-9_-]+)$ app/Hotel/$1.php [L]
+
+# Block direct access to layout files (header.php, footer.php)
+RewriteRule ^app/layout/.*$ - [F,L]
+
+# Alternative way to block access to files inside /app/layout/
+<FilesMatch "^app/layout/.*\.php$">
     Require all denied
-</Directory>
+</FilesMatch>
+
+# Prevent direct access to .htaccess itself
+<Files ~ "^\.ht">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Handle 404 errors gracefully
+ErrorDocument 404 /app/page/404.php
