@@ -13,6 +13,7 @@ RewriteRule ^$ /app/page/index.php [L]
 RewriteRule ^([a-zA-Z0-9_-]+)$ /app/page/$1.php [L]
 
 # Block direct access to layout files (header.php, footer.php)
+RewriteCond %{REQUEST_URI} !^/app/layout/.*$ 
 RewriteRule ^app/layout/.*$ - [F,L]
 
 # Prevent direct access to .htaccess itself
