@@ -116,7 +116,7 @@
     }
 </script>
 
-<div style="margin:20px auto;">>> Explore More >> </div>
+<div style="margin: 60px auto 20px auto;    color: #fff;    text-align: center;">>> Explore More >> </div>
 
 <div class="extra-info-banner">
     <div class="extra-info-banner-btn">Where2Go</div>
@@ -189,7 +189,7 @@ background-repeat: no-repeat;
 background-image: url(../media/bg7.jpg), linear-gradient(to bottom, #f2f2f2, #f2f2f2);
 min-height: 500px;
 transition: background 0.1s linear;
-margin: -60px 0 0 0;
+margin: -60px 0 100px 0;
 background-size: cover;
 padding: 130px 0 0px 0;
 }
@@ -358,6 +358,8 @@ form {
     gap:20px;
     justify-content: space-around;
     align-items: center;
+    position: relative;
+    top: 35px;
 }
 
 .extra-info-banner-btn:not(:last-child) {
