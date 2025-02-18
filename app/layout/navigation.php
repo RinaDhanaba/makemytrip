@@ -70,15 +70,9 @@ $menu_items = [
 
 
 <div>
-<ul class="nav-menu">
+<ul class="nav-menu-home">
         <?php foreach ($menu_items as $item => $data): ?>
             <li class="nav-item"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></li>
         <?php endforeach; ?>
-        <li class="more-dropdown hidden">
-            <div class="dropdown">
-                <div class="dropdown-button">More ▼</div>
-                <div class="dropdown-content" id="moreMenu"></div>
-            </div>
-        </li>
     </ul>
 </div>
