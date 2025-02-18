@@ -127,7 +127,61 @@
 </div>
 </div>  
 
+<div class="card"></div>
 
+
+<div style="min-height:500px;" class="card"></div>
+
+<div style="display:flex; gap:10px; margin:50px ">
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+</div>
+
+<div class="card" style="margin:50px auto"></div>
+
+<div class="card" style="margin:50px auto"></div>
+
+<div>
+MakeMyTrip
+
+About Us, Investor Relations, Careers, Sustainability, MMT Foundation, Legal Notices, CSR Policy & Committee, myPartner - Travel Agent Portal, List your hotel, Partners- Redbus, Partners- Goibibo, Advertise with Us, Holiday-Franchise
+About the Site
+
+Customer Support, MMT Black Loyalty Program, Payment Security, Privacy Policy, Cookie Policy, User Agreement, Terms of Service, Franchise Offices, Make A Payment, Work From Home, Escalation Channel
+Product Offering
+
+Flights, International Flights, Charter Flights, Hotels, International Hotels, Homestays and Villas, Activities, Holidays In India, International Holidays, Book Hotels From UAE, myBiz for Corporate Travel, Book Online Cabs, Book Bus Tickets, Book Train Tickets, Cheap Tickets to India, Book Flights From US, Book Flights From UAE, Trip Planner, Forex Card, Buy Foreign Currency, Travel Insurance, Travel Insurance for Schengen Visa, Travel Insurance for Asia, Travel Insurance Thailand, Travel Insurance For UAE, Travel Insurance For Indonesia, Travel Insurance For Vietnam, Travel Insurance For Europe, Travel Insurance For USA, Travel Insurance for Singapore, Travel Insurance for Malaysia, Travel Insurance for Sri Lanka, Travel Insurance for United Kingdom, Travel Insurance for Canada, Gift Cards, Gift, Wedding Gift, Anniversary Gift, Birthday Gift, Diwali Gift, Valentines Gift, Farewell Gift, Christmas Gift, New Year Gift, Trip Ideas, Travel Blog, PNR Status, MakeMyTrip Advertising Solutions, One Way Cab
+Quick Links
+
+Flights Discount Coupons, Domestic Airlines, Indigo Airlines, Air Asia, SpiceJet, GoAir, Air India, Air India Express, Vistara, New Delhi Mumbai Flights, Pune Delhi Flights, Delhi Chennai Flights, Delhi Guwahati Flights, Mumbai Varanasi Flights, Guwahati Delhi Flights, Goa Delhi Flights, Delhi Goa Flights, Delhi Chennai Flights
+Important Links
+
+Cheap Flights, Flight Status, Kumbh Mela, Domestic Airlines, International Airlines, Indigo, Spicejet, GoAir, Air Asia, Air India, Indian Railways, Trip Ideas, Beaches, Honeymoon Destinations, Romantic Destinations, Popular Destinations, Resorts In Udaipur, Resorts In Munnar, Villas In Lonavala, Hotels in Thailand, Villas In Goa, Domestic Flight Offers, International Flight Offers, UAE Flight Offers, USA, UAE, Saudi Arabia, UK, Oman
+Corporate Travel
+
+Business Travel, Corporate Travel, Corporate Travel Management, Corporate Travel Solution, Corporate Hotel Booking, Corporate Flight Booking, Expense Management, Corporate Expense Management, GST on Hotel Rooms, GST on Flight Tickets, Business Travel for SME, GST Invoice for International flights, GST Invoice for Bus, GST on Train Tickets, T&E (Travel & Expense), myBiz - Best Business Travel Platform, GST Invoice for Corporate Travel, myBiz for Small Business, Free cancellation on International Flights
+</div>
+
+
+<div>
+    <div class="faq">
+        <b>Q - How do I make a flight booking on MakeMyTrip?</b>
+        <p>A: You can book a flight on MakeMyTrip in five easy steps: Head over to the MakeMyTrip flight booking page, Enter your departure and arrival destinations, Select your air travel dates, Choose from our wide range of cheap flights based on your airfare preferences, Click on ‘Book Now’ and your air flight booking is done. Alternatively, you can also use the MakeMyTrip app for your flight ticket booking. Download the MakeMyTrip app, Put in the details i.e. date of journey, departure and arrival destinations, travel class of your choice, Select on your best comfortable option and click on 'Book Now'.</p>
+    </div>
+    <div class="faq">
+        <b>Q - Can I avail domestic flight offers on MakeMyTrip?</b>
+        <p>A: Of course, you can. While making domestic flight bookings, you can avail any special offer that is active at that time. In accordance with the offer selected, a listing of eligible cheapest flights would show up on your screen. You can then apply the price filter and click on the downwards arrow, following which budget-friendly flights would start showing up in ascending order from the top (lowest price on top).</p>
+    </div>
+    <div class="faq">
+        <b>Q - How can I avail budget air tickets on MakeMyTrip?</b>
+        <p>A: It’s super-easy to avail budget airfare while booking your cheap flight tickets on MakeMyTrip. Just select the ‘Price’ filter once the available flight options are displayed and adjust according to your convenience. On the MakeMyTrip app, you can select the downward arrow, which will show the lowest airfare at the top and continue downward in ascending order.</p>
+    </div>
+    <div class="faq">
+        <b>Q - Why could I not avail the flight booking offers at the time of checkout?</b>
+        <p>A: MakeMyTrip makes use of a world-class real-time reservation database to list airfare and availability. As dynamic changes in airfare take place, or the available flight tickets sell out, the database reflects the changes in real-time. Hence, we suggest, you double-check online flight booking prices when purchasing flight tickets, as the airfare might have been dynamically updated since you first selected the air travel dates or planned your itinerary.</p>
+    </div>
+</div>
 <style>
 .bgGradient{
 background: #f2f2f2;
@@ -138,6 +192,14 @@ transition: background 0.1s linear;
 margin: -60px 0 0 0;
 background-size: cover;
 padding: 130px 0 0px 0;
+}
+
+.card{
+    background: #fff;
+    min-height: 200px;
+    padding:10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 

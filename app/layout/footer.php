@@ -8,13 +8,21 @@
     </div>
 
     <!-- Copyright and Country Info -->
+     <div>
     <div class="copyright">
         &copy; <?php echo date("Y"); ?> MAKEMYTRIP PVT. LTD.
     </div>
     <div class="countries">
         Country <span>India USA UAE</span>
     </div>
+    </div>
 </footer>
+
+<style>
+    footer{
+        display:flex;
+    }
+</style>
 
 </body>
 </html>
