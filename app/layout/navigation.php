@@ -71,7 +71,7 @@ $menu_items = [
 
 <div class="nav-menu-home">
         <?php foreach ($menu_items as $item => $data): ?>
-            <div class="nav-item"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></div>
+            <div class="nav-item-home"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></div>
         <?php endforeach; ?>
 </div>
 
@@ -80,7 +80,7 @@ $menu_items = [
 <style>
     .top-navbar{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 10px 5px;
     white-space: nowrap;
