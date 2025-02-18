@@ -15,3 +15,70 @@ $menu_items = [
 
 <!-- Include the Home static navigation -->
 <?php include('../layout/home-static-navigation.php'); ?>
+
+
+<!-- top navbar  -->
+<nav class="top-navbar">
+    <img src="../media/mmt_dt_top_icon.avif" alt="logo" style="max-width: 200px;filter: drop-shadow(1px 1px 0.2px #333);">
+
+<div class="nav-div-item">List Your Property</div>
+<div class="nav-div-item">Introducing myBiz</div>
+<div class="nav-div-item">My Trips</div>
+
+
+    <div style="display:flex;gap: 20px; flex-wrap:wrap;align-content: center;align-items: center;">
+    <div>Login/ Create account</div>
+
+    <!-- Country Dropdown -->
+    <div class="dropdown" id="countryDropdown">
+        <div class="dropdown-button" id="selectedCountry">
+            <img src="https://flagcdn.com/w40/in.png" class="flag"> India
+        </div>
+        <div class="dropdown-content" id="countryList"></div>
+    </div>
+
+    <!-- Language Dropdown -->
+    <div class="dropdown" id="languageDropdown">
+        <div class="dropdown-button" id="selectedLanguage">ENG ▼</div>
+        <div class="dropdown-content">
+            <div data-lang="en">English</div>
+            <div data-lang="hi">हिंदी</div>
+            <div data-lang="ta">தமிழ்</div>
+        </div>
+    </div>
+
+    <!-- Currency Dropdown -->
+    <div class="dropdown" id="currencyDropdown">
+        <div class="dropdown-button" id="selectedCurrency">INR ▼</div>
+        <div class="dropdown-content">
+            <input type="text" class="search-box" id="searchCurrency" placeholder="Search Currency">
+            <div class="currency-group">POPULAR CURRENCIES</div>
+            <?php 
+            $currencies = [
+                "INR" => "Indian Rupee", "AED" => "UAE Dirham", "USD" => "US Dollar",
+                "GBP" => "British Pound", "SGD" => "Singapore Dollar", "EUR" => "Euro",
+                "THB" => "Thai Baht", "CAD" => "Canadian Dollar", "RUB" => "Russian Ruble",
+                "NZD" => "New Zealand Dollar", "KRW" => "Korean Won"
+            ];
+            foreach ($currencies as $code => $name): ?>
+                <div class="currency-item" data-currency="<?= $code ?>"><?= $name ?> <strong><?= $code ?></strong></div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    </div>
+</nav>
+
+
+<div>
+<ul class="nav-menu">
+        <?php foreach ($menu_items as $item => $data): ?>
+            <li class="nav-item"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></li>
+        <?php endforeach; ?>
+        <li class="more-dropdown hidden">
+            <div class="dropdown">
+                <div class="dropdown-button">More ▼</div>
+                <div class="dropdown-content" id="moreMenu"></div>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -2,7 +2,7 @@
 <?php include('../layout/header.php'); ?>
 
 
-<div style="min-height:200vh"></div>
+<div style="min-height:100vh"></div>
 
 
 <!-- Include the footer -->
