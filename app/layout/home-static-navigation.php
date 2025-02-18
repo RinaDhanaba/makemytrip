@@ -62,39 +62,33 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+    const navContainer = document.querySelector(".nav-container");
     const navMenu = document.querySelector(".nav-menu");
     const moreDropdown = document.querySelector(".more-dropdown");
     const moreMenu = document.getElementById("moreMenu");
-    
-    function adjustNavItems() {
-        let availableWidth = navMenu.clientWidth - moreDropdown.clientWidth;
-        let totalWidth = 0;
-        let overflowItems = [];
 
+    function moveOverflowItems() {
+        let moreShown = false;
+
+        // Reset: Move items back to nav-menu
+        moreMenu.innerHTML = "";
+        document.querySelectorAll(".nav-item").forEach(item => item.style.display = "inline-block");
+
+        // Check which items are overflowing
         document.querySelectorAll(".nav-item").forEach(item => {
-            item.style.display = "inline-block";
-            totalWidth += item.offsetWidth;
-            if (totalWidth > availableWidth) {
-                overflowItems.push(item);
+            if (item.offsetLeft + item.offsetWidth > navContainer.clientWidth - moreDropdown.clientWidth) {
+                moreShown = true;
+                moreMenu.appendChild(item.cloneNode(true));
                 item.style.display = "none";
             }
         });
 
-        // Move overflow items to "More" dropdown
-        moreMenu.innerHTML = "";
-        overflowItems.forEach(item => {
-            const newItem = document.createElement("div");
-            newItem.innerHTML = item.innerHTML;
-            newItem.classList.add("dropdown-item");
-            newItem.onclick = () => window.location = item.querySelector("a").href;
-            moreMenu.appendChild(newItem);
-        });
-
-        moreDropdown.style.display = overflowItems.length ? "block" : "none";
+        // Show/Hide "More" dropdown
+        moreDropdown.style.display = moreShown ? "block" : "none";
     }
 
-    window.addEventListener("resize", adjustNavItems);
-    adjustNavItems();
+    window.addEventListener("resize", moveOverflowItems);
+    moveOverflowItems();
 });
 </script>
 
