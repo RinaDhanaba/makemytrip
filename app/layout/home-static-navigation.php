@@ -62,37 +62,37 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const navbar = document.querySelector(".navbar"); // Select the navbar itself
+    const navbar = document.querySelector(".navbar");
     const navMenu = document.querySelector(".nav-menu");
     const moreDropdown = document.querySelector(".more-dropdown");
     const moreMenu = document.getElementById("moreMenu");
     const navItems = [...document.querySelectorAll(".nav-item")];
 
     function checkOverflow() {
-        let navbarWidth = navbar.clientWidth; // Total available space in navbar
-        let usedSpace = moreDropdown.clientWidth; // Start with "More" dropdown width
+        let navbarWidth = navbar.clientWidth;
+        let usedSpace = moreDropdown.clientWidth;
         let itemsMoved = false;
 
         // Reset More Menu
         moreMenu.innerHTML = "";
 
-        // Calculate space used by non-nav elements (logo, login, dropdowns, etc.)
+        // Calculate space used by non-nav elements
         let otherElements = [...navbar.children].filter(el => !el.classList.contains("nav-menu"));
         otherElements.forEach(el => {
             usedSpace += el.clientWidth; 
         });
 
-        let availableSpace = navbarWidth - usedSpace; // Space left for nav items
+        let availableSpace = navbarWidth - usedSpace;
         let totalWidth = 0;
 
         // Move overflowing items to "More" dropdown
         navItems.forEach(item => {
-            item.style.display = "inline-block"; // Reset visibility
+            item.style.display = "inline-block";
             totalWidth += item.offsetWidth;
 
             if (totalWidth > availableSpace) {
                 itemsMoved = true;
-                item.style.display = "none"; // Hide in nav
+                item.style.display = "none";
                 let clone = item.cloneNode(true);
                 clone.style.display = "block";
                 moreMenu.appendChild(clone);
@@ -103,11 +103,19 @@ document.addEventListener("DOMContentLoaded", () => {
         moreDropdown.style.display = itemsMoved ? "block" : "none";
     }
 
-    // Run on page load and resize
+    function handleStickyNavbar() {
+        if (window.scrollY > 100) {
+            navbar.classList.add("sticky");
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    }
+
+    // Run functions on load & events
     window.addEventListener("resize", checkOverflow);
+    window.addEventListener("scroll", handleStickyNavbar);
     checkOverflow();
 });
-
 </script>
 
 
@@ -160,8 +168,25 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <style>
-    .navbar {
-        display: flex;
+
+.navbar {
+    display: none;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Sticky effect when scrolled past 100px */
+.navbar.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+    .navbar.sticky {
+    display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 5px;
