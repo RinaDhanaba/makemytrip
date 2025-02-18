@@ -135,7 +135,7 @@ padding: 130px 0 100px 0;
 
 .booking-container {
     max-width: 1200px;
-    margin: 0px auto 0px auto;
+    margin: 50px auto 0px auto;
     background-color: #fff;
     padding: 50px 30px 0px 30px;
     border-radius: 8px;
