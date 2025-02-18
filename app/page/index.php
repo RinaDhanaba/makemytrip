@@ -8,10 +8,8 @@
 </div>
 </div>  
 
-<div style="min-height:100vh"></div>
 
 <style>
-
 .bgGradient{
 background: #f2f2f2;
 background-repeat: no-repeat;
@@ -24,7 +22,7 @@ background-size: contain;
 
 .flight-search-container{
     max-width: 1200px;
-    margin: 50px auto;
+    margin: -50px auto 50px auto;
     background-color: #fff;
     padding: 100px 30px 30px 30px;
     border-radius: 8px;

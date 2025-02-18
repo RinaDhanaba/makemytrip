@@ -83,6 +83,7 @@ $menu_items = [
         position:absolute;
         width: 100%;
         top:0;left:0;
+        z-index: 99;
     }
 
     .top-navbar{
