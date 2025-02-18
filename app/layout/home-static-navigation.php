@@ -1,13 +1,20 @@
 <!-- Responsive Navigation Bar -->
 <nav class="navbar">
     <img src="../media/mmt_dt_top_icon.avif" alt="logo" style="max-width: 200px;filter: drop-shadow(1px 1px 0.2px #333);">
-    <ul>
+
+    <ul class="nav-menu">
         <?php foreach ($menu_items as $item => $data): ?>
-            <li><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></li>
+            <li class="nav-item"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></li>
         <?php endforeach; ?>
+        <li class="more-dropdown hidden">
+            <div class="dropdown">
+                <div class="dropdown-button">More ▼</div>
+                <div class="dropdown-content" id="moreMenu"></div>
+            </div>
+        </li>
     </ul>
 
-    <div style="display:flex;gap 20px; flex-wrap:wrap;">
+    <div style="display:flex;gap: 20px; flex-wrap:wrap;align-content: center;align-items: center;">
     <div>Login/ Create account</div>
 
     <!-- Country Dropdown -->
@@ -48,6 +55,51 @@
     </div>
     </div>
 </nav>
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const navMenu = document.querySelector(".nav-menu");
+    const moreDropdown = document.querySelector(".more-dropdown");
+    const moreMenu = document.getElementById("moreMenu");
+    
+    function adjustNavItems() {
+        let availableWidth = navMenu.clientWidth - moreDropdown.clientWidth;
+        let totalWidth = 0;
+        let overflowItems = [];
+
+        document.querySelectorAll(".nav-item").forEach(item => {
+            item.style.display = "inline-block";
+            totalWidth += item.offsetWidth;
+            if (totalWidth > availableWidth) {
+                overflowItems.push(item);
+                item.style.display = "none";
+            }
+        });
+
+        // Move overflow items to "More" dropdown
+        moreMenu.innerHTML = "";
+        overflowItems.forEach(item => {
+            const newItem = document.createElement("div");
+            newItem.innerHTML = item.innerHTML;
+            newItem.classList.add("dropdown-item");
+            newItem.onclick = () => window.location = item.querySelector("a").href;
+            moreMenu.appendChild(newItem);
+        });
+
+        moreDropdown.style.display = overflowItems.length ? "block" : "none";
+    }
+
+    window.addEventListener("resize", adjustNavItems);
+    adjustNavItems();
+});
+</script>
+
+
+
 
 <script>
     // Generic Dropdown Handler
@@ -104,6 +156,11 @@
     a {text-decoration: none; font-size: 16px; display: flex; align-items: center; }
     a:hover { color: #ddd; }
 
+    /* More Dropdown */
+    .more-dropdown {
+        display: none;
+    }
+
     /* Dropdowns */
     .dropdown { position: relative; display: inline-block; cursor: pointer; }
     .dropdown-button { padding: 10px; border: 1px solid #ccc; background: white; display: flex; align-items: center; gap: 10px; cursor: pointer; }
@@ -132,4 +189,29 @@
         ul { flex-direction: column; align-items: center; width: 100%; }
         li { margin: 10px 0; }
     }
+
+
+    /* Responsive */
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .nav-actions {
+        flex-wrap: wrap;
+        align-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .more-dropdown {
+        display: block;
+    }
+}
 </style>
