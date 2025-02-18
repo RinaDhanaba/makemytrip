@@ -105,8 +105,8 @@
     .dropdown { position: relative; display: inline-block; cursor: pointer; }
     .dropdown-button { padding: 10px; border: 1px solid #ccc; background: white; display: flex; align-items: center; gap: 10px; cursor: pointer; }
     .dropdown-content {
-        display: none; position: absolute; background: white; border: 1px solid #ccc;
-        min-width: 150px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); z-index: 1;
+        display: none; position: absolute;right: 0;background: white; border: 1px solid #ccc;
+        min-width: 200px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); z-index: 1;
     }
     .dropdown-content div {
         padding: 10px; display: flex; align-items: center; gap: 10px; cursor: pointer;
