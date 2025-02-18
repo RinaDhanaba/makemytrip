@@ -62,36 +62,42 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const navContainer = document.querySelector(".nav-container");
     const navMenu = document.querySelector(".nav-menu");
     const moreDropdown = document.querySelector(".more-dropdown");
     const moreMenu = document.getElementById("moreMenu");
+    const navItems = [...document.querySelectorAll(".nav-item")];
 
     function checkOverflow() {
-        let moreShown = false;
-        let availableSpace = navContainer.clientWidth - moreDropdown.clientWidth;
-
-        // Reset: Move items back to nav-menu
-        moreMenu.innerHTML = "";
-        document.querySelectorAll(".nav-item").forEach(item => item.style.display = "inline-block");
-
+        let availableSpace = navMenu.clientWidth - moreDropdown.clientWidth;
         let totalWidth = 0;
-        document.querySelectorAll(".nav-item").forEach(item => {
+        let itemsMoved = false;
+
+        // Reset More Menu
+        moreMenu.innerHTML = "";
+
+        // Move overflowing items to "More" dropdown
+        navItems.forEach(item => {
+            item.style.display = "inline-block"; // Reset visibility
             totalWidth += item.offsetWidth;
+
             if (totalWidth > availableSpace) {
-                moreShown = true;
-                moreMenu.appendChild(item.cloneNode(true));
-                item.style.display = "none";
+                itemsMoved = true;
+                item.style.display = "none"; // Hide in nav
+                let clone = item.cloneNode(true);
+                clone.style.display = "block";
+                moreMenu.appendChild(clone);
             }
         });
 
-        // Show/Hide "More" dropdown based on actual overflow
-        moreDropdown.style.display = moreShown ? "inline-block" : "none";
+        // Show "More" only if items were moved
+        moreDropdown.style.display = itemsMoved ? "block" : "none";
     }
 
+    // Run on page load and resize
     window.addEventListener("resize", checkOverflow);
     checkOverflow();
 });
+
 </script>
 
 
@@ -151,10 +157,10 @@ document.addEventListener("DOMContentLoaded", () => {
     padding: 10px 5px;
     white-space: nowrap;
     }
-    ul { list-style: none; display: flex; margin: 0; padding: 0; }
-    li { margin: 0 15px; }
-    a {text-decoration: none; font-size: 16px; display: flex; align-items: center; }
-    a:hover { color: #ddd; }
+    nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
+    nav li { margin: 0 15px; }
+    nav a {text-decoration: none; font-size: 16px; display: flex; align-items: center; }
+    nav a:hover { color: #ddd; }
 
     /* More Dropdown */
     .more-dropdown {
@@ -162,32 +168,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* Dropdowns */
-    .dropdown { position: relative; display: inline-block; cursor: pointer; }
-    .dropdown-button { padding: 10px; border: 1px solid #ccc; background: white; display: flex; align-items: center; gap: 10px; cursor: pointer; }
-    .dropdown-content {
+    nav .dropdown { position: relative; display: inline-block; cursor: pointer; }
+    nav .dropdown-button { padding: 10px; border: 1px solid #ccc; background: white; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    nav .dropdown-content {
         display: none; position: absolute;right: 0;background: white; border: 1px solid #ccc;
         min-width: 200px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); z-index: 1;
     }
-    .dropdown-content div {
+    nav .dropdown-content div {
         padding: 10px; display: flex; align-items: center; gap: 10px; cursor: pointer;
     }
-    .dropdown-content div:hover { background: #f1f1f1; }
-    .flag { width: 20px; height: 14px; }
-    .search-box { width: 100%; padding: 8px; border: 1px solid #ccc; margin-bottom: 8px; }
+    nav .dropdown-content div:hover { background: #f1f1f1; }
+    nav .flag { width: 20px; height: 14px; }
+    nav .search-box { width: 100%; padding: 8px; border: 1px solid #ccc; margin-bottom: 8px; }
 
     /* Currency */
-    .currency-group { font-weight: bold; padding: 5px 0; color: #666; border-bottom: 1px solid #ddd; margin-top: 5px; }
-    .currency-item { padding: 8px 12px; cursor: pointer; display: flex; justify-content: space-between; }
-    .currency-item:hover { background: #f1f1f1; }
+    nav .currency-group { font-weight: bold; padding: 5px 0; color: #666; border-bottom: 1px solid #ddd; margin-top: 5px; }
+    nav .currency-item { padding: 8px 12px; cursor: pointer; display: flex; justify-content: space-between; }
+    nav .currency-item:hover { background: #f1f1f1; }
 
     /* Show dropdown */
-    .show { display: block; }
+    nav .show { display: block; }
 
     /* Responsive */
     @media screen and (max-width: 768px) {
         .navbar { flex-direction: column; }
-        ul { flex-direction: column; align-items: center; width: 100%; }
-        li { margin: 10px 0; }
+        nav ul { flex-direction: column; align-items: center; width: 100%; }
+        nav li { margin: 10px 0; }
     }
 
 
@@ -215,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
         gap: 20px;
     }
 
-    .more-dropdown {
+    nav .more-dropdown {
         display: block;
     }
 }
