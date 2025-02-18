@@ -130,22 +130,39 @@
 <div style="min-height:100vh"></div>
 
 <style>
+
 .bgGradient{
 background: #f2f2f2;
 background-repeat: no-repeat;
 background-image: url(../media/bg7.jpg), linear-gradient(to bottom, #051322, #15457c);
 min-height: 500px;
 transition: background 0.1s linear;
+margin: -100px 0 0 0;
 }
 
+.nav-menu-home{
+    background: #fff;
+    max-width: 1000px;
+    margin: auto;
+    box-shadow: 1px 1px 10px #6a6a6a45;
+    border-radius: 20px;
+    padding: 20px 10px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+    position: relative;
+    z-index: 9;
+}
 
 .flight-search-container {
     max-width: 1200px;
     margin: 50px auto;
     background-color: #fff;
-    padding: 30px;
+    padding: 100px 30px 30px 30px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    top: 180px;
 }
 
 h1 {
