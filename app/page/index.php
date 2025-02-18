@@ -137,10 +137,10 @@ Offers
 
 </div>
 
-<div style="display:flex; gap:10px; margin:50px ">
-<div class="card">Planning to book an international flight?<br><a href="">Check Travel Guidelines</a></div>
-<div class="card">We are now available in हिंदी!<br><a href="">Change Language</a></div>
-<div class="card">Complete your web check-in on MakeMyTrip in easy steps. <br><a href="">Know More</a></div>
+<div style="display:flex; gap:10px; margin:50px auto; max-width:1200px; ">
+<div>Planning to book an international flight?<br><a href="">Check Travel Guidelines</a></div>
+<div>We are now available in हिंदी!<br><a href="">Change Language</a></div>
+<div>Complete your web check-in on MakeMyTrip in easy steps. <br><a href="">Know More</a></div>
 </div>
 
 <div class="card" style="margin:50px auto">
