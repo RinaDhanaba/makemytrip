@@ -62,18 +62,28 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+    const navbar = document.querySelector(".navbar"); // Select the navbar itself
     const navMenu = document.querySelector(".nav-menu");
     const moreDropdown = document.querySelector(".more-dropdown");
     const moreMenu = document.getElementById("moreMenu");
     const navItems = [...document.querySelectorAll(".nav-item")];
 
     function checkOverflow() {
-        let availableSpace = navMenu.clientWidth - moreDropdown.clientWidth;
-        let totalWidth = 0;
+        let navbarWidth = navbar.clientWidth; // Total available space in navbar
+        let usedSpace = moreDropdown.clientWidth; // Start with "More" dropdown width
         let itemsMoved = false;
 
         // Reset More Menu
         moreMenu.innerHTML = "";
+
+        // Calculate space used by non-nav elements (logo, login, dropdowns, etc.)
+        let otherElements = [...navbar.children].filter(el => !el.classList.contains("nav-menu"));
+        otherElements.forEach(el => {
+            usedSpace += el.clientWidth; 
+        });
+
+        let availableSpace = navbarWidth - usedSpace; // Space left for nav items
+        let totalWidth = 0;
 
         // Move overflowing items to "More" dropdown
         navItems.forEach(item => {
@@ -89,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Show "More" only if items were moved
+        // Show/Hide "More" dropdown
         moreDropdown.style.display = itemsMoved ? "block" : "none";
     }
 
