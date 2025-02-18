@@ -2,8 +2,6 @@
 <?php include('../layout/header.php'); ?>
 
 <div class="bgGradient">
-<div class="flight-search-container">
-
 
 
 <div class="booking-container">
@@ -115,11 +113,6 @@
         document.getElementById('return-date').style.display = (tabId === 'round-trip') ? 'block' : 'none';
     }
 </script>
-
-
-
-
-</div>
 </div>  
 
 
@@ -134,27 +127,16 @@ margin: -60px 0 0 0;
 background-size: contain;
 }
 
-.flight-search-container{
+
+
+.booking-container {
     max-width: 1200px;
     margin: -50px auto 50px auto;
     background-color: #fff;
     padding: 100px 30px 30px 30px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     position: relative;
     top: 180px;
-}
-
-
-
-
-
-.booking-container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 500px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
