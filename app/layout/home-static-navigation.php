@@ -1,11 +1,13 @@
 <!-- Responsive Navigation Bar -->
 <nav class="navbar">
-    <img src="../media/mmt_dt_top_icon.avif" alt="logo" style="max-width: 200px;">
+    <img src="../media/mmt_dt_top_icon.avif" alt="logo" style="max-width: 200px;filter: drop-shadow(1px 1px 0.2px #333);">
     <ul>
         <?php foreach ($menu_items as $item => $data): ?>
             <li><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></li>
         <?php endforeach; ?>
     </ul>
+
+    <div style="display:flex;gap 20px; flex-wrap:wrap;">
     <div>Login/ Create account</div>
 
     <!-- Country Dropdown -->
@@ -43,6 +45,7 @@
                 <div class="currency-item" data-currency="<?= $code ?>"><?= $name ?> <strong><?= $code ?></strong></div>
             <?php endforeach; ?>
         </div>
+    </div>
     </div>
 </nav>
 
