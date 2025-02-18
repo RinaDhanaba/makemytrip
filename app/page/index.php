@@ -88,7 +88,7 @@
             </div>
         </div>
 
-        <!-- Passenger Details -->
+        <!-- Passenger Details 
         <div class="passenger-section">
             <div>
                 <label>Travellers & Class</label>
@@ -103,7 +103,7 @@
                     <option value="Business">Business</option>
                 </select>
             </div>
-        </div>
+        </div>-->
 
         <button type="submit" class="search-btn">SEARCH</button>
     </form>
