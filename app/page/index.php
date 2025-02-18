@@ -12,7 +12,7 @@
 background: #f2f2f2;
 background-repeat: no-repeat;
 background-image: url(../media/bg7.jpg), linear-gradient(to bottom, #051322, #15457c);
-min-height: 100vh;
+min-height: 500px;
 transition: background 0.1s linear;
 }
 </style>
