@@ -128,16 +128,16 @@ min-height: 500px;
 transition: background 0.1s linear;
 margin: -60px 0 0 0;
 background-size: contain;
-padding: 130px 0 0 0;
+padding: 130px 0 100px 0;
 }
 
 
 
 .booking-container {
     max-width: 1200px;
-    margin: 50px auto 50px auto;
+    margin: 0px auto 0px auto;
     background-color: #fff;
-    padding: 50px 30px 30px 30px;
+    padding: 50px 30px 0px 30px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -176,7 +176,10 @@ form {
 
 .flight-box, .multi-city-box {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .multi-city-box input {
@@ -249,6 +252,11 @@ form {
     font-size: 18px;
     cursor: pointer;
     margin-top: 15px;
+    position: relative;
+    top: 30px;
+    width: 200px;
+    margin: auto;
+    border-radius: 50px;
 }
 
 .search-btn:hover {
