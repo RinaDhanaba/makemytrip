@@ -9,6 +9,7 @@
         
         <!-- Trip Type Selection -->
         <div class="trip-options">
+            <div class="trip-options-inner">
             <?php 
             $tripTypes = ['One Way', 'Round Trip', 'Multi City'];
             foreach ($tripTypes as $type) {
@@ -16,6 +17,8 @@
                 echo "<label><input type='radio' name='trip' value='$type' onclick='switchTab(\"$id\")' id='tab-$id'> $type</label>";
             }
             ?>
+            </div>  
+            <p>Book International and Domestic Flights</p>        
         </div>
 
         <!-- One Way & Round Trip Section -->
@@ -149,9 +152,14 @@ form {
 /* Trip Options */
 .trip-options {
     display: flex;
-    justify-content: space-around;
-    padding: 10px;
-    border-bottom: 2px solid #ddd;
+    justify-content: space-between;
+    padding: 10px;gap:20px;
+}
+
+.trip-options-inner {
+    display: flex;
+    justify-content: flex-start;
+    gap:20px;
 }
 
 .trip-options label {
