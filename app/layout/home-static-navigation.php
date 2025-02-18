@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
             usedSpace += el.clientWidth; 
         });
 
-        let availableSpace = navbarWidth - usedSpace - 1;
+        let availableSpace = navbarWidth - usedSpace;
         let totalWidth = 0;
 
         // Move overflowing items to "More" dropdown
