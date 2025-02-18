@@ -12,6 +12,7 @@ $menu_items = [
 ];
 ?>
 
+<header>
 
 <!-- Include the Home static navigation -->
 <?php include('../layout/home-static-navigation.php'); ?>
@@ -75,9 +76,15 @@ $menu_items = [
         <?php endforeach; ?>
 </div>
 
-
+</header>
 
 <style>
+    header{
+        position:absolute;
+        width: 100%;
+        top:0;left:0;
+    }
+
     .top-navbar{
     display: flex;
     justify-content: space-around;
@@ -87,5 +94,17 @@ $menu_items = [
     }
     .nav-div-item{
         border-left:1px solid #ddd;
+    }
+
+    .nav-menu-home{
+    background: #fff;
+    max-width: 1000px;
+    margin: auto;
+    box-shadow: 1px 1px 1px #ddd;
+    border-radius: 20px;
+    padding: 20px 10px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
     }
 </style>
