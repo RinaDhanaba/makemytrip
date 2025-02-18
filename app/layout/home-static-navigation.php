@@ -1,6 +1,6 @@
 <!-- Responsive Navigation Bar -->
 <nav class="navbar">
-    <img src="../media/mmt_dt_top_icon.avif" alt="logo">
+    <img src="../media/mmt_dt_top_icon.avif" alt="logo" style="max-width: 200px;">
     <ul>
         <?php foreach ($menu_items as $item => $data): ?>
             <li><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></li>
@@ -93,13 +93,12 @@
 </script>
 
 <style>
-    .navbar {
-        background: #333; display: flex; justify-content: space-between;
+    .navbar {display: flex; justify-content: space-between;
         padding: 10px 20px; align-items: center;
     }
     ul { list-style: none; display: flex; margin: 0; padding: 0; }
     li { margin: 0 15px; }
-    a { color: white; text-decoration: none; font-size: 16px; display: flex; align-items: center; }
+    a {text-decoration: none; font-size: 16px; display: flex; align-items: center; }
     a:hover { color: #ddd; }
 
     /* Dropdowns */
