@@ -3,7 +3,6 @@
 
 <div class="bgGradient">
 
-
 <div class="booking-container">
     <form action="search.php" method="GET">
         
@@ -116,6 +115,16 @@
         document.getElementById('return-date').style.display = (tabId === 'round-trip') ? 'block' : 'none';
     }
 </script>
+
+<div style="margin:20px auto;">>> Explore More >> </div>
+
+<div class="extra-info-banner">
+    <div class="extra-info-banner-btn">Where2Go</div>
+    <div class="extra-info-banner-btn">Insurance<br>For International Trips</div>
+    <div class="extra-info-banner-btn">Explore International Flights<br>Cheapest Flights to Paris, Bali, Tokyo & more</div>
+    <div class="extra-info-banner-btn">MICE<br>Offsites, Events & Meetings</div>
+    <div class="extra-info-banner-btn">Gift Cards</div>
+</div>
 </div>  
 
 
@@ -127,7 +136,7 @@ background-image: url(../media/bg7.jpg), linear-gradient(to bottom, #f2f2f2, #f2
 min-height: 500px;
 transition: background 0.1s linear;
 margin: -60px 0 0 0;
-background-size: contain;
+background-size: cover;
 padding: 130px 0 100px 0;
 }
 
@@ -268,6 +277,25 @@ form {
         max-width: 90%;
     }
 }
+
+
+
+
+
+
+.extra-info-banner{
+    max-width: 1100px;
+    margin: 0px auto -50px auto;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.extra-info-banner-inner:not(:last-child){
+    border-right:2px solid #333;
+}
+
 </style>
 
 <!-- Include the footer -->
