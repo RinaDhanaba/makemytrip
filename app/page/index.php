@@ -128,18 +128,17 @@ min-height: 500px;
 transition: background 0.1s linear;
 margin: -60px 0 0 0;
 background-size: contain;
+padding: 130px 0 0 0;
 }
 
 
 
 .booking-container {
     max-width: 1200px;
-    margin: -50px auto 50px auto;
+    margin: 50px auto 50px auto;
     background-color: #fff;
-    padding: 100px 30px 30px 30px;
+    padding: 50px 30px 30px 30px;
     border-radius: 8px;
-    position: relative;
-    top: 180px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
