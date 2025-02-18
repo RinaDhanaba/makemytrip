@@ -137,7 +137,7 @@ min-height: 500px;
 transition: background 0.1s linear;
 margin: -60px 0 0 0;
 background-size: cover;
-padding: 130px 0 100px 0;
+padding: 130px 0 0px 0;
 }
 
 
@@ -290,10 +290,14 @@ form {
     padding: 10px;
     border-radius: 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display:flex;
+    gap:20px;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.extra-info-banner-inner:not(:last-child){
-    border-right:2px solid #333;
+.extra-info-banner-btn:not(:last-child) {
+    border-right: 1px solid #ccc;
 }
 
 </style>
