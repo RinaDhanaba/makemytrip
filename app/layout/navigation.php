@@ -69,10 +69,23 @@ $menu_items = [
 </nav>
 
 
-<div>
-<ul class="nav-menu-home">
+<div class="nav-menu-home">
         <?php foreach ($menu_items as $item => $data): ?>
-            <li class="nav-item"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></li>
+            <div class="nav-item"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></div>
         <?php endforeach; ?>
-    </ul>
 </div>
+
+
+
+<style>
+    .top-navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+    white-space: nowrap;
+    }
+    .nav-div-item{
+        border-left:1px solid #ddd;
+    }
+</style>
