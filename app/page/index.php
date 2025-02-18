@@ -2,8 +2,10 @@
 <?php include('../layout/header.php'); ?>
 
 <div class="bgGradient">
-
 <div class="flight-search-container">
+
+
+
 <div class="booking-container">
     <form action="search.php" method="GET">
         
@@ -12,59 +14,110 @@
             <?php 
             $tripTypes = ['One Way', 'Round Trip', 'Multi City'];
             foreach ($tripTypes as $type) {
-                $checked = ($type == 'One Way') ? 'checked' : ''; 
-                echo "<label><input type='radio' name='trip' value='$type' $checked> $type</label>";
+                $id = strtolower(str_replace(' ', '-', $type));
+                echo "<label><input type='radio' name='trip' value='$type' onclick='switchTab(\"$id\")' id='tab-$id'> $type</label>";
             }
             ?>
         </div>
 
-        <!-- Flight Details -->
-        <div class="flight-details">
-            <label>From: <input type="text" name="from" placeholder="Enter departure city" required></label>
-            <label>To: <input type="text" name="to" placeholder="Enter destination city" required></label>
-            <label>Departure: <input type="date" name="departure" required></label>
-            <label>Return: <input type="date" name="return"></label>
+        <!-- One Way & Round Trip Section -->
+        <div id="one-way" class="tab-content">
+            <div class="flight-section">
+                <div class="flight-box">
+                    <label>From</label>
+                    <input type="text" name="from" placeholder="Mumbai (BOM)" required>
+                </div>
+                <div class="swap-icon">⇄</div>
+                <div class="flight-box">
+                    <label>To</label>
+                    <input type="text" name="to" placeholder="New Delhi (DEL)" required>
+                </div>
+            </div>
+
+            <div class="date-section">
+                <div class="date-box">
+                    <label>Departure</label>
+                    <input type="date" name="departure" required>
+                </div>
+                <div class="date-box" id="return-date">
+                    <label>Return</label>
+                    <input type="date" name="return">
+                </div>
+            </div>
+        </div>
+
+        <!-- Multi-City Section -->
+        <div id="multi-city" class="tab-content" style="display: none;">
+            <div class="multi-city-box">
+                <label>From</label>
+                <input type="text" name="from1" placeholder="Delhi (DEL)" required>
+                <label>To</label>
+                <input type="text" name="to1" placeholder="Bengaluru (BLR)" required>
+                <label>Departure</label>
+                <input type="date" name="departure1" required>
+            </div>
+            <div class="multi-city-box">
+                <label>From</label>
+                <input type="text" name="from2" placeholder="Bengaluru (BLR)">
+                <label>To</label>
+                <input type="text" name="to2" placeholder="Select City">
+                <label>Departure</label>
+                <input type="date" name="departure2">
+            </div>
+            <button type="button" class="add-city">+ ADD ANOTHER CITY</button>
         </div>
 
         <!-- Special Fare Options -->
-        <div class="fare-options">
+        <div class="fare-section">
             <label>Select a special fare:</label>
-            <?php 
-            $fares = [
-                "Regular" => "Regular fares",
-                "Student" => "Extra discounts/baggage",
-                "Senior Citizen" => "Up to AED 25.47 off",
-                "Armed Forces" => "Up to AED 25.47 off",
-                "Doctor and Nurses" => "Up to AED 25.47 off"
-            ];
-            foreach ($fares as $key => $desc) {
-                $checked = ($key == "Regular") ? "checked" : "";
-                echo "<label><input type='radio' name='fare' value='$key' $checked> $key ($desc)</label>";
-            }
-            ?>
+            <div class="fare-options">
+                <?php 
+                $fares = [
+                    "Regular" => "Regular fares",
+                    "Student" => "Extra discounts/baggage",
+                    "Senior Citizen" => "Up to AED 25.47 off",
+                    "Armed Forces" => "Up to AED 25.47 off",
+                    "Doctor and Nurses" => "Up to AED 25.47 off"
+                ];
+                foreach ($fares as $key => $desc) {
+                    $checked = ($key == "Regular") ? "checked" : "";
+                    echo "<label class='fare-label'><input type='radio' name='fare' value='$key' $checked> $key</label>";
+                }
+                ?>
+            </div>
         </div>
 
         <!-- Passenger Details -->
-        <div class="passenger-details">
-            <label>Passengers: 
+        <div class="passenger-section">
+            <div>
+                <label>Travellers & Class</label>
                 <select name="passengers">
                     <?php for ($i = 1; $i <= 5; $i++) {
                         echo "<option value='$i'>$i Traveller</option>";
                     } ?>
                 </select>
-            </label>
-            <label>Class: 
                 <select name="class">
                     <option value="Economy">Economy</option>
                     <option value="Premium Economy">Premium Economy</option>
                     <option value="Business">Business</option>
                 </select>
-            </label>
+            </div>
         </div>
 
-        <button type="submit">Search</button>
+        <button type="submit" class="search-btn">SEARCH</button>
     </form>
 </div>
+
+<script>
+    function switchTab(tabId) {
+        document.getElementById('one-way').style.display = (tabId === 'one-way' || tabId === 'round-trip') ? 'block' : 'none';
+        document.getElementById('multi-city').style.display = (tabId === 'multi-city') ? 'block' : 'none';
+        document.getElementById('return-date').style.display = (tabId === 'round-trip') ? 'block' : 'none';
+    }
+</script>
+
+
+
 
 </div>
 </div>  
@@ -116,74 +169,103 @@ form {
     display: flex;
     justify-content: space-around;
     padding: 10px;
+    border-bottom: 2px solid #ddd;
 }
 
 .trip-options label {
     cursor: pointer;
+    font-weight: bold;
 }
 
 /* Flight Details */
-.flight-details {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.flight-details label {
-    display: flex;
-    flex-direction: column;
-}
-
-.flight-details input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Fare Options */
-.fare-options {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.fare-options label {
+.flight-section {
     display: flex;
     align-items: center;
+    gap: 10px;
+    padding: 15px 0;
 }
 
-.fare-options input {
-    margin-right: 10px;
-}
-
-/* Passenger Details */
-.passenger-details {
+.flight-box, .multi-city-box {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
-.passenger-details select {
-    padding: 8px;
-    border-radius: 5px;
+.multi-city-box input {
+    margin-bottom: 5px;
+}
+
+.flight-box input, .multi-city-box input {
+    padding: 10px;
     border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-/* Search Button */
-button {
+.swap-icon {
+    font-size: 20px;
+    color: #007bff;
+}
+
+/* Date Section */
+.date-section {
+    display: flex;
+    gap: 10px;
+    padding: 15px 0;
+}
+
+.date-box input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Multi-City */
+.add-city {
     background: #007bff;
     color: white;
     border: none;
     padding: 10px;
+    width: 100%;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Fare Section */
+.fare-section {
+    padding: 10px 0;
+}
+
+.fare-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.fare-label {
+    background: #f4f4f4;
+    padding: 5px 10px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-button:hover {
+/* Search Button */
+.search-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.search-btn:hover {
     background: #0056b3;
 }
 
-/* Responsive Design */
 @media (max-width: 600px) {
     .booking-container {
         max-width: 90%;
