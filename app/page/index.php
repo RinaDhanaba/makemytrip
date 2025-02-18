@@ -3,7 +3,6 @@
 
 <div class="bgGradient">
 
-
 <div class="flight-search-container">
         <form action="search-results.php" method="GET">
             <div class="row">
