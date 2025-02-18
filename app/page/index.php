@@ -6,6 +6,7 @@
 <div class="flight-search-container">
 
 </div>
+</div>  
 
 <div style="min-height:100vh"></div>
 
@@ -14,10 +15,11 @@
 .bgGradient{
 background: #f2f2f2;
 background-repeat: no-repeat;
-background-image: url(../media/bg7.jpg), linear-gradient(to bottom, #051322, #15457c);
+background-image: url(../media/bg7.jpg), linear-gradient(to bottom, #f2f2f2, #f2f2f2);
 min-height: 500px;
 transition: background 0.1s linear;
-margin: -100px 0 0 0;
+margin: -60px 0 0 0;
+background-size: contain;
 }
 
 .flight-search-container{
