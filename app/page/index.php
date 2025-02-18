@@ -189,7 +189,7 @@ background-repeat: no-repeat;
 background-image: url(../media/bg7.jpg), linear-gradient(to bottom, #f2f2f2, #f2f2f2);
 min-height: 500px;
 transition: background 0.1s linear;
-margin: -60px 0 100px 0;
+margin: -60px 0 160px 0;
 background-size: cover;
 padding: 130px 0 0px 0;
 }
