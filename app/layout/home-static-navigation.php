@@ -67,28 +67,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const moreDropdown = document.querySelector(".more-dropdown");
     const moreMenu = document.getElementById("moreMenu");
 
-    function moveOverflowItems() {
+    function checkOverflow() {
         let moreShown = false;
+        let availableSpace = navContainer.clientWidth - moreDropdown.clientWidth;
 
         // Reset: Move items back to nav-menu
         moreMenu.innerHTML = "";
         document.querySelectorAll(".nav-item").forEach(item => item.style.display = "inline-block");
 
-        // Check which items are overflowing
+        let totalWidth = 0;
         document.querySelectorAll(".nav-item").forEach(item => {
-            if (item.offsetLeft + item.offsetWidth > navContainer.clientWidth - moreDropdown.clientWidth) {
+            totalWidth += item.offsetWidth;
+            if (totalWidth > availableSpace) {
                 moreShown = true;
                 moreMenu.appendChild(item.cloneNode(true));
                 item.style.display = "none";
             }
         });
 
-        // Show/Hide "More" dropdown
-        moreDropdown.style.display = moreShown ? "block" : "none";
+        // Show/Hide "More" dropdown based on actual overflow
+        moreDropdown.style.display = moreShown ? "inline-block" : "none";
     }
 
-    window.addEventListener("resize", moveOverflowItems);
-    moveOverflowItems();
+    window.addEventListener("resize", checkOverflow);
+    checkOverflow();
 });
 </script>
 
@@ -142,8 +144,13 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <style>
-    .navbar {display: flex; justify-content: space-between;
-        padding: 10px 20px; align-items: center;
+    .navbar {
+        display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+    overflow: hidden;
+    white-space: nowrap;
     }
     ul { list-style: none; display: flex; margin: 0; padding: 0; }
     li { margin: 0 15px; }
@@ -186,15 +193,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* Responsive */
-@media screen and (max-width: 768px) {
+    @media screen and (max-width: 768px) {
     .navbar {
         flex-direction: column;
     }
 
-    .nav-menu {
-        flex-direction: column;
-        align-items: center;
+    .nav-container {
         width: 100%;
+        overflow-x: auto;
+    }
+
+    .nav-menu {
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
     }
 
     .nav-actions {
