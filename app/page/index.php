@@ -196,7 +196,7 @@ padding: 130px 0 0px 0;
 
 .card{
     background: #fff;
-    min-height: 200px;
+    min-height: 100px;
     padding:10px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
