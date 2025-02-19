@@ -44,7 +44,7 @@ function handleNavOverflow() {
 function adjustNavbarWidth() {
     const navbar = document.querySelector(".navbar");
     if (navbar.scrollWidth > window.innerWidth) {
-        navbar.style.maxWidth = "100vw";
+        navbar.style.maxWidth = "95vw";
         navbar.style.overflow = "hidden"; // Prevent horizontal scroll
     } else {
         navbar.style.maxWidth = ""; // Reset if within bounds
