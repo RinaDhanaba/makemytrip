@@ -1,10 +1,9 @@
 
-// Function to handle navigation menu overflow
 function handleNavOverflow() {
     const navbar = document.querySelector(".navbar");
     const moreDropdown = document.querySelector(".more-dropdown");
     const moreMenu = document.getElementById("moreMenu");
-    const navItems = [...document.querySelectorAll(".nav-menu .nav-item")];
+    const navItems = [...document.querySelectorAll(".navbar .nav-menu .nav-item")];
 
     let navbarWidth = navbar.clientWidth;
     let usedSpace = moreDropdown.clientWidth;
@@ -37,9 +36,29 @@ function handleNavOverflow() {
 
     // Show/Hide "More" dropdown based on overflow
     moreDropdown.style.display = itemsMoved ? "block" : "none";
+
+    // Ensure navbar does not exceed 100vw
+    adjustNavbarWidth();
 }
-handleNavOverflow();
+
+function adjustNavbarWidth() {
+    const navbar = document.querySelector(".navbar");
+    if (navbar.scrollWidth > window.innerWidth) {
+        navbar.style.maxWidth = "100vw";
+        navbar.style.overflow = "hidden"; // Prevent horizontal scroll
+    } else {
+        navbar.style.maxWidth = ""; // Reset if within bounds
+        navbar.style.overflow = "";
+    }
+}
+
+// Run on page load, resize, and any user interaction
+document.addEventListener("DOMContentLoaded", handleNavOverflow);
 window.addEventListener("resize", handleNavOverflow);
+window.addEventListener("load", handleNavOverflow);
+window.addEventListener("click", handleNavOverflow);
+window.addEventListener("scroll", handleNavOverflow);
+
 
 // Function to handle sticky navbar behavior
 function handleStickyNavbar() {
