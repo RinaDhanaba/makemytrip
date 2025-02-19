@@ -1,0 +1,154 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Global Styles */
+:root {
+    --primary-color: #FE7D18;
+    --secondary-color: #333;
+    --text-color: #444;
+    --heading-color: #222;
+    --bg-light: #f8f9fa;
+    --btn-hover: #d9650e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+}
+
+/* Body */
+body {
+    background-color: var(--bg-light);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--heading-color);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+/* Paragraph */
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--btn-hover);
+    text-decoration: underline;
+}
+
+/* Button */
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--btn-hover);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 0.95rem;
+    }
+}
+
+
+
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Flexbox Utility */
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Grid System */
+.grid {
+    display: grid;
+    gap: 20px;
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 768px) {
+    .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .flex{
+        flex-direction: column;
+    }
+}
+
+
+
