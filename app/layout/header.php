@@ -22,7 +22,7 @@
     
 
     <!-- js files  -->
-    <!-- <script defer src="./js/slider.js"></script> -->
+    <script defer src="./js/home.js"></script>
 </head>
 <body>
 
