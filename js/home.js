@@ -39,6 +39,7 @@ function handleNavOverflow() {
     moreDropdown.style.display = itemsMoved ? "block" : "none";
 }
 handleNavOverflow();
+window.addEventListener("resize", handleNavOverflow);
 
 // Function to handle sticky navbar behavior
 function handleStickyNavbar() {
