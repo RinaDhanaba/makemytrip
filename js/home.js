@@ -59,16 +59,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // Generic Dropdown Handler
-    document.querySelectorAll('.dropdown').forEach(dropdown => {
-        const button = dropdown.querySelector('.dropdown-button');
-        const content = dropdown.querySelector('.dropdown-content');
-        
-        button.addEventListener('click', () => content.classList.toggle('show'));
-        document.addEventListener('click', (e) => {
-            if (!dropdown.contains(e.target)) content.classList.remove('show');
-        });
+// Generic Dropdown Handler
+document.querySelectorAll('.dropdown').forEach(dropdown => {
+    const button = dropdown.querySelector('.dropdown-button');
+    const content = dropdown.querySelector('.dropdown-content');
+    
+    button.addEventListener('click', () => content.classList.toggle('show'));
+    document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) content.classList.remove('show');
     });
+});
 
     // Currency Search Functionality
     document.getElementById("searchCurrency")?.addEventListener("input", (e) => {
