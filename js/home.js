@@ -38,6 +38,7 @@ function handleNavOverflow() {
     // Show/Hide "More" dropdown based on overflow
     moreDropdown.style.display = itemsMoved ? "block" : "none";
 }
+handleNavOverflow();
 
 // Function to handle sticky navbar behavior
 function handleStickyNavbar() {
@@ -48,17 +49,7 @@ function handleStickyNavbar() {
         navbar.classList.remove("sticky");
     }
 }
-
-// Run on DOMContentLoaded
-document.addEventListener("DOMContentLoaded", () => {
-    handleNavOverflow();
-    handleStickyNavbar();
-});
-
-// Run on window resize (for dynamic resizing)
-window.addEventListener("resize", handleNavOverflow);
-
-// Run on window scroll (for sticky behavior)
+handleStickyNavbar();
 window.addEventListener("scroll", handleStickyNavbar);
 
 
