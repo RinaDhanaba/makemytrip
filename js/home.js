@@ -15,7 +15,7 @@ function handleNavOverflow() {
     // Calculate space occupied by other navbar elements (logo, dropdowns, etc.)
     let otherElements = [...navbar.children].filter(el => !el.classList.contains("nav-menu"));
     otherElements.forEach(el => {
-        usedSpace += el.clientWidth;
+        usedSpace += el.getBoundingClientRect().width;
     });
 
     let availableSpace = navbarWidth - usedSpace;
@@ -44,8 +44,7 @@ function handleNavOverflow() {
 function adjustNavbarWidth() {
     const navbar = document.querySelector(".navbar");
     if (navbar.scrollWidth > window.innerWidth) {
-        navbar.style.maxWidth = "95vw";
-        navbar.style.overflow = "hidden"; // Prevent horizontal scroll
+        navbar.style.maxWidth = "100vw"; // Prevent horizontal scroll
     } else {
         navbar.style.maxWidth = ""; // Reset if within bounds
         navbar.style.overflow = "";
