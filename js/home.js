@@ -43,8 +43,32 @@ function handleNavOverflow() {
 
 function adjustNavbarWidth() {
     const navbar = document.querySelector(".navbar");
-    navbar.style.maxWidth = navbar.scrollWidth > window.innerWidth ? "100vw" : "";
+    const moreDropdown = document.querySelector(".more-dropdown");
+
+    // Ensure navbar doesn't exceed viewport width
+    if (navbar.scrollWidth > window.innerWidth) {
+        navbar.style.maxWidth = "100vw";
+        navbar.style.overflow = "hidden"; // Prevent horizontal scroll
+    } else {
+        navbar.style.maxWidth = ""; // Reset if within bounds
+        navbar.style.overflow = "";
+    }
+
+    // Handle sticky navbar effect when scrolling
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 100) {
+            navbar.classList.add("sticky");
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    });
+
+    // Hide "More" dropdown if empty
+    if (moreDropdown.querySelector(".dropdown-content").children.length === 0) {
+        moreDropdown.style.display = "none";
+    }
 }
+
 
 // Run on page load, resize, and any user interaction
 document.addEventListener("DOMContentLoaded", handleNavOverflow);
