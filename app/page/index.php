@@ -118,9 +118,8 @@ Download App Now !
 Chennai Flights
 </div>
 
-<div style="max-width:1200px;margin: 50px auto;">
+<div style="max-width:1200px;margin: 50px auto;" class="terms-condition">
 <b>MakeMyTrip</b>
-
 <p>About Us, Investor Relations, Careers, Sustainability, MMT Foundation, Legal Notices, CSR Policy & Committee, myPartner - Travel Agent Portal, List your hotel, Partners- Redbus, Partners- Goibibo, Advertise with Us, Holiday-Franchise
 </p>
 <b>About the Site</b>

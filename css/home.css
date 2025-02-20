@@ -346,6 +346,13 @@ border-right: 1px solid #ccc;
 }
 
 
+.terms-condition *{
+    font-size: 12px; 
+}
+
+
+
+
 .faq{
     background: #fff;
     padding: 60px 3px;
