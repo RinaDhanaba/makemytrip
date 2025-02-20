@@ -1,5 +1,6 @@
 <!-- Responsive Navigation Bar -->
 <nav class="navbar">
+    <div class="navbar_inner">
     <img src="../media/mmt_dt_top_icon.avif" alt="logo" style="max-width: 200px;filter: drop-shadow(1px 1px 0.2px #333);">
 
     <ul class="nav-menu">
@@ -52,6 +53,7 @@
                 <div class="currency-item" data-currency="<?= $code ?>"><?= $name ?> <strong><?= $code ?></strong></div>
             <?php endforeach; ?>
         </div>
+    </div>
     </div>
     </div>
 </nav>

@@ -3,6 +3,7 @@
 display: none;
 width: 100%;
 z-index: 1000;
+background: white;
 }
 
 /* Sticky effect when scrolled past 100px */
@@ -12,16 +13,17 @@ top: 0;
 left: 0;
 width: 100%;
 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-background: white;
 }
 
-.navbar.sticky {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 10px 5px;
-white-space: nowrap;
-flex-wrap: nowrap;
+.navbar_inner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    max-width: 1200px;
+    margin: auto;
 }
 
 nav ul { list-style: none; display: flex; margin: 0; padding: 0; gap:10px}
