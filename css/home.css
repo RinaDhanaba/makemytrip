@@ -72,6 +72,8 @@ nav .currency-item:hover { background: #f1f1f1; }
 /* Show dropdown */
 nav .show { display: block; }
 
+.dropdown-nav-container{ display: none;}
+
 /* Responsive */
 @media screen and (max-width: 768px) {
 .navbar { flex-direction: column; }
