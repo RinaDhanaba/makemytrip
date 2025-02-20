@@ -141,6 +141,8 @@ Chennai Flights
 </div>
 
 
+<div class="faq">
+
 <div class="grid grid-2 container" style="padding-bottom:20px; border-bottom:2px solid #333; margin-bottom:20px">
     <div >
         <b>Q - How do I make a flight booking on MakeMyTrip?</b>
@@ -160,6 +162,8 @@ Chennai Flights
         <b>Q - Why could I not avail the flight booking offers at the time of checkout?</b>
         <p>A: MakeMyTrip makes use of a world-class real-time reservation database to list airfare and availability. As dynamic changes in airfare take place, or the available flight tickets sell out, the database reflects the changes in real-time. Hence, we suggest, you double-check online flight booking prices when purchasing flight tickets, as the airfare might have been dynamically updated since you first selected the air travel dates or planned your itinerary.</p>
     </div>
+</div>
+
 </div>
 
 <!-- Include the footer -->

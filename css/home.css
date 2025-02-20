@@ -344,3 +344,10 @@ top: 35px;
 .extra-info-banner-btn:not(:last-child) {
 border-right: 1px solid #ccc;
 }
+
+
+.faq{
+    background: #fff;
+    padding: 60px 3px;
+    margin-top: 30px;
+}
