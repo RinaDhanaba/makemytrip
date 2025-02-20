@@ -72,7 +72,15 @@ handleStickyNavbar();
 window.addEventListener("scroll", handleStickyNavbar);
 
 
-
+// character limit
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".nav-item a").forEach(function(item) {
+        let text = item.innerText.trim();
+        if (text.length > 7) {
+            item.innerText = text.substring(0, 7) + "...";
+        }
+    });
+});
 
 
 

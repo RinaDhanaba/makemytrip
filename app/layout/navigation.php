@@ -5,7 +5,7 @@
 $menu_items = [
     "Flights" => ["link" => "#", "icon" => "bi bi-airplane-engines"],
     "Hotels" => ["link" => "#", "icon" => "bi bi-house-door"],
-    "Holiday Package" => ["link" => "#", "icon" => "bi bi-train"],
+    "Holiday Package" => ["link" => "#", "icon" => "bi bi-car-front"],
     "Cabs/Car Rental " => ["link" => "#", "icon" => "bi bi-car-front"],
     "Visa Assistance" => ["link" => "#", "icon" => "bi bi-cash"],
     "Travel Insurance" => ["link" => "#", "icon" => "bi bi-shield-lock"]
