@@ -91,6 +91,95 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+// // Generic Dropdown Handler
+// document.querySelectorAll('.dropdown').forEach(dropdown => {
+//     const button = dropdown.querySelector('.dropdown-button');
+//     const content = dropdown.querySelector('.dropdown-content');
+    
+//     button.addEventListener('click', () => content.classList.toggle('show'));
+//     document.addEventListener('click', (e) => {
+//         if (!dropdown.contains(e.target)) content.classList.remove('show');
+//     });
+// });
+
+
+
+
+
+
+
+// // Function to load saved selections from sessionStorage
+// function loadSavedSelections() {
+//     // Load Country
+//     if (sessionStorage.getItem("selectedCountry")) {
+//         document.querySelectorAll("#selectedCountry").forEach(el => {
+//             el.innerHTML = sessionStorage.getItem("selectedCountry");
+//         });
+//     }
+
+//     // Load Language
+//     if (sessionStorage.getItem("selectedLanguage")) {
+//         document.querySelectorAll("#selectedLanguage").forEach(el => {
+//             el.innerHTML = sessionStorage.getItem("selectedLanguage") + " ▼";
+//         });
+//     }
+
+//     // Load Currency
+//     if (sessionStorage.getItem("selectedCurrency")) {
+//         document.querySelectorAll("#selectedCurrency").forEach(el => {
+//             el.innerHTML = sessionStorage.getItem("selectedCurrency") + " ▼";
+//         });
+//     }
+// }
+
+// // Function to update selections and store them in sessionStorage
+// function updateSelection(type, value) {
+//     sessionStorage.setItem(type, value);
+//     document.querySelectorAll(`#${type}`).forEach(el => {
+//         el.innerHTML = value + " ▼";
+//     });
+// }
+
+// // Currency Search Functionality
+// document.getElementById("searchCurrency")?.addEventListener("input", (e) => {
+//     const filter = e.target.value.toLowerCase();
+//     document.querySelectorAll(".currency-item").forEach(item => {
+//         item.style.display = item.innerText.toLowerCase().includes(filter) ? "" : "none";
+//     });
+// });
+
+// // Update Dropdown Selection & Store in Session
+// document.querySelectorAll(".currency-item, [data-lang]").forEach(item => {
+//     item.addEventListener("click", () => {
+//         const type = item.closest('.dropdown').querySelector('.dropdown-button').id;
+//         updateSelection(type, item.innerHTML);
+//         item.closest('.dropdown-content').classList.remove('show');
+//     });
+// });
+
+// // Country Dropdown Population
+// const countries = [
+//     { name: "India", code: "in", flag: "https://flagcdn.com/w40/in.png" },
+//     { name: "UAE", code: "ae", flag: "https://flagcdn.com/w40/ae.png" },
+//     { name: "USA", code: "us", flag: "https://flagcdn.com/w40/us.png" }
+// ];
+
+// const countryList = document.getElementById("countryList");
+// countries.forEach(country => {
+//     let div = document.createElement("div");
+//     div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
+//     div.addEventListener("click", () => {
+//         const countryHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
+//         updateSelection("selectedCountry", countryHTML);
+//         countryList.classList.remove("show");
+//     });
+//     countryList.appendChild(div);
+// });
+
+// // Load saved selections on page load
+// window.addEventListener("load", loadSavedSelections);
+
+
 // Generic Dropdown Handler
 document.querySelectorAll('.dropdown').forEach(dropdown => {
     const button = dropdown.querySelector('.dropdown-button');
@@ -102,29 +191,23 @@ document.querySelectorAll('.dropdown').forEach(dropdown => {
     });
 });
 
-
-
-
-
-
-
 // Function to load saved selections from sessionStorage
 function loadSavedSelections() {
-    // Load Country
+    // Load Country (Only Flag)
     if (sessionStorage.getItem("selectedCountry")) {
         document.querySelectorAll("#selectedCountry").forEach(el => {
             el.innerHTML = sessionStorage.getItem("selectedCountry");
         });
     }
 
-    // Load Language
+    // Load Language (First 3 Characters)
     if (sessionStorage.getItem("selectedLanguage")) {
         document.querySelectorAll("#selectedLanguage").forEach(el => {
-            el.innerHTML = sessionStorage.getItem("selectedLanguage") + " ▼";
+            el.innerHTML = sessionStorage.getItem("selectedLanguage").substring(0, 3) + " ▼";
         });
     }
 
-    // Load Currency
+    // Load Currency (Only Code)
     if (sessionStorage.getItem("selectedCurrency")) {
         document.querySelectorAll("#selectedCurrency").forEach(el => {
             el.innerHTML = sessionStorage.getItem("selectedCurrency") + " ▼";
@@ -132,11 +215,27 @@ function loadSavedSelections() {
     }
 }
 
-// Function to update selections and store them in sessionStorage
+// Function to update selections and store in sessionStorage
 function updateSelection(type, value) {
+    let formattedValue = value; // Default, show as is
+
+    if (type === "selectedCountry") {
+        // Extract only the flag
+        let tempDiv = document.createElement("div");
+        tempDiv.innerHTML = value;
+        let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").outerHTML : value;
+        formattedValue = flagImg; // Show only the flag
+    } 
+    else if (type === "selectedLanguage") {
+        formattedValue = value.substring(0, 3); // Show first 3 characters
+    } 
+    else if (type === "selectedCurrency") {
+        formattedValue = value.split(" ")[1] || value; // Extract currency code (e.g., "Indian Rupee (INR)" → "INR")
+    }
+
     sessionStorage.setItem(type, value);
     document.querySelectorAll(`#${type}`).forEach(el => {
-        el.innerHTML = value + " ▼";
+        el.innerHTML = formattedValue + " ▼";
     });
 }
 
