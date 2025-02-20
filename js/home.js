@@ -114,105 +114,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-// 🏁 Generic Dropdown Toggle Handler
+
+// Generic Dropdown Handler
 document.querySelectorAll('.dropdown').forEach(dropdown => {
     const button = dropdown.querySelector('.dropdown-button');
     const content = dropdown.querySelector('.dropdown-content');
-
-    button.addEventListener('click', (e) => {
-        e.stopPropagation();
-        closeAllDropdowns();
-        content.classList.toggle('show');
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!dropdown.contains(e.target)) {
-            content.classList.remove('show');
-        }
-    });
-});
-
-// 📌 Close all dropdowns before opening a new one
-function closeAllDropdowns() {
-    document.querySelectorAll('.dropdown-content').forEach(content => content.classList.remove('show'));
-}
-
-// 🌍 **Country Dropdown Logic**
-const countries = [
-    { name: "India", code: "IN", flag: "https://flagcdn.com/w40/in.png" },
-    { name: "UAE", code: "AE", flag: "https://flagcdn.com/w40/ae.png" },
-    { name: "USA", code: "US", flag: "https://flagcdn.com/w40/us.png" }
-];
-
-const countryDropdown = document.getElementById("countryList");
-const selectedCountryBtn = document.getElementById("selectedCountry");
-
-countries.forEach(country => {
-    let div = document.createElement("div");
-    div.classList.add("dropdown-item");
-    div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
     
-    div.addEventListener("click", () => {
-        const countryHTML = `<img src="${country.flag}" class="flag">`;
-        updateSelection("selectedCountry", countryHTML);
-        countryDropdown.classList.remove("show");
-    });
-
-    countryDropdown.appendChild(div);
-});
-
-// 🌐 **Language Dropdown Logic**
-const languages = ["English", "Hindi", "Arabic", "French", "Spanish"];
-const languageDropdown = document.getElementById("languageList");
-const selectedLanguageBtn = document.getElementById("selectedLanguage");
-
-languages.forEach(lang => {
-    let div = document.createElement("div");
-    div.classList.add("dropdown-item");
-    div.textContent = lang;
-
-    div.addEventListener("click", () => {
-        updateSelection("selectedLanguage", lang.substring(0, 3).toUpperCase());
-        languageDropdown.classList.remove("show");
-    });
-
-    languageDropdown.appendChild(div);
-});
-
-// 💰 **Currency Dropdown Logic**
-const currencies = [
-    "USD - United States Dollar", 
-    "INR - Indian Rupee", 
-    "AED - UAE Dirham", 
-    "EUR - Euro"
-];
-
-const currencyDropdown = document.getElementById("currencyList");
-const selectedCurrencyBtn = document.getElementById("selectedCurrency");
-
-currencies.forEach(curr => {
-    let div = document.createElement("div");
-    div.classList.add("dropdown-item");
-    div.textContent = curr;
-
-    div.addEventListener("click", () => {
-        let currencyCode = curr.match(/\b[A-Z]{3}\b/)[0]; 
-        updateSelection("selectedCurrency", currencyCode);
-        currencyDropdown.classList.remove("show");
-    });
-
-    currencyDropdown.appendChild(div);
-});
-
-// 🔍 **Currency Search Functionality**
-document.getElementById("searchCurrency")?.addEventListener("input", (e) => {
-    const filter = e.target.value.toLowerCase();
-    document.querySelectorAll(".currency-item").forEach(item => {
-        item.style.display = item.innerText.toLowerCase().includes(filter) ? "" : "none";
+    button.addEventListener('click', () => content.classList.toggle('show'));
+    document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) content.classList.remove('show');
     });
 });
 
-// 📌 **Function to Load Saved Selections from sessionStorage**
+
+// Function to load saved selections from sessionStorage
 function loadSavedSelections() {
     // Load Country (Only Flag)
     if (sessionStorage.getItem("selectedCountry")) {
@@ -220,28 +135,112 @@ function loadSavedSelections() {
         tempDiv.innerHTML = sessionStorage.getItem("selectedCountry");
         let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").outerHTML : sessionStorage.getItem("selectedCountry");
 
-        selectedCountryBtn.innerHTML = flagImg + " ▼"; 
+        document.querySelectorAll("#selectedCountry").forEach(el => {
+            el.innerHTML = flagImg + " ▼"; // Only show flag
+        });
     }
 
     // Load Language (First 3 Characters)
     if (sessionStorage.getItem("selectedLanguage")) {
-        selectedLanguageBtn.innerHTML = sessionStorage.getItem("selectedLanguage") + " ▼";
+        document.querySelectorAll("#selectedLanguage").forEach(el => {
+            el.innerHTML = sessionStorage.getItem("selectedLanguage").substring(0, 3).toUpperCase() + " ▼";
+        });
     }
 
     // Load Currency (Only 3-letter Code)
     if (sessionStorage.getItem("selectedCurrency")) {
         let storedCurrency = sessionStorage.getItem("selectedCurrency");
-        selectedCurrencyBtn.innerHTML = storedCurrency + " ▼"; 
+        let currencyCode = storedCurrency.match(/\b[A-Z]{3}\b/) ? storedCurrency.match(/\b[A-Z]{3}\b/)[0] : storedCurrency;
+
+        document.querySelectorAll("#selectedCurrency").forEach(el => {
+            el.innerHTML = currencyCode + " ▼"; // Show only currency code
+        });
     }
 }
 
-// 📌 **Function to Update Selection and Store in sessionStorage**
+// Function to update selections and store in sessionStorage
 function updateSelection(type, value) {
+    let formattedValue = value;
+
+    if (type === "selectedCountry") {
+        // Extract only the flag
+        let tempDiv = document.createElement("div");
+        tempDiv.innerHTML = value;
+        let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").outerHTML : value;
+        formattedValue = flagImg; // Only show flag
+    } 
+    else if (type === "selectedLanguage") {
+        formattedValue = value.substring(0, 3).toUpperCase(); // First 3 letters
+    } 
+    else if (type === "selectedCurrency") {
+        // Extract only currency code
+        formattedValue = value.match(/\b[A-Z]{3}\b/) ? value.match(/\b[A-Z]{3}\b/)[0] : value;
+    }
+
     sessionStorage.setItem(type, value);
-    document.getElementById(type).innerHTML = value + " ▼";
+    document.querySelectorAll(`#${type}`).forEach(el => {
+        el.innerHTML = formattedValue + " ▼";
+    });
 }
 
-// 🚀 **Load saved selections on page load**
+// Currency Search Functionality
+document.getElementById("searchCurrency")?.addEventListener("input", (e) => {
+    const filter = e.target.value.toLowerCase();
+    document.querySelectorAll(".currency-item").forEach(item => {
+        item.style.display = item.innerText.toLowerCase().includes(filter) ? "" : "none";
+    });
+});
+
+// Update Dropdown Selection & Store in Session
+document.querySelectorAll(".currency-item, [data-lang]").forEach(item => {
+    item.addEventListener("click", () => {
+        const type = item.closest('.dropdown').querySelector('.dropdown-button').id;
+        updateSelection(type, item.innerHTML);
+        item.closest('.dropdown-content').classList.remove('show');
+    });
+});
+
+// Country Dropdown Population
+const countries = [
+    { name: "India", code: "in", flag: "https://flagcdn.com/w40/in.png" },
+    { name: "UAE", code: "ae", flag: "https://flagcdn.com/w40/ae.png" },
+    { name: "USA", code: "us", flag: "https://flagcdn.com/w40/us.png" }
+];
+
+
+document.querySelectorAll(".countryDropdown").forEach(dropdown => {
+    const countryList = dropdown.querySelector(".dropdown-content");
+
+    // Populate country list inside each dropdown
+    countries.forEach(country => {
+        let div = document.createElement("div");
+        div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
+
+        div.addEventListener("click", () => {
+            const countryHTML = `<img src="${country.flag}" class="flag">`;
+            
+            // Find the corresponding button within the same dropdown and update it
+            const button = dropdown.querySelector(".dropdown-button");
+            button.innerHTML = countryHTML + " ▼";
+
+            // Store selection in sessionStorage
+            sessionStorage.setItem(dropdown.id, countryHTML);
+
+            // Close dropdown
+            countryList.classList.remove("show");
+        });
+
+        countryList.appendChild(div);
+    });
+
+    // Load saved country selection if available
+    if (sessionStorage.getItem(dropdown.id)) {
+        dropdown.querySelector(".dropdown-button").innerHTML = sessionStorage.getItem(dropdown.id) + " ▼";
+    }
+});
+
+
+// Load saved selections on page load
 window.addEventListener("load", loadSavedSelections);
 
 
