@@ -115,112 +115,140 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-// Generic Dropdown Handler
-document.querySelectorAll('.dropdown').forEach(dropdown => {
-    const button = dropdown.querySelector('.dropdown-button');
-    const content = dropdown.querySelector('.dropdown-content');
-    
-    button.addEventListener('click', () => content.classList.toggle('show'));
-    document.addEventListener('click', (e) => {
-        if (!dropdown.contains(e.target)) content.classList.remove('show');
-    });
-});
 
 
-// Function to load saved selections from sessionStorage
-function loadSavedSelections() {
-    // Load Country (Only Flag)
-    if (sessionStorage.getItem("selectedCountry")) {
-        let tempDiv = document.createElement("div");
-        tempDiv.innerHTML = sessionStorage.getItem("selectedCountry");
-        let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").outerHTML : sessionStorage.getItem("selectedCountry");
 
-        document.querySelectorAll("#selectedCountry").forEach(el => {
-            el.innerHTML = flagImg + " ▼"; // Only show flag
-        });
-    }
-
-    // Load Language (First 3 Characters)
-    if (sessionStorage.getItem("selectedLanguage")) {
-        document.querySelectorAll("#selectedLanguage").forEach(el => {
-            el.innerHTML = sessionStorage.getItem("selectedLanguage").substring(0, 3).toUpperCase() + " ▼";
-        });
-    }
-
-    // Load Currency (Only 3-letter Code)
-    if (sessionStorage.getItem("selectedCurrency")) {
-        let storedCurrency = sessionStorage.getItem("selectedCurrency");
-        let currencyCode = storedCurrency.match(/\b[A-Z]{3}\b/) ? storedCurrency.match(/\b[A-Z]{3}\b/)[0] : storedCurrency;
-
-        document.querySelectorAll("#selectedCurrency").forEach(el => {
-            el.innerHTML = currencyCode + " ▼"; // Show only currency code
-        });
-    }
-}
-
-// Function to update selections and store in sessionStorage
-function updateSelection(type, value) {
-    let formattedValue = value;
-
-    if (type === "selectedCountry") {
-        // Extract only the flag
-        let tempDiv = document.createElement("div");
-        tempDiv.innerHTML = value;
-        let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").outerHTML : value;
-        formattedValue = flagImg; // Only show flag
-    } 
-    else if (type === "selectedLanguage") {
-        formattedValue = value.substring(0, 3).toUpperCase(); // First 3 letters
-    } 
-    else if (type === "selectedCurrency") {
-        // Extract only currency code
-        formattedValue = value.match(/\b[A-Z]{3}\b/) ? value.match(/\b[A-Z]{3}\b/)[0] : value;
-    }
-
-    sessionStorage.setItem(type, value);
-    document.querySelectorAll(`#${type}`).forEach(el => {
-        el.innerHTML = formattedValue + " ▼";
-    });
-}
-
-// Currency Search Functionality
-document.getElementById("searchCurrency")?.addEventListener("input", (e) => {
-    const filter = e.target.value.toLowerCase();
-    document.querySelectorAll(".currency-item").forEach(item => {
-        item.style.display = item.innerText.toLowerCase().includes(filter) ? "" : "none";
-    });
-});
-
-// Update Dropdown Selection & Store in Session
-document.querySelectorAll(".currency-item, [data-lang]").forEach(item => {
-    item.addEventListener("click", () => {
-        const type = item.closest('.dropdown').querySelector('.dropdown-button').id;
-        updateSelection(type, item.innerHTML);
-        item.closest('.dropdown-content').classList.remove('show');
-    });
-});
-
-// Country Dropdown Population
+// 🌍 **Updated Country Dropdown Logic**
 const countries = [
-    { name: "India", code: "in", flag: "https://flagcdn.com/w40/in.png" },
-    { name: "UAE", code: "ae", flag: "https://flagcdn.com/w40/ae.png" },
-    { name: "USA", code: "us", flag: "https://flagcdn.com/w40/us.png" }
+    { name: "India", code: "IN", flag: "https://flagcdn.com/w40/in.png" },
+    { name: "UAE", code: "AE", flag: "https://flagcdn.com/w40/ae.png" },
+    { name: "USA", code: "US", flag: "https://flagcdn.com/w40/us.png" }
 ];
 
-const countryList = document.querySelectorAll("#countryList");
-countries.forEach(country => {
-    let div = document.createElement("div");
-    div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
-    div.addEventListener("click", () => {
-        const countryHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
-        updateSelection("selectedCountry", countryHTML);
-        countryList.classList.remove("show");
+document.querySelectorAll(".countryDropdown").forEach(dropdown => {
+    const countryList = dropdown.querySelector(".countryList");
+    const selectedCountry = dropdown.querySelector(".dropdown-button");
+
+    countryList.innerHTML = ""; 
+
+    countries.forEach(country => {
+        let div = document.createElement("div");
+        div.classList.add("dropdown-item");
+        div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
+
+        div.addEventListener("click", () => {
+            selectedCountry.innerHTML = `<img src="${country.flag}" class="flag"> ▼`;
+            countryList.classList.remove("show");
+
+            sessionStorage.setItem(dropdown.id, country.name);
+        });
+
+        countryList.appendChild(div);
     });
-    countryList.appendChild(div);
+
+    selectedCountry.addEventListener("click", (e) => {
+        e.stopPropagation();
+        countryList.classList.toggle("show");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target)) {
+            countryList.classList.remove("show");
+        }
+    });
+
+    const savedCountry = sessionStorage.getItem(dropdown.id);
+    if (savedCountry) {
+        const countryData = countries.find(c => c.name === savedCountry);
+        if (countryData) {
+            selectedCountry.innerHTML = `<img src="${countryData.flag}" class="flag"> ▼`;
+        }
+    }
 });
 
-// Load saved selections on page load
-window.addEventListener("load", loadSavedSelections);
+// 🌐 **Language Dropdown Logic**
+const languages = ["English", "Hindi", "Arabic", "French", "Spanish"];
+
+document.querySelectorAll(".languageDropdown").forEach(dropdown => {
+    const langList = dropdown.querySelector(".languageList");
+    const selectedLang = dropdown.querySelector(".dropdown-button");
+
+    langList.innerHTML = ""; 
+
+    languages.forEach(lang => {
+        let div = document.createElement("div");
+        div.classList.add("dropdown-item");
+        div.textContent = lang;
+
+        div.addEventListener("click", () => {
+            selectedLang.textContent = lang.substring(0, 3).toUpperCase() + " ▼";
+            langList.classList.remove("show");
+
+            sessionStorage.setItem(dropdown.id, lang);
+        });
+
+        langList.appendChild(div);
+    });
+
+    selectedLang.addEventListener("click", (e) => {
+        e.stopPropagation();
+        langList.classList.toggle("show");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target)) {
+            langList.classList.remove("show");
+        }
+    });
+
+    const savedLang = sessionStorage.getItem(dropdown.id);
+    if (savedLang) {
+        selectedLang.textContent = savedLang.substring(0, 3).toUpperCase() + " ▼";
+    }
+});
+
+// 💰 **Currency Dropdown Logic**
+const currencies = ["USD - United States Dollar", "INR - Indian Rupee", "AED - UAE Dirham", "EUR - Euro"];
+
+document.querySelectorAll(".currencyDropdown").forEach(dropdown => {
+    const currencyList = dropdown.querySelector(".currencyList");
+    const selectedCurrency = dropdown.querySelector(".dropdown-button");
+
+    currencyList.innerHTML = ""; 
+
+    currencies.forEach(curr => {
+        let div = document.createElement("div");
+        div.classList.add("dropdown-item");
+        div.textContent = curr;
+
+        div.addEventListener("click", () => {
+            let currencyCode = curr.match(/\b[A-Z]{3}\b/)[0];
+            selectedCurrency.textContent = currencyCode + " ▼";
+            currencyList.classList.remove("show");
+
+            sessionStorage.setItem(dropdown.id, curr);
+        });
+
+        currencyList.appendChild(div);
+    });
+
+    selectedCurrency.addEventListener("click", (e) => {
+        e.stopPropagation();
+        currencyList.classList.toggle("show");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target)) {
+            currencyList.classList.remove("show");
+        }
+    });
+
+    const savedCurrency = sessionStorage.getItem(dropdown.id);
+    if (savedCurrency) {
+        let currencyCode = savedCurrency.match(/\b[A-Z]{3}\b/)[0];
+        selectedCurrency.textContent = currencyCode + " ▼";
+    }
+});
 
 
 
