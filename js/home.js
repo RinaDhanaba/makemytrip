@@ -276,7 +276,11 @@ countries.forEach(country => {
 });
 
 // Load saved selections on page load
+document.addEventListener("DOMContentLoaded", loadSavedSelections);
+window.addEventListener("resize", loadSavedSelections);
 window.addEventListener("load", loadSavedSelections);
+window.addEventListener("click", loadSavedSelections);
+window.addEventListener("scroll", loadSavedSelections);
 
 
 
