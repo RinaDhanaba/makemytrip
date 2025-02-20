@@ -77,6 +77,10 @@ nav .show { display: block; }
 .navbar { flex-direction: column; }
 nav ul { flex-direction: column; align-items: center; width: 100%; }
 nav li { margin: 10px 0; }
+
+.navbar .dropdown{
+    display: none;
+}
 }
 
 
