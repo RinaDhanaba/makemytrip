@@ -349,7 +349,12 @@ border-right: 1px solid #ccc;
 
 
 
-
+.ad-card{
+background: #fff;
+border-radius: 10px;
+box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+padding: 10px;
+}
 
 .ad-bg-container{
 background: url('../media/Screenshot 2025-02-20 185017.png') no-repeat center center; 
