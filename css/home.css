@@ -351,3 +351,11 @@ border-right: 1px solid #ccc;
     padding: 60px 3px;
     margin-top: 30px;
 }
+
+.faq p{
+    font-size: 12px;
+}
+
+.faq b{
+    font-size: 14px;
+}
