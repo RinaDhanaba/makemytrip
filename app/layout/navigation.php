@@ -35,11 +35,11 @@ $menu_items = [
     border-radius: 4px;">Login/ Create account</div>
 
     <!-- Country Dropdown -->
-    <div class="dropdown" id="countryDropdown">
+    <div class="dropdown countryDropdown">
         <div class="dropdown-button" id="selectedCountry">
-            <img src="https://flagcdn.com/w40/in.png" class="flag"> India
+            <img src="https://flagcdn.com/w40/in.png" class="flag"> ▼
         </div>
-        <div class="dropdown-content" id="countryList"></div>
+        <div class="dropdown-content countryList"></div>
     </div>
 
     <!-- Language Dropdown -->
