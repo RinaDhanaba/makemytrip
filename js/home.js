@@ -195,15 +195,19 @@ document.querySelectorAll('.dropdown').forEach(dropdown => {
 function loadSavedSelections() {
     // Load Country (Only Flag)
     if (sessionStorage.getItem("selectedCountry")) {
+        let tempDiv = document.createElement("div");
+        tempDiv.innerHTML = sessionStorage.getItem("selectedCountry");
+        let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").outerHTML : sessionStorage.getItem("selectedCountry");
+
         document.querySelectorAll("#selectedCountry").forEach(el => {
-            el.innerHTML = sessionStorage.getItem("selectedCountry");
+            el.innerHTML = flagImg + " ▼"; // Only show flag
         });
     }
 
     // Load Language (First 3 Characters)
     if (sessionStorage.getItem("selectedLanguage")) {
         document.querySelectorAll("#selectedLanguage").forEach(el => {
-            el.innerHTML = sessionStorage.getItem("selectedLanguage").substring(0, 3) + " ▼";
+            el.innerHTML = sessionStorage.getItem("selectedLanguage").substring(0, 3).toUpperCase() + " ▼";
         });
     }
 
@@ -217,20 +221,20 @@ function loadSavedSelections() {
 
 // Function to update selections and store in sessionStorage
 function updateSelection(type, value) {
-    let formattedValue = value; // Default, show as is
+    let formattedValue = value;
 
     if (type === "selectedCountry") {
         // Extract only the flag
         let tempDiv = document.createElement("div");
         tempDiv.innerHTML = value;
         let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").outerHTML : value;
-        formattedValue = flagImg; // Show only the flag
+        formattedValue = flagImg; // Only show flag
     } 
     else if (type === "selectedLanguage") {
-        formattedValue = value.substring(0, 3); // Show first 3 characters
+        formattedValue = value.substring(0, 3).toUpperCase(); // First 3 letters
     } 
     else if (type === "selectedCurrency") {
-        formattedValue = value.split(" ")[1] || value; // Extract currency code (e.g., "Indian Rupee (INR)" → "INR")
+        formattedValue = value.match(/\b[A-Z]{3}\b/) ? value.match(/\b[A-Z]{3}\b/)[0] : value; // Extract currency code
     }
 
     sessionStorage.setItem(type, value);
@@ -276,11 +280,8 @@ countries.forEach(country => {
 });
 
 // Load saved selections on page load
-document.addEventListener("DOMContentLoaded", loadSavedSelections);
-window.addEventListener("resize", loadSavedSelections);
 window.addEventListener("load", loadSavedSelections);
-window.addEventListener("click", loadSavedSelections);
-window.addEventListener("scroll", loadSavedSelections);
+
 
 
 

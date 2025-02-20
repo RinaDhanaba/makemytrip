@@ -20,7 +20,7 @@
     <!-- Country Dropdown -->
     <div class="dropdown" id="countryDropdown">
         <div class="dropdown-button" id="selectedCountry">
-            <img src="https://flagcdn.com/w40/in.png" class="flag"> India
+            <img src="https://flagcdn.com/w40/in.png" class="flag"> ▼
         </div>
         <div class="dropdown-content" id="countryList"></div>
     </div>
