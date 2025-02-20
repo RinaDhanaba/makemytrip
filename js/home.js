@@ -232,10 +232,6 @@ document.querySelectorAll(".countryDropdown").forEach(dropdown => {
         countryList.appendChild(div);
     });
 
-    // Load saved country selection if available
-    if (sessionStorage.getItem(dropdown.id)) {
-        dropdown.querySelector(".dropdown-button").innerHTML = sessionStorage.getItem(dropdown.id) + " ▼";
-    }
 });
 
 
