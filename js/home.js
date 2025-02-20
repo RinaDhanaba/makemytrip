@@ -21,16 +21,22 @@ function handleNavOverflow() {
     let availableSpace = navbarWidth - usedSpace;
     let totalWidth = 0;
 
-    navItems.forEach(item => {
+    navItems.forEach((item, index) => {
         item.style.display = "inline-block"; // Reset visibility before recalculating
         totalWidth += item.offsetWidth;
 
         if (totalWidth > availableSpace) {
             itemsMoved = true;
             item.style.display = "none"; // Hide in main menu
+            
             let clone = item.cloneNode(true);
             clone.style.display = "block";
-            moreMenu.appendChild(clone); // Move to dropdown
+
+            // ✅ Prevent duplicates by checking if it already exists
+            if (!moreMenu.querySelector(`[data-id="item-${index}"]`)) {
+                clone.dataset.id = `item-${index}`;
+                moreMenu.appendChild(clone);
+            }
         }
     });
 
