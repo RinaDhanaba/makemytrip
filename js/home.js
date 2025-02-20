@@ -237,7 +237,8 @@ function updateSelection(type, value) {
         formattedValue = value.substring(0, 3).toUpperCase(); // First 3 letters
     } 
     else if (type === "selectedCurrency") {
-        formattedValue = value.match(/\b[A-Z]{3}\b/) ? value.match(/\b[A-Z]{3}\b/)[0] : value; // Extract currency code
+        // Extract only currency code
+        formattedValue = value.match(/\b[A-Z]{3}\b/) ? value.match(/\b[A-Z]{3}\b/)[0] : value;
     }
 
     sessionStorage.setItem(type, value);
