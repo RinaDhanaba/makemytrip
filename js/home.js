@@ -209,21 +209,19 @@ const countries = [
 
 document.querySelectorAll(".countryDropdown").forEach(dropdown => {
     const countryList = dropdown.querySelector(".dropdown-content");
+    const button = dropdown.querySelector(".dropdown-button");
 
     // Populate country list inside each dropdown
     countries.forEach(country => {
         let div = document.createElement("div");
+        div.classList.add("dropdown-item");
         div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
 
         div.addEventListener("click", () => {
             const countryHTML = `<img src="${country.flag}" class="flag">`;
-            
-            // Find the corresponding button within the same dropdown and update it
-            const button = dropdown.querySelector(".dropdown-button");
-            button.innerHTML = countryHTML + " ▼";
 
-            // Store selection in sessionStorage
-            sessionStorage.setItem(dropdown.id, countryHTML);
+            // Update all country dropdowns
+            updateSelection("selectedCountry", countryHTML);
 
             // Close dropdown
             countryList.classList.remove("show");
@@ -231,12 +229,8 @@ document.querySelectorAll(".countryDropdown").forEach(dropdown => {
 
         countryList.appendChild(div);
     });
-
-    // Load saved country selection if available
-    if (sessionStorage.getItem(dropdown.id)) {
-        dropdown.querySelector(".dropdown-button").innerHTML = sessionStorage.getItem(dropdown.id) + " ▼";
-    }
 });
+
 
 
 // Load saved selections on page load
