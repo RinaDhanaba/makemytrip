@@ -114,19 +114,19 @@ Offers
 Download App Now !
 </div>
 
-<div class="card" style="margin:50px auto">    
-<div class="flights-container">
+
+<div class="flights-container container">
     <?php
     $flights = [
-        ["city" => "Chennai", "via" => "Delhi, Mumbai, Coimbatore, Madurai", "image" => "./media/bg7.jpg"],
-        ["city" => "Goa", "via" => "Delhi, Mumbai, Bangalore, Ahmedabad", "image" => "./media/bg7.jpg"],
-        ["city" => "Mumbai", "via" => "Delhi, Bangalore, Chennai, Ahmedabad", "image" => "./media/bg7.jpg"],
-        ["city" => "Hyderabad", "via" => "Chennai, Mumbai, Bangalore, Delhi", "image" => "./media/bg7.jpg"],
-        ["city" => "Delhi", "via" => "Mumbai, Pune, Bangalore, Chennai", "image" => "./media/bg7.jpg"],
-        ["city" => "Pune", "via" => "Delhi, Bangalore, Chennai, Ahmedabad", "image" => "./media/bg7.jpg"],
-        ["city" => "Kolkata", "via" => "Delhi, Mumbai, Bangalore, Pune", "image" => "./media/bg7.jpg"],
-        ["city" => "Bangalore", "via" => "Delhi, Pune, Mumbai, Kolkata", "image" => "./media/bg7.jpg"],
-        ["city" => "Jaipur", "via" => "Mumbai, Delhi, Pune, Bangalore", "image" => "./media/bg7.jpg"]
+        ["city" => "Chennai", "via" => "Delhi, Mumbai, Coimbatore, Madurai", "image" => "../media/bg7.jpg"],
+        ["city" => "Goa", "via" => "Delhi, Mumbai, Bangalore, Ahmedabad", "image" => "../media/bg7.jpg"],
+        ["city" => "Mumbai", "via" => "Delhi, Bangalore, Chennai, Ahmedabad", "image" => "../media/bg7.jpg"],
+        ["city" => "Hyderabad", "via" => "Chennai, Mumbai, Bangalore, Delhi", "image" => "../media/bg7.jpg"],
+        ["city" => "Delhi", "via" => "Mumbai, Pune, Bangalore, Chennai", "image" => "../media/bg7.jpg"],
+        ["city" => "Pune", "via" => "Delhi, Bangalore, Chennai, Ahmedabad", "image" => "../media/bg7.jpg"],
+        ["city" => "Kolkata", "via" => "Delhi, Mumbai, Bangalore, Pune", "image" => "../media/bg7.jpg"],
+        ["city" => "Bangalore", "via" => "Delhi, Pune, Mumbai, Kolkata", "image" => "../media/bg7.jpg"],
+        ["city" => "Jaipur", "via" => "Mumbai, Delhi, Pune, Bangalore", "image" => "../media/bg7.jpg"]
     ];
 
     foreach ($flights as $flight) {
@@ -140,9 +140,6 @@ Download App Now !
     }
     ?>
 </div>
-
-</div>
-
 
 
 
