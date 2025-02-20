@@ -309,3 +309,38 @@ function addCity() {
                         <input type="date" name="multi_departure[]" required>`;
     container.appendChild(newRow);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const allOffers = document.querySelectorAll(".offer-card");
+    const tabs = document.querySelectorAll(".tab");
+
+    function showOffers(category) {
+        allOffers.forEach(offer => {
+            const offerCategory = offer.querySelector(".offer-category").innerText.trim().toLowerCase();
+            
+            if (category === "all" || offerCategory === category.toLowerCase()) {
+                offer.style.display = "flex"; // Show the offer
+            } else {
+                offer.style.display = "none"; // Hide the offer
+            }
+        });
+
+        // Update active tab
+        tabs.forEach(tab => tab.classList.remove("active"));
+        document.querySelector(`.tab[onclick="showOffers('${category}')"]`).classList.add("active");
+    }
+
+    // Initialize with "all" offers visible
+    showOffers("all");
+});

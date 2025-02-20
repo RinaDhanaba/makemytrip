@@ -131,15 +131,16 @@ $offers = [
 ?>
 
 <section class="offers-section">
-    <div class="offers-header">
-        <h2><b>Offers</b></h2>
-        <div class="offers-tabs">
-            <span class="active">All Offers</span>
-            <span>Cabs</span>
+<div class="offers-header">
+            <h2>Offers</h2>
+            <div class="tabs">
+                <span class="tab active" onclick="showOffers('all')">All Offers</span>
+                <span class="tab" onclick="showOffers('cabs')">Cabs</span>
+            </div>
+            <a href="#" class="view-all">VIEW ALL →</a>
         </div>
-        <a href="#" class="view-all">VIEW ALL →</a>
-    </div>
 
+    <div class="offers-container" id="offers-container">
     <div class="offers-grid">
         <?php foreach ($offers as $offer): ?>
             <div class="offer-card">
@@ -152,6 +153,7 @@ $offers = [
                 </div>
             </div>
         <?php endforeach; ?>
+    </div>
     </div>
 </section>
 
