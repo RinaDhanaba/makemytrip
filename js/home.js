@@ -321,26 +321,66 @@ function addCity() {
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const allOffers = document.querySelectorAll(".offer-card");
-    const tabs = document.querySelectorAll(".tab");
-
-    function showOffers(category) {
-        allOffers.forEach(offer => {
-            const offerCategory = offer.querySelector(".offer-category").innerText.trim().toLowerCase();
-            
-            if (category === "all" || offerCategory === category.toLowerCase()) {
-                offer.style.display = "flex"; // Show the offer
-            } else {
-                offer.style.display = "none"; // Hide the offer
-            }
-        });
-
-        // Update active tab
-        tabs.forEach(tab => tab.classList.remove("active"));
-        document.querySelector(`.tab[onclick="showOffers('${category}')"]`).classList.add("active");
+const offers = [
+    {
+        image: "offer1.jpg",
+        category: "cabs",
+        title: "Your Outstation Cabs Made More Comfortable",
+        description: "with New Features!",
+        link: "#"
+    },
+    {
+        image: "offer2.jpg",
+        category: "cabs",
+        title: "FOR MAHA KUMBH 2025: Book Airport Cabs",
+        description: "with FLAT 5% OFF*.",
+        link: "#"
+    },
+    {
+        image: "offer3.jpg",
+        category: "cabs",
+        title: "FOR MAHA KUMBH 2025: Book Outstation Cabs",
+        description: "with up to ₹500 OFF*.",
+        link: "#"
+    },
+    {
+        image: "offer4.jpg",
+        category: "cabs",
+        title: "Launched: EV Airport Cabs",
+        description: "for Journeys to/from the Hyderabad Airport.",
+        link: "#"
     }
+];
 
-    // Initialize with "all" offers visible
-    showOffers("all");
+function loadOffers(filter = "all") {
+    const container = document.getElementById("offers-container");
+    container.innerHTML = "";
+
+    const filteredOffers = filter === "all" ? offers : offers.filter(offer => offer.category === filter);
+
+    filteredOffers.forEach(offer => {
+        const offerHTML = `
+            <div class="offer-card">
+                <img src="${offer.image}" alt="${offer.title}">
+                <div class="offer-content">
+                    <h3>${offer.title}</h3>
+                    <p>${offer.description}</p>
+                    <a href="${offer.link}" class="book-now">BOOK NOW</a>
+                </div>
+            </div>
+        `;
+        container.innerHTML += offerHTML;
+    });
+}
+
+function showOffers(category) {
+    document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+    document.querySelector(`.tab[onclick="showOffers('${category}')"]`).classList.add("active");
+    
+    loadOffers(category);
+}
+
+// Load default offers on page load
+document.addEventListener("DOMContentLoaded", () => {
+    loadOffers("all");
 });
