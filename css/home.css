@@ -353,7 +353,7 @@ border-right: 1px solid #ccc;
 
 .ad-bg-container{
 background: url('../media/Screenshot 2025-02-20 185017.png') no-repeat center center; 
-background-size: cover;
+background-size: contain;
 width: 100%;
 height: calc(100vw * (250 / 1200));
 border-radius: 10px;
