@@ -211,10 +211,13 @@ function loadSavedSelections() {
         });
     }
 
-    // Load Currency (Only Code)
+    // Load Currency (Only 3-letter Code)
     if (sessionStorage.getItem("selectedCurrency")) {
+        let storedCurrency = sessionStorage.getItem("selectedCurrency");
+        let currencyCode = storedCurrency.match(/\b[A-Z]{3}\b/) ? storedCurrency.match(/\b[A-Z]{3}\b/)[0] : storedCurrency;
+
         document.querySelectorAll("#selectedCurrency").forEach(el => {
-            el.innerHTML = sessionStorage.getItem("selectedCurrency") + " ▼";
+            el.innerHTML = currencyCode + " ▼"; // Show only currency code
         });
     }
 }
