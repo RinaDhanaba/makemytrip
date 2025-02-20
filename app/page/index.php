@@ -110,7 +110,7 @@ Offers
 <div>Complete your web check-in on MakeMyTrip in easy steps. <br><a href="">Know More</a></div>
 </div>
 
-<div class="ad-bg-container" style="margin:50px auto">
+<div class="ad-bg-container container" style="margin:50px auto">
 
 </div>
 
