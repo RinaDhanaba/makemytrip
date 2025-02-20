@@ -97,10 +97,63 @@
 <div class="ad-bg-container1"></div>
 
 
-<div style="min-height:500px;" class="card">
-Offers
+<?php
+$offers = [
+    [
+        "image" => "offer1.jpg",
+        "category" => "CABS",
+        "title" => "Your Outstation Cabs Made More Comfortable",
+        "description" => "with New Features!",
+        "link" => "#"
+    ],
+    [
+        "image" => "offer2.jpg",
+        "category" => "CABS",
+        "title" => "FOR MAHA KUMBH 2025: Book Airport Cabs",
+        "description" => "with FLAT 5% OFF*.",
+        "link" => "#"
+    ],
+    [
+        "image" => "offer3.jpg",
+        "category" => "CABS",
+        "title" => "FOR MAHA KUMBH 2025: Book Outstation Cabs",
+        "description" => "with up to ₹500 OFF*.",
+        "link" => "#"
+    ],
+    [
+        "image" => "offer4.jpg",
+        "category" => "CABS",
+        "title" => "Launched: EV Airport Cabs",
+        "description" => "for Journeys to/from the Hyderabad Airport.",
+        "link" => "#"
+    ]
+];
+?>
 
-</div>
+<section class="offers-section">
+    <div class="offers-header">
+        <h2><b>Offers</b></h2>
+        <div class="offers-tabs">
+            <span class="active">All Offers</span>
+            <span>Cabs</span>
+        </div>
+        <a href="#" class="view-all">VIEW ALL →</a>
+    </div>
+
+    <div class="offers-grid">
+        <?php foreach ($offers as $offer): ?>
+            <div class="offer-card">
+                <img src="<?= $offer['image']; ?>" alt="<?= $offer['title']; ?>" class="offer-img">
+                <div class="offer-content">
+                    <span class="offer-category"><?= $offer['category']; ?></span>
+                    <h3><?= $offer['title']; ?></h3>
+                    <p><?= $offer['description']; ?></p>
+                    <a href="<?= $offer['link']; ?>" class="book-now">BOOK NOW</a>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</section>
 
 
 
