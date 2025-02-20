@@ -22,9 +22,9 @@ $menu_items = [
 <nav class="top-navbar">
     <img src="../media/mmt_dt_top_icon.avif" alt="logo" style="max-width: 200px;filter: drop-shadow(1px 1px 0.2px #333);">
 
-<div class="nav-div-item">List Your Property</div>
-<div class="nav-div-item">Introducing myBiz</div>
-<div class="nav-div-item">My Trips</div>
+<div class="nav-div-item"><p>List Your Property</p> <p class="small_text">Grow your business!</p></div>
+<div class="nav-div-item"><p>Introducing myBiz</p> <p class="small_text">Business Travel Solution</p></div>
+<div class="nav-div-item"><p>My Trips</p> <p class="small_text">Manage your bookings</p></div>
 
 
     <div style="display:flex;gap: 20px; flex-wrap:wrap;align-content: center;align-items: center;">
@@ -77,35 +77,3 @@ $menu_items = [
 </div>
 
 </header>
-
-<style>
-    header{
-        position:absolute;
-        width: 100%;
-        top:0;left:0;
-        z-index: 99;
-    }
-
-    .top-navbar{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 5px;
-    white-space: nowrap;
-    }
-    .nav-div-item{
-        border-left:1px solid #ddd;
-    }
-
-    .nav-menu-home{
-    background: #fff;
-    max-width: 1000px;
-    margin: auto;
-    box-shadow: 1px 1px 1px #ddd;
-    border-radius: 20px;
-    padding: 20px 10px;
-    display: flex;
-    gap: 20px;
-    justify-content: space-around;
-    }
-</style>

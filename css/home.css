@@ -3,6 +3,7 @@
 display: none;
 width: 100%;
 z-index: 1000;
+max-width: 1200px;
 }
 
 /* Sticky effect when scrolled past 100px */
@@ -104,6 +105,53 @@ gap: 20px;
 nav .more-dropdown {
 display: block;
 }
+}
+
+
+
+
+
+
+
+header{
+    position:absolute;
+    width: 100%;
+    top:0;left:0;
+    z-index: 99;
+}
+
+.top-navbar{
+display: flex;
+justify-content: space-around;
+align-items: center;
+padding: 10px 5px;
+white-space: nowrap;
+width: 100%;
+max-width: 1200px;
+color: #fff;
+}
+
+.nav-div-item{
+    border-left:1px solid #ddd;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.small_text{
+    font-size: 12px;
+}
+
+.nav-menu-home{
+background: #fff;
+max-width: 1000px;
+margin: auto;
+box-shadow: 1px 1px 1px #ddd;
+border-radius: 20px;
+padding: 20px 10px;
+display: flex;
+gap: 20px;
+justify-content: space-around;
 }
 
 
