@@ -115,8 +115,37 @@ Download App Now !
 </div>
 
 <div class="card" style="margin:50px auto">    
-Chennai Flights
+<div class="flights-container">
+    <?php
+    $flights = [
+        ["city" => "Chennai", "via" => "Delhi, Mumbai, Coimbatore, Madurai", "image" => "./media/bg7.jpg"],
+        ["city" => "Goa", "via" => "Delhi, Mumbai, Bangalore, Ahmedabad", "image" => "./media/bg7.jpg"],
+        ["city" => "Mumbai", "via" => "Delhi, Bangalore, Chennai, Ahmedabad", "image" => "./media/bg7.jpg"],
+        ["city" => "Hyderabad", "via" => "Chennai, Mumbai, Bangalore, Delhi", "image" => "./media/bg7.jpg"],
+        ["city" => "Delhi", "via" => "Mumbai, Pune, Bangalore, Chennai", "image" => "./media/bg7.jpg"],
+        ["city" => "Pune", "via" => "Delhi, Bangalore, Chennai, Ahmedabad", "image" => "./media/bg7.jpg"],
+        ["city" => "Kolkata", "via" => "Delhi, Mumbai, Bangalore, Pune", "image" => "./media/bg7.jpg"],
+        ["city" => "Bangalore", "via" => "Delhi, Pune, Mumbai, Kolkata", "image" => "./media/bg7.jpg"],
+        ["city" => "Jaipur", "via" => "Mumbai, Delhi, Pune, Bangalore", "image" => "./media/bg7.jpg"]
+    ];
+
+    foreach ($flights as $flight) {
+        echo '<div class="flight-card">
+                <img src="images/' . $flight["image"] . '" alt="' . $flight["city"] . '">
+                <div class="flight-info">
+                    <h3>' . $flight["city"] . ' Flights</h3>
+                    <p>Via - ' . $flight["via"] . '</p>
+                </div>
+              </div>';
+    }
+    ?>
 </div>
+
+</div>
+
+
+
+
 
 <div style="max-width:1200px;margin: 50px auto;" class="terms-condition">
 <b>MakeMyTrip</b>
