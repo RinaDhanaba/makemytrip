@@ -31,8 +31,6 @@ nav li { margin: 0 15px; }
 nav a {text-decoration: none; font-size: 12px; display: flex; align-items: center;flex-direction: column; }
 nav a i{font-size: 16px;}
 
-nav a:hover { color: #ddd; }
-
 /* More Dropdown */
 .more-dropdown {
 display: none;
@@ -40,7 +38,17 @@ display: none;
 
 /* Dropdowns */
 nav .dropdown { position: relative; display: inline-block; cursor: pointer; }
-nav .dropdown-button { padding: 10px; border: 1px solid #ccc; background: white; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+
+nav .dropdown-button { 
+    padding: 10px;
+    background: #fff3;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 14px; }
+    
 nav .dropdown-content {
 display: none; position: absolute;right: 0;background: white; border: 1px solid #ccc;
 min-width: 200px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); z-index: 1;

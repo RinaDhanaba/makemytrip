@@ -14,8 +14,8 @@
         </li>
     </ul>
 
-    <div style="display:flex;gap: 20px; flex-wrap:wrap;align-content: center;align-items: center;    flex-wrap: nowrap;">
-    <div>Login/ Create account</div>
+    <div style="display:flex;gap:7px; flex-wrap:wrap;align-content: center;align-items: center;    flex-wrap: nowrap;">
+    <div style="font-size:12px;">Login/ <br>Create account</div>
 
     <!-- Country Dropdown -->
     <div class="dropdown" id="countryDropdown">
