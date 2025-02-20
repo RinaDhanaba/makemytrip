@@ -52,9 +52,9 @@ function adjustNavbarWidth() {
 
     // Ensure navbar stays within its container
     if (navbar.scrollWidth > navbar.clientWidth) {
-        navbar.style.overflow = "hidden"; // Prevent horizontal scroll
+        navbar.style.overflowX = "hidden"; // Prevent horizontal scroll
     } else {
-        navbar.style.overflow = "";
+        navbar.style.overflowX = "";
     }
 
     // Handle sticky navbar effect when scrolling
