@@ -28,7 +28,11 @@ $menu_items = [
 
 
     <div style="display:flex;gap: 20px; flex-wrap:wrap;align-content: center;align-items: center;">
-    <div>Login/ Create account</div>
+    <div style="color: #fff;
+    font-size: 12px;
+    background-image: linear-gradient(93deg, #53b2fe, #065af3);
+    padding: 10px;
+    border-radius: 4px;">Login/ Create account</div>
 
     <!-- Country Dropdown -->
     <div class="dropdown" id="countryDropdown">

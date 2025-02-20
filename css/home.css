@@ -3,7 +3,6 @@
 display: none;
 width: 100%;
 z-index: 1000;
-max-width: 1200px;
 }
 
 /* Sticky effect when scrolled past 100px */
@@ -128,6 +127,7 @@ padding: 10px 5px;
 white-space: nowrap;
 width: 100%;
 max-width: 1200px;
+margin:auto;
 color: #fff;
 }
 
@@ -140,6 +140,11 @@ color: #fff;
 
 .small_text{
     font-size: 12px;
+}
+.nav-div-item p {margin:0; color:#fff;}
+
+.top-navbar .dropdown-button { 
+    color:#fff;
 }
 
 .nav-menu-home{
