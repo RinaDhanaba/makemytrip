@@ -75,12 +75,18 @@ window.addEventListener("scroll", handleStickyNavbar);
 // character limit
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".nav-item a").forEach(function(item) {
-        let text = item.innerText.trim();
-        if (text.length > 7) {
-            item.innerText = text.substring(0, 7) + "...";
+        let icon = item.querySelector("i");  // Get the <i> icon
+        let textNode = item.childNodes[1];  // Get the text after the icon
+
+        if (textNode && textNode.nodeType === 3) {  // Ensure it's a text node
+            let text = textNode.nodeValue.trim();
+            if (text.length > 10) {
+                textNode.nodeValue = text.substring(0, 10) + "...";
+            }
         }
     });
 });
+
 
 
 
