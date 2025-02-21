@@ -227,11 +227,11 @@ margin:30px auto;
     background: #f1f1f1;
   }
   .booking-container .btn-option.selected {
-    background: #007bff;
+    background: var(--primary-color);
     color: white;
   }
   .booking-container .btn-search {
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: #fff;
     border-radius: 20px;
     padding: 10px 20px;
@@ -242,7 +242,7 @@ margin:30px auto;
   .booking-container .swap-btn {
     font-size: 24px;
     cursor: pointer;
-    color: #007bff;
+    color: var(--primary-color);
     left: -20px;
     top: 50%;
     transform: translatey(-50%);
@@ -250,11 +250,11 @@ margin:30px auto;
     z-index: 1;
     width: 40px;
     height: 40px;
-    border: 1px solid #007bff;
+    border: none;
     border-radius: 50%;
   }
 
-  .booking-container .selected-value{
+  .booking-container .input-box .selected-value{
     font-weight: 800;
     font-size: 25px;
   }
@@ -264,6 +264,7 @@ margin:30px auto;
     color: gray;
     font-weight: normal;
     display: block;
+    text-wrap: auto;
   }
   /* Hidden inputs for flatpickr */
   .booking-container  #departureDateInput, #returnDateInput {

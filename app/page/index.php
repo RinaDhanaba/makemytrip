@@ -243,7 +243,7 @@
                 <div class="sub-text"></div>
                 </div>
                 <!-- Hidden input for Flatpickr -->
-                <input type="hidden" id="departureDateInput">
+                <input type="hidden" id="departureDateInput" class="position-relative">
             </div>
 
             <!-- Return Date + Clear Button -->
@@ -255,7 +255,7 @@
                 <button id="clearReturnDate" class="clear-btn">×</button>
                 </div>
                 <!-- Hidden input for Flatpickr -->
-                <input type="hidden" id="returnDateInput">
+                <input type="hidden" id="returnDateInput" class="position-relative">
             </div>
 
             <!-- Travellers & Class -->
