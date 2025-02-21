@@ -20,7 +20,8 @@ $menu_items = [
 
 <!-- top navbar  -->
 <nav class="top-navbar">
-    <img src="../media/mmt_dt_top_icon.avif" alt="logo" style="max-width: 200px;filter: drop-shadow(1px 1px 0.2px #333);">
+    <!-- <img src="../media/mmt_dt_top_icon.avif" alt="logo" style="max-width: 200px;filter: drop-shadow(1px 1px 0.2px #333);"> -->
+    <div class="logo">Beimond Travels</div>
 
 <div class="nav-div-item"><p>List Your Property</p> <p class="small_text">Grow your business!</p></div>
 <div class="nav-div-item"><p>Introducing myBiz</p> <p class="small_text">Business Travel Solution</p></div>

@@ -1,7 +1,8 @@
 <!-- Responsive Navigation Bar -->
 <nav class="navbar">
     <div class="navbar_inner">
-    <img src="../media/mmt_dt_top_icon.avif" alt="logo" style="max-width: 200px;filter: drop-shadow(1px 1px 0.2px #333);">
+    <!-- <img src="../media/mmt_dt_top_icon.avif" alt="logo" style="max-width: 200px;filter: drop-shadow(1px 1px 0.2px #333);"> -->
+    <div class="logo">Beimond Travels</div>
 
     <ul class="nav-menu">
         <?php foreach ($menu_items as $item => $data): ?>
