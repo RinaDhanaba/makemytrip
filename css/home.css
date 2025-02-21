@@ -68,6 +68,7 @@ nav .dropdown-content div {
 padding: 10px; display: flex; align-items: center; gap: 10px; cursor: pointer;
 }
 nav .dropdown-content div:hover { background: #f1f1f1; }
+nav  .dropdown-content.show {  display: block;  }
 nav .flag { width: 20px; height: 14px; }
 nav .search-box { width: 100%; padding: 8px; border: 1px solid #ccc; margin-bottom: 8px; }
 
