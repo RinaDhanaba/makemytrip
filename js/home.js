@@ -244,8 +244,8 @@ window.addEventListener("load", loadSavedSelections);
 
 
 
-   // Airport list
-   const airports = [
+  // Airport list
+  const airports = [
     { code: "BOM", city: "Mumbai",    country: "India", airport: "Chhatrapati Shivaji Intl Airport" },
     { code: "DEL", city: "Delhi",     country: "India", airport: "Indira Gandhi Intl Airport" },
     { code: "BLR", city: "Bengaluru", country: "India", airport: "Bengaluru Intl Airport" },
@@ -259,6 +259,7 @@ window.addEventListener("load", loadSavedSelections);
      ************************/
     $("#from .selected-value").text(`${airports[0].city}, ${airports[0].country}`);
     $("#from .sub-text").text(`${airports[0].airport} (${airports[0].code})`);
+
     const lastIndex = airports.length - 1;
     $("#to .selected-value").text(`${airports[lastIndex].city}, ${airports[lastIndex].country}`);
     $("#to .sub-text").text(`${airports[lastIndex].airport} (${airports[lastIndex].code})`);
@@ -284,7 +285,7 @@ window.addEventListener("load", loadSavedSelections);
     $("#from, #to").click(function(e) {
       e.stopPropagation();
       let dropdownId = $(this).attr("id") + "Dropdown";
-      $(".dropdown").not("#" + dropdownId).hide(); // close others
+      $(".dropdown").not("#" + dropdownId).hide();
       populateDropdown(dropdownId);
       $("#" + dropdownId).toggle();
     });
@@ -320,17 +321,8 @@ window.addEventListener("load", loadSavedSelections);
      ************************/
     const departureFlatpickr = flatpickr("#departureDateInput", {
       dateFormat: "d M Y",
-      minDate: "today",         // No past dates
-      defaultDate: "today",     // Today’s date by default
-      clickOpens: false,        // We'll open it manually
-      onReady: function(selectedDates, dateStr, instance) {
-        // Once it's ready, set the UI to today's date + weekday
-        if (selectedDates.length) {
-          const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
-          $("#departureDate .selected-value").text(dateStr);
-          $("#departureDate .sub-text").text(weekday);
-        }
-      },
+      minDate: "today",
+      clickOpens: false, // We'll open manually
       onChange: function(selectedDates, dateStr, instance) {
         if (selectedDates.length) {
           const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
@@ -355,37 +347,23 @@ window.addEventListener("load", loadSavedSelections);
       clickOpens: false,
       onChange: function(selectedDates, dateStr, instance) {
         if (dateStr) {
-          // If user picks a return date, switch to Round Trip
           if ($("#oneWay").is(":checked")) {
             $("#roundTrip").prop("checked", true);
           }
           const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
           $("#returnDate .selected-value").text(dateStr);
           $("#returnDate .sub-text").text(weekday);
-          // Show the clear button
-          $("#clearReturnDate").show();
         } else {
-          // If user clears the date, switch to One Way
           if ($("#roundTrip").is(":checked")) {
             $("#oneWay").prop("checked", true);
           }
-          $("#returnDate .selected-value").text("Select Date");
-          $("#returnDate .sub-text").text("");
-          $("#clearReturnDate").hide();
         }
       }
     });
 
-    // Open return date picker on div click
     $("#returnDate").on("click", function(e) {
       e.stopPropagation();
       returnFlatpickr.open();
-    });
-
-    // Clear button for return date
-    $("#clearReturnDate").click(function(e) {
-      e.stopPropagation();
-      returnFlatpickr.clear(); // triggers onChange -> switches to One Way
     });
 
     /************************
@@ -404,15 +382,14 @@ window.addEventListener("load", loadSavedSelections);
 
     $(".btn-option").click(function() {
       let category = $(this).data("category");
-      // Only allow one selection per category
       $(`.btn-option[data-category='${category}']`).removeClass("selected");
       $(this).addClass("selected");
     });
 
     $("#applyTravellers").click(function() {
-      let adults   = parseInt($("#adultsGroup .selected").data("value")   || 1);
-      let children = parseInt($("#childrenGroup .selected").data("value") || 0);
-      let infants  = parseInt($("#infantsGroup .selected").data("value")  || 0);
+      let adults   = $("#adultsGroup .selected").data("value")   || 1;
+      let children = $("#childrenGroup .selected").data("value") || 0;
+      let infants  = $("#infantsGroup .selected").data("value")  || 0;
       let travelClass = $("#classGroup .selected").data("value") || "Economy";
 
       let totalTravellers = adults + children + infants;
