@@ -200,11 +200,11 @@ margin:30px auto;
   }
   .flight-form-main .flight-form-inner:first-child {
     border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
   }
   
   .flight-form-main .flight-form-inner:last-child {
-    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
   }
 
