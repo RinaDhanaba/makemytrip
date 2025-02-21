@@ -34,24 +34,28 @@ $menu_items = [
 
     <!-- Country Dropdown -->
     <?php 
-    $countries = [
-        "IN" => ["name" => "India", "flag" => "https://flagcdn.com/w40/in.png"],
-        "AE" => ["name" => "UAE", "flag" => "https://flagcdn.com/w40/ae.png"],
-        "US" => ["name" => "USA", "flag" => "https://flagcdn.com/w40/us.png"]
-    ];
-    ?>
-    <div class="dropdown countryDropdown">
+$countries = [
+    "IN" => ["name" => "India", "flag" => "https://flagcdn.com/w40/in.png"],
+    "AE" => ["name" => "UAE", "flag" => "https://flagcdn.com/w40/ae.png"],
+    "US" => ["name" => "USA", "flag" => "https://flagcdn.com/w40/us.png"]
+];
+
+// Default Selected Country
+$defaultCountry = $countries["IN"];
+?>
+
+<div class="dropdown countryDropdown">
     <div class="dropdown-button" id="selectedCountry">
-        <img src="https://flagcdn.com/w40/in.png" class="flag"> ▼
+        <img src="<?= $defaultCountry['flag'] ?>" class="flag"> <?= $defaultCountry['name'] ?> ▼
     </div>
     <div class="dropdown-content" id="countryList">
         <?php foreach ($countries as $code => $country): ?>
-            <div class="country-item" data-country="<?= $code ?>">
+            <div class="country-item" data-code="<?= $code ?>" data-name="<?= $country['name'] ?>" data-flag="<?= $country['flag'] ?>">
                 <img src="<?= $country['flag'] ?>" class="flag"> <?= $country['name'] ?>
             </div>
         <?php endforeach; ?>
     </div>
-    </div>
+</div>
 
     <!-- Language Dropdown -->
     <div class="dropdown" id="languageDropdown">

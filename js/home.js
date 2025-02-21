@@ -216,9 +216,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Handle country selection
     document.querySelectorAll(".country-item").forEach(item => {
         item.addEventListener("click", function () {
-            const flag = this.querySelector("img").src;
-            const name = this.textContent.trim();
-            selectedCountry.innerHTML = `<img src="${flag}" class="flag"> ▼`;
+            const flag = this.getAttribute("data-flag");
+            const name = this.getAttribute("data-name");
+            
+            // Update selected country display
+            selectedCountry.innerHTML = `<img src="${flag}" class="flag"> ${name} ▼`;
+            
+            // Hide dropdown
             countryList.classList.remove("show");
         });
     });
@@ -228,7 +232,6 @@ document.addEventListener("DOMContentLoaded", function () {
         countryList.classList.remove("show");
     });
 });
-
 
 
 // Load saved selections on page load
