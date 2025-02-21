@@ -66,14 +66,21 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h5 class="mb-3">Book International and Domestic Flights</h5>
         <div class="flight-card">
             <div class="row g-3 align-items-center">
+                <div class="row">
                 <!-- Trip Type -->
-                <div class="col-md-auto">
+                <div class="col-md-6">
                     <input type="radio" name="tripType" id="oneWay" checked> <label for="oneWay">One Way</label>
                     <input type="radio" name="tripType" id="roundTrip"> <label for="roundTrip">Round Trip</label>
                 </div>
+
+                <!-- Small Heading -->
+                <div class="col-md-6 text-end">
+                    <span class="small-heading">Book International and Domestic Flights</span>
+                </div>
+                </div>
+
 
                 <!-- From Location -->
                 <div class="col-md-3 position-relative">
