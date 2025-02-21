@@ -115,15 +115,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 // Generic Dropdown Handler
-// document.querySelectorAll('.dropdown').forEach(dropdown => {
-//     const button = dropdown.querySelector('.dropdown-button');
-//     const content = dropdown.querySelector('.dropdown-content');
+document.querySelectorAll('.dropdown').forEach(dropdown => {
+    const button = dropdown.querySelector('.dropdown-button');
+    const content = dropdown.querySelector('.dropdown-content');
     
-//     button.addEventListener('click', () => content.classList.toggle('show'));
-//     document.addEventListener('click', (e) => {
-//         if (!dropdown.contains(e.target)) content.classList.remove('show');
-//     });
-// });
+    button.addEventListener('click', () => content.classList.toggle('show'));
+    document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) content.classList.remove('show');
+    });
+});
 
 
 // Function to load saved selections from sessionStorage
