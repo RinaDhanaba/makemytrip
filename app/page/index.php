@@ -221,12 +221,12 @@
             </div>
 
             <!-- Swap Button -->
-            <div class="col-md-auto text-center position-relative">
+            <div class="col-md-auto text-center position-relative" style="padding:0px;">
                 <button id="swapBtn" class="swap-btn position-absolute">⇄</button>
             </div>
 
             <!-- To Location -->
-            <div class="col-md-2 position-relative flight-form-inner" style="padding-left: 20px;">
+            <div class="col-md-2 position-relative flight-form-inner" style="padding-left: 30px;">
                 <label>To</label>
                 <div id="to" class="input-box">
                 <div class="selected-value">Select Destination</div>
