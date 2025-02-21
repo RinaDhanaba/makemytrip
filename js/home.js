@@ -320,6 +320,8 @@ $(document).ready(function() {
       minDate: "today",
       defaultDate: "today",
       clickOpens: false,
+      position: "auto", // Ensures automatic positioning below the input
+      appendTo: document.querySelector(".flight-form-inner"),
       onReady: function(selectedDates, dateStr) {
         if (selectedDates.length) {
           const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
@@ -348,6 +350,8 @@ $(document).ready(function() {
       dateFormat: "j M\\'y",
       minDate: "today",
       clickOpens: false,
+      position: "auto", // Ensures automatic positioning below the input
+      appendTo: document.querySelector(".flight-form-inner"),
       onChange: function(selectedDates, dateStr) {
         if (dateStr) {
           if ($("#oneWay").is(":checked")) {
