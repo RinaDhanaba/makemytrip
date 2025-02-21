@@ -130,8 +130,8 @@
                   if ($("#roundTrip").is(":checked")) {
                     $("#oneWay").prop("checked", true);
                   }
-                  $("#returnDate .selected-value").text("Select Date");
-                  $("#returnDate .sub-text").text("");
+                  $("#returnDate .selected-value").text("");
+                  $("#returnDate .sub-text").text("Tap to add a return date for bigger discounts");
                   $("#clearReturnDate").hide();
                 }
               }
@@ -209,7 +209,7 @@
             </div>
 
             <!-- Fields: From → Swap → To → Departure → Return → Travellers & Class -->
-            <div class="row g-3 align-items-top mt-1 flight-form-main" style="justify-content: space-between;">
+            <div class="row align-items-top flight-form-main">
             <!-- From Location -->
             <div class="col-md-2 position-relative flight-form-inner">
                 <label>From</label>
@@ -250,7 +250,7 @@
             <div class="col-md-2 position-relative flight-form-inner">
                 <label>Return</label>
                 <div id="returnDate" class="input-box">
-                <div class="selected-value">Select Date</div>
+                <div class="selected-value"></div>
                 <div class="sub-text">Tap to add a return date for bigger discounts</div>
                 <button id="clearReturnDate" class="clear-btn">×</button>
                 </div>

@@ -196,7 +196,7 @@ margin:30px auto;
     }
 
   .flight-form-main .flight-form-inner{
-  border:1px solid #ddd;
+  border:1px solid #ddd;flex: 1;
   }
 
 
