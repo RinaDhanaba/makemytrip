@@ -207,58 +207,64 @@ document.querySelectorAll(".currency-item, [data-lang]").forEach(item => {
 
 
 
-const countries = [
-    { name: "India", code: "in", flag: "https://flagcdn.com/w40/in.png" },
-    { name: "UAE", code: "ae", flag: "https://flagcdn.com/w40/ae.png" },
-    { name: "USA", code: "us", flag: "https://flagcdn.com/w40/us.png" }
-  ];
-  
-  document.querySelectorAll(".country-dropdown").forEach(dropdown => {
-    const optionsContainer = dropdown.querySelector(".country-options");
-    const button = dropdown.querySelector(".country-button");
-  
-    // Populate the country options list
-    countries.forEach(country => {
-      const optionItem = document.createElement("div");
-      optionItem.classList.add("dropdown-item");
-      optionItem.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
-      
-      optionItem.addEventListener("click", (e) => {
-        e.stopPropagation();
-        // Update the button with the selected country's flag and name
-        button.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name} ▼`;
-        // Save the selection (optional)
-        sessionStorage.setItem("selectedCountry", button.innerHTML);
-        // Close the options list
-        optionsContainer.classList.remove("show");
+document.addEventListener("DOMContentLoaded", function() {
+    const countries = [
+      { name: "India", code: "in", flag: "https://flagcdn.com/w40/in.png" },
+      { name: "UAE", code: "ae", flag: "https://flagcdn.com/w40/ae.png" },
+      { name: "USA", code: "us", flag: "https://flagcdn.com/w40/us.png" }
+    ];
+
+    // Helper to update the selection for a single dropdown instance
+    function updateCountrySelection(dropdown, country) {
+      const button = dropdown.querySelector(".dropdown-button");
+      const newHTML = `<img src="${country.flag}" class="flag"> ${country.name} ▼`;
+      button.innerHTML = newHTML;
+      // Optionally store the selection in sessionStorage
+      sessionStorage.setItem("selectedCountry", newHTML);
+    }
+
+    document.querySelectorAll(".countryDropdown").forEach(dropdown => {
+      const countryList = dropdown.querySelector(".dropdown-content");
+      const button = dropdown.querySelector(".dropdown-button");
+
+      // Populate the country list
+      countries.forEach(country => {
+        const div = document.createElement("div");
+        div.classList.add("dropdown-item");
+        div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
+        
+        // When an item is clicked, update only this dropdown's selection
+        div.addEventListener("click", (e) => {
+          e.stopPropagation();
+          updateCountrySelection(dropdown, country);
+          countryList.classList.remove("show");
+        });
+        
+        countryList.appendChild(div);
       });
-      
-      optionsContainer.appendChild(optionItem);
+    
+      // Toggle the dropdown list on button click
+      button.addEventListener("click", (e) => {
+        e.stopPropagation();
+        countryList.classList.toggle("show");
+      });
     });
     
-    // Toggle options list when the button is clicked
-    button.addEventListener("click", (e) => {
-      e.stopPropagation();
-      optionsContainer.classList.toggle("show");
+    // Close any open country dropdown when clicking outside
+    document.addEventListener("click", () => {
+      document.querySelectorAll(".countryDropdown .dropdown-content").forEach(list => {
+        list.classList.remove("show");
+      });
     });
-  });
-  
-  // Close any open country dropdowns when clicking outside
-  document.addEventListener("click", () => {
-    document.querySelectorAll(".country-dropdown .country-options").forEach(options => {
-      options.classList.remove("show");
-    });
-  });
-  
-  // On page load, restore any saved selection
-  document.addEventListener("DOMContentLoaded", () => {
-    const savedCountry = sessionStorage.getItem("selectedCountry");
-    if (savedCountry) {
-      document.querySelectorAll(".country-dropdown .country-button").forEach(button => {
-        button.innerHTML = savedCountry;
+    
+    // On page load, if a selection was saved, update all country dropdown buttons
+    const saved = sessionStorage.getItem("selectedCountry");
+    if (saved) {
+      document.querySelectorAll(".countryDropdown .dropdown-button").forEach(button => {
+        button.innerHTML = saved;
       });
     }
-  });  
+  });
 
 
 

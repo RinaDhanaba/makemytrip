@@ -20,11 +20,11 @@
     <div style="font-size:12px; text-align:center;">Login/ <br>Create account</div>
 
     <!-- Country Dropdown -->
-    <div class="country-dropdown">
-    <div class="country-button" id="selectedCountry">
+    <div class="dropdown countryDropdown">
+    <div class="dropdown-button" id="selectedCountry">
         <img src="https://flagcdn.com/w40/in.png" class="flag"> ▼
     </div>
-    <div class="country-options"></div>
+    <div class="dropdown-content"></div>
     </div>
 
     <!-- Language Dropdown -->
