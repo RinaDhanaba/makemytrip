@@ -259,92 +259,90 @@
 
 
         $(document).ready(function () {
-    // Close other dropdowns before opening a new one
-    $("#from, #to").click(function (event) {
-        event.stopPropagation();
-        let dropdownId = $(this).attr("id") + "Dropdown";
-        $(".dropdown").not(`#${dropdownId}`).hide(); // Close other dropdowns
-        populateDropdown($(this).attr("id"), dropdownId);
-        $(`#${dropdownId}`).toggle();
-    });
-
-    // Populate dropdowns with airport data
-    function populateDropdown(id, dropdownId) {
-        let dropdown = $(`#${dropdownId}`);
-        dropdown.empty();
-        airports.forEach(airport => {
-            dropdown.append(`
-                <div class="dropdown-item" data-code="${airport.code}">
-                    <div class="selected-value">${airport.city}, ${airport.country}</div>
-                    <div class="sub-text">${airport.airport} (${airport.code})</div>
-                </div>
-            `);
+        // Toggle Airport Dropdowns
+        $("#from, #to").click(function (event) {
+            event.stopPropagation();
+            let dropdownId = $(this).attr("id") + "Dropdown";
+            $(".dropdown").not(`#${dropdownId}`).hide(); // Close other dropdowns
+            populateDropdown($(this).attr("id"), dropdownId);
+            $(`#${dropdownId}`).toggle();
         });
-    }
 
-    // Handle dropdown selection
-    $(".dropdown").on("click", ".dropdown-item", function () {
-        let parentInput = $(this).closest(".position-relative").find(".input-box");
-        parentInput.find(".selected-value").text($(this).find(".selected-value").text());
-        parentInput.find(".sub-text").text($(this).find(".sub-text").text());
-        $(this).closest(".dropdown").hide();
-    });
-
-    // Prevent dropdown from closing when clicking inside
-    $(".dropdown").click(function (event) {
-        event.stopPropagation();
-    });
-
-    // Close dropdowns when clicking outside
-    $(document).click(function (event) {
-        if (!$(event.target).closest(".input-box, .dropdown").length) {
-            $(".dropdown").hide();
+        // Populate dropdowns with airport data
+        function populateDropdown(id, dropdownId) {
+            let dropdown = $(`#${dropdownId}`);
+            dropdown.empty();
+            airports.forEach(airport => {
+                dropdown.append(`
+                    <div class="dropdown-item" data-code="${airport.code}">
+                        <div class="selected-value">${airport.city}, ${airport.country}</div>
+                        <div class="sub-text">${airport.airport} (${airport.code})</div>
+                    </div>
+                `);
+            });
         }
-    });
 
-    // Toggle Traveller Dropdown
-    $("#travellers").click(function (event) {
-        event.stopPropagation();
-        $("#travellersDropdown").toggle();
-    });
+        // Handle Airport Selection
+        $(".dropdown").on("click", ".dropdown-item", function () {
+            let parentInput = $(this).closest(".position-relative").find(".input-box");
+            parentInput.find(".selected-value").text($(this).find(".selected-value").text());
+            parentInput.find(".sub-text").text($(this).find(".sub-text").text());
+            $(this).closest(".dropdown").hide();
+        });
 
-    // Close traveller dropdown when clicking outside
-    $(document).click(function (event) {
-        if (!$(event.target).closest("#travellersDropdown, #travellers").length) {
+        // Prevent dropdown from closing when clicking inside
+        $(".dropdown").click(function (event) {
+            event.stopPropagation();
+        });
+
+        // Close all dropdowns when clicking outside
+        $(document).click(function (event) {
+            if (!$(event.target).closest(".input-box, .dropdown").length) {
+                $(".dropdown").hide();
+            }
+        });
+
+        // Toggle Traveller Dropdown
+        $("#travellers").click(function (event) {
+            event.stopPropagation();
+            $("#travellersDropdown").toggle();
+        });
+
+        // Close Traveller dropdown when clicking outside
+        $(document).click(function (event) {
+            if (!$(event.target).closest("#travellersDropdown, #travellers").length) {
+                $("#travellersDropdown").hide();
+            }
+        });
+
+        // Handle Traveller & Class Selection
+        $(".btn-option").click(function () {
+            let category = $(this).data("category");
+            $(`.btn-option[data-category="${category}"]`).removeClass("selected");
+            $(this).addClass("selected");
+        });
+
+        // Apply Traveller Selection
+        $("#applyTravellers").click(function () {
+            let adults = $("#adultsGroup .selected").data("value") || 1;
+            let children = $("#childrenGroup .selected").data("value") || 0;
+            let infants = $("#infantsGroup .selected").data("value") || 0;
+            let travelClass = $("#classGroup .selected").data("value") || "Economy";
+
+            let totalTravellers = parseInt(adults) + parseInt(children) + parseInt(infants);
+            $("#travellers .selected-value").text(`${totalTravellers} Traveller${totalTravellers > 1 ? 's' : ''}`);
+            $("#travellers .sub-text").text(travelClass);
+
             $("#travellersDropdown").hide();
-        }
+        });
+
+        // Initialize Date Pickers
+        $("#departureDate, #returnDate").flatpickr({ dateFormat: "d M Y", minDate: "today" });
+
+        // Show return date if round trip is selected
+        $("#roundTrip").change(function () { $("#returnDateContainer").fadeIn(); });
+        $("#oneWay").change(function () { $("#returnDateContainer").fadeOut(); });
     });
-
-    // Handle Traveller & Class Selection
-    $(".btn-option").click(function () {
-        let category = $(this).data("category");
-        $(`.btn-option[data-category="${category}"]`).removeClass("selected");
-        $(this).addClass("selected");
-    });
-
-    // Apply Traveller Selection
-    $("#applyTravellers").click(function () {
-        let adults = $("#adultsGroup .selected").data("value") || 1;
-        let children = $("#childrenGroup .selected").data("value") || 0;
-        let infants = $("#infantsGroup .selected").data("value") || 0;
-        let travelClass = $("#classGroup .selected").data("value") || "Economy";
-
-        let totalTravellers = parseInt(adults) + parseInt(children) + parseInt(infants);
-        $("#travellers .selected-value").text(`${totalTravellers} Traveller${totalTravellers > 1 ? 's' : ''}`);
-        $("#travellers .sub-text").text(travelClass);
-
-        $("#travellersDropdown").hide();
-    });
-
-    // Initialize Date Pickers
-    $("#departureDate, #returnDate").flatpickr({ dateFormat: "d M Y", minDate: "today" });
-
-    // Show return date if round trip is selected
-    $("#roundTrip").change(function () { $("#returnDateContainer").fadeIn(); });
-    $("#oneWay").change(function () { $("#returnDateContainer").fadeOut(); });
-});
-
-
 
 
 
