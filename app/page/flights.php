@@ -90,6 +90,39 @@
             border-radius: 20px;
             font-weight: bold;
         }
+
+
+        #travellers {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#travellers .sub-text {
+    font-size: 12px;
+    color: gray;
+    font-weight: normal;
+}
+
+#travellersDropdown {
+    display: none;
+    position: absolute;
+    background: white;
+    width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 15px;
+}
+
+
     </style>
 </head>
 <body>
@@ -143,36 +176,65 @@
                 </div>
 
                 <!-- Travellers & Class -->
-                <div class="col-md-3">
-                    <label>Travellers & Class</label>
-                    <div id="travellers" class="input-box">1 Traveller - Economy</div>
-                    <div class="dropdown p-3" id="travellersDropdown">
-                        <label>Adults (12+)</label>
-                        <div class="d-flex flex-wrap" id="adultsGroup">
-                            <span class="btn-option selected" data-value="1">1</span>
-                            <span class="btn-option" data-value="2">2</span>
-                            <span class="btn-option" data-value="3">3</span>
-                            <span class="btn-option" data-value="4">4</span>
-                            <span class="btn-option" data-value=">9">>9</span>
+                <?php
+                    // Define options as arrays
+                    $travellerOptions = [
+                        "adults" => range(1, 9),  // 1 to 9 adults
+                        "children" => range(0, 6), // 0 to 6 children
+                        "infants" => range(0, 2)   // 0 to 2 infants
+                    ];
+
+                    $classOptions = [
+                        "Economy" => "Economy/Premium Economy",
+                        "Business" => "Business",
+                        "First Class" => "First Class"
+                    ];
+                    ?>
+                <div class="container mt-5">
+                    <div class="row g-3 align-items-center">
+                        <!-- Travellers & Class -->
+                        <div class="col-md-4 position-relative">
+                            <label>Travellers & Class</label>
+                            <div id="travellers">
+                                <span class="selected-value">1 Traveller</span>
+                                <span class="sub-text">Economy</span>
+                            </div>
+                            <div class="dropdown p-3" id="travellersDropdown">
+                                <!-- Adults -->
+                                <label>Adults (12+)</label>
+                                <div class="d-flex flex-wrap" id="adultsGroup">
+                                    <?php foreach ($travellerOptions['adults'] as $value) { ?>
+                                        <span class="btn-option" data-category="adults" data-value="<?= $value; ?>"><?= $value; ?></span>
+                                    <?php } ?>
+                                </div>
+                                
+                                <!-- Children -->
+                                <label>Children (2-12)</label>
+                                <div class="d-flex flex-wrap" id="childrenGroup">
+                                    <?php foreach ($travellerOptions['children'] as $value) { ?>
+                                        <span class="btn-option" data-category="children" data-value="<?= $value; ?>"><?= $value; ?></span>
+                                    <?php } ?>
+                                </div>
+
+                                <!-- Infants -->
+                                <label>Infants (Below 2)</label>
+                                <div class="d-flex flex-wrap" id="infantsGroup">
+                                    <?php foreach ($travellerOptions['infants'] as $value) { ?>
+                                        <span class="btn-option" data-category="infants" data-value="<?= $value; ?>"><?= $value; ?></span>
+                                    <?php } ?>
+                                </div>
+
+                                <!-- Class Selection -->
+                                <label>Choose Travel Class</label>
+                                <div class="d-flex" id="classGroup">
+                                    <?php foreach ($classOptions as $key => $label) { ?>
+                                        <span class="btn-option" data-category="class" data-value="<?= $key; ?>"><?= $label; ?></span>
+                                    <?php } ?>
+                                </div>
+
+                                <button class="btn btn-apply mt-3" id="applyTravellers">APPLY</button>
+                            </div>
                         </div>
-                        <label>Children (2-12)</label>
-                        <div class="d-flex flex-wrap" id="childrenGroup">
-                            <span class="btn-option selected" data-value="0">0</span>
-                            <span class="btn-option" data-value="1">1</span>
-                            <span class="btn-option" data-value=">6">>6</span>
-                        </div>
-                        <label>Infants (Below 2)</label>
-                        <div class="d-flex flex-wrap" id="infantsGroup">
-                            <span class="btn-option selected" data-value="0">0</span>
-                            <span class="btn-option" data-value="1">1</span>
-                        </div>
-                        <label>Choose Travel Class</label>
-                        <div class="d-flex" id="classGroup">
-                            <span class="btn-option selected" data-value="Economy">Economy/Premium Economy</span>
-                            <span class="btn-option" data-value="Business">Business</span>
-                            <span class="btn-option" data-value="First Class">First Class</span>
-                        </div>
-                        <button class="btn btn-apply mt-3" id="applyTravellers">APPLY</button>
                     </div>
                 </div>
 
@@ -236,42 +298,46 @@
 
 
 
+
         $(document).ready(function () {
-    // Toggle Traveller Dropdown
-    $("#travellers").click(function (event) {
-        event.stopPropagation(); // Prevents closing when clicking inside
-        $("#travellersDropdown").toggle();
-    });
+            // Toggle Traveller Dropdown
+            $("#travellers").click(function (event) {
+                event.stopPropagation(); // Prevents closing when clicking inside
+                $("#travellersDropdown").toggle();
+            });
 
-    // Close dropdown if clicked outside
-    $(document).click(function (event) {
-        if (!$(event.target).closest("#travellersDropdown, #travellers").length) {
-            $("#travellersDropdown").hide();
-        }
-    });
+            // Close dropdown if clicked outside
+            $(document).click(function (event) {
+                if (!$(event.target).closest("#travellersDropdown, #travellers").length) {
+                    $("#travellersDropdown").hide();
+                }
+            });
 
-    // Handle button selection
-    $(".btn-option").click(function () {
-        $(this).siblings().removeClass("selected");
-        $(this).addClass("selected");
-    });
+            // Handle button selection
+            $(".btn-option").click(function () {
+                let category = $(this).data("category");
+                
+                // Reset selection in the category
+                $(`.btn-option[data-category="${category}"]`).removeClass("selected");
+                $(this).addClass("selected");
+            });
 
-    // Apply selection
-    $("#applyTravellers").click(function () {
-        let adults = $("#adultsGroup .selected").text();
-        let children = $("#childrenGroup .selected").text();
-        let infants = $("#infantsGroup .selected").text();
-        let travelClass = $("#classGroup .selected").text();
+            // Apply selection
+            $("#applyTravellers").click(function () {
+                let adults = $("#adultsGroup .selected").data("value") || 1;
+                let children = $("#childrenGroup .selected").data("value") || 0;
+                let infants = $("#infantsGroup .selected").data("value") || 0;
+                let travelClass = $("#classGroup .selected").data("value") || "Economy";
 
-        let displayText = `${adults} Adult${adults > 1 ? 's' : ''}`;
-        if (children !== "0") displayText += `, ${children} Child${children > 1 ? 'ren' : ''}`;
-        if (infants !== "0") displayText += `, ${infants} Infant${infants > 1 ? 's' : ''}`;
-        displayText += ` - ${travelClass}`;
+                let totalTravellers = parseInt(adults) + parseInt(children) + parseInt(infants);
+                
+                $("#travellers .selected-value").text(`${totalTravellers} Traveller${totalTravellers > 1 ? 's' : ''}`);
+                $("#travellers .sub-text").text(travelClass);
+                
+                $("#travellersDropdown").hide();
+            });
+        });
 
-        $("#travellers").text(displayText);
-        $("#travellersDropdown").hide();
-    });
-});
 
 
     </script>
