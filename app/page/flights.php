@@ -92,7 +92,6 @@
       border: none;
       cursor: pointer;
     }
-
     #travellers {
       background: #f8f9fa;
       border-radius: 10px;
@@ -113,23 +112,27 @@
 <body>
 <div class="container mt-5">
   <div class="flight-card">
+    <!-- Top Row: Trip Types + Right-aligned text -->
     <div class="row g-3 align-items-center">
-
-      <!-- Trip Type -->
       <div class="col-md-6">
         <input type="radio" name="tripType" id="oneWay" checked>
         <label for="oneWay">One Way</label>
         <input type="radio" name="tripType" id="roundTrip">
         <label for="roundTrip">Round Trip</label>
+        <input type="radio" name="tripType" id="multiCity">
+        <label for="multiCity">Multi City</label>
       </div>
-
-      <!-- Small Heading -->
       <div class="col-md-6 text-end">
         <span style="font-size:14px; color:gray;">Book International and Domestic Flights</span>
       </div>
+    </div>
 
+    <hr><!-- Just a horizontal separator for clarity -->
+
+    <!-- Second Row: From → To → Departure → Return → Travellers & Class → SEARCH -->
+    <div class="row g-3 align-items-center mt-1">
       <!-- From Location -->
-      <div class="col-md-3 position-relative">
+      <div class="col-md-2 position-relative">
         <label>From</label>
         <div id="from" class="input-box">
           <div class="selected-value">Select Departure</div>
@@ -138,8 +141,13 @@
         <div class="dropdown" id="fromDropdown"></div>
       </div>
 
+      <!-- Arrow or plane icon between From and To (optional) -->
+      <div class="col-md-auto text-center" style="font-size:24px;">
+        &rarr;
+      </div>
+
       <!-- To Location -->
-      <div class="col-md-3 position-relative">
+      <div class="col-md-2 position-relative">
         <label>To</label>
         <div id="to" class="input-box">
           <div class="selected-value">Select Destination</div>
@@ -173,7 +181,7 @@
           "First Class" => "First Class"
         ];
       ?>
-      <div class="col-md-3 position-relative">
+      <div class="col-md-2 position-relative">
         <label>Travellers & Class</label>
         <div id="travellers" class="input-box">
           <span class="selected-value">1 Traveller</span>
@@ -217,8 +225,8 @@
       </div>
 
       <!-- Search Button -->
-      <div class="col-md-auto mt-4">
-        <button class="btn-search">SEARCH</button>
+      <div class="col-md-auto">
+        <button class="btn-search mt-4">SEARCH</button>
       </div>
     </div>
   </div>
@@ -242,7 +250,7 @@
     $("#from, #to").click(function(e) {
       e.stopPropagation();
       let dropdownId = $(this).attr("id") + "Dropdown";
-      // Close other dropdowns
+      // Close other airport dropdowns
       $(".dropdown").not("#" + dropdownId).hide();
       // Populate & toggle
       populateDropdown($(this).attr("id"), dropdownId);
@@ -292,6 +300,7 @@
     });
     $("#oneWay").change(function() {
       $("#returnDateContainer").fadeOut();
+      $("#returnDate").val(""); // clear any existing return date
     });
 
     /************************
@@ -314,7 +323,7 @@
     $(".btn-option").click(function() {
       let category = $(this).data("category");
       // Only allow one selected per category
-      $(`.btn-option[data-category="${category}"]`).removeClass("selected");
+      $(`.btn-option[data-category='${category}']`).removeClass("selected");
       $(this).addClass("selected");
     });
 
