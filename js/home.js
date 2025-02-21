@@ -201,10 +201,18 @@ document.querySelectorAll(".currency-item, [data-lang]").forEach(item => {
     });
 });
 
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const selectedCountry = document.getElementById("selectedCountry");
     const countryList = document.getElementById("countryList");
-    
+
+    // Toggle dropdown on button click
+    selectedCountry.addEventListener("click", (event) => {
+        event.stopPropagation();
+        countryList.classList.toggle("show");
+    });
+
     // Handle country selection
     document.querySelectorAll(".country-item").forEach(item => {
         item.addEventListener("click", function () {
@@ -215,7 +223,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    // Close dropdown when clicking outside
+    document.addEventListener("click", () => {
+        countryList.classList.remove("show");
+    });
 });
+
+
 
 // Load saved selections on page load
 window.addEventListener("load", loadSavedSelections);
