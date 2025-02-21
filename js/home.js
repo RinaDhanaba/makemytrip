@@ -203,7 +203,7 @@ document.querySelectorAll(".currency-item, [data-lang]").forEach(item => {
 
 
 // Country Dropdown Population
-const countries = [
+const country = [
     { name: "India", code: "in", flag: "https://flagcdn.com/w40/in.png" },
     { name: "UAE", code: "ae", flag: "https://flagcdn.com/w40/ae.png" },
     { name: "USA", code: "us", flag: "https://flagcdn.com/w40/us.png" }
@@ -211,43 +211,17 @@ const countries = [
 
 const countryDropdown = document.querySelector(".countryDropdown");
 const selectedCountry = document.getElementById("selectedCountry");
-const countryList = document.createElement("div");
-countryList.classList.add("dropdown-content");
 
-// Populate dropdown list
-countries.forEach(country => {
+country.forEach(country => {
     let div = document.createElement("div");
     div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
     div.addEventListener("click", () => {
-        selectedCountry.innerHTML = `<img src="${country.flag}" class="flag"> ▼`;
-        countryList.classList.remove("show");
+        const countryHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
+        updateSelection("selectedCountry", countryHTML);
+        countryDropdown.classList.remove("show");
     });
-    countryList.appendChild(div);
+    countryDropdown.appendChild(div);
 });
-// Append dropdown list to the container
-countryDropdown.appendChild(countryList);
-
-// Toggle dropdown on button click
-selectedCountry.addEventListener("click", (event) => {
-    event.stopPropagation(); // Prevent immediate closing
-    countryList.classList.toggle("show");
-});
-
-// Close dropdown when clicking outside
-document.addEventListener("click", () => {
-    countryList.classList.remove("show");
-});
-
-// countries.forEach(country => {
-//     let div = document.createElement("div");
-//     div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
-//     div.addEventListener("click", () => {
-//         const countryHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
-//         updateSelection("selectedCountry", countryHTML);
-//         countryList.classList.remove("show");
-//     });
-//     countryList.appendChild(div);
-// });
 
 
 // Load saved selections on page load
