@@ -47,7 +47,7 @@ display: none;
 }
 
 /* Dropdowns */
-nav .dropdown { position: relative; display: inline-block; cursor: pointer; }
+nav .generic-dropdown { position: relative; display: inline-block; cursor: pointer; }
 
 nav .dropdown-button { 
     padding: 10px;
@@ -153,7 +153,7 @@ color: #fff;
 .nav-menu-home{
 background: #fff;
 max-width: 1000px;
-margin: auto;
+margin: 40px auto 0;;
 box-shadow: 1px 1px 1px #ddd;
 border-radius: 20px;
 padding: 20px 10px;
@@ -193,6 +193,8 @@ margin:30px auto;
 
 
 
+.booking-container{    margin-top: 80px;}
+
 .booking-container .flight-card {
     background: #fff;
     padding: 80px clamp(5px, 2vw, 25px) 0;
@@ -230,9 +232,10 @@ margin:30px auto;
     padding: 8px 12px;
     margin: 4px 0;
     border-radius: 6px;
+    background: #f1f1f1;
   }
   .booking-container .dropdown-item:hover, .btn-option:hover {
-    background: #f1f1f1;
+    background: #fff6ef;
   }
   .booking-container .btn-option.selected {
     background: var(--primary-color);
@@ -246,6 +249,8 @@ margin:30px auto;
     font-weight: bold;
     border: none;
     cursor: pointer;
+    position: relative;
+    top: 50%;
   }
   .booking-container .swap-btn {
     font-size: 24px;
@@ -274,6 +279,13 @@ margin:30px auto;
     display: block;
     text-wrap: auto;
   }
+
+  .booking-container #travellersDropdown {
+    width: 100%;
+    min-width: 20vw;
+    font-size: 12px;
+}
+
   /* Hidden inputs for flatpickr */
   .booking-container  #departureDateInput, #returnDateInput {
     display: none !important;

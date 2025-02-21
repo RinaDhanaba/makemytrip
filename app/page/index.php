@@ -54,7 +54,7 @@
                 <div class="sub-text"></div>
                 </div>
                 <!-- Hidden input for Flatpickr -->
-                <input type="hidden" id="departureDateInput" class="position-relative">
+                <input type="text" id="departureDateInput" class="position-relative d-none">
             </div>
 
             <!-- Return Date + Clear Button -->
@@ -66,7 +66,7 @@
                 <button id="clearReturnDate" class="clear-btn">×</button>
                 </div>
                 <!-- Hidden input for Flatpickr -->
-                <input type="hidden" id="returnDateInput" class="position-relative">
+                <input type="text" id="returnDateInput" class="position-relative d-none">
             </div>
 
             <!-- Travellers & Class -->
@@ -79,28 +79,28 @@
                 <!-- Travellers Dropdown -->
                 <div class="dropdown-menu" id="travellersDropdown" style="padding: 15px;">
                 <label>ADULTS (12+)</label>
-                <div class="d-flex flex-wrap" id="adultsGroup">
+                <div class="d-flex flex-wrap gap-1" id="adultsGroup">
                     <span class="btn-option" data-category="adults" data-value="1">1</span>
                     <span class="btn-option" data-category="adults" data-value="2">2</span>
                     <span class="btn-option" data-category="adults" data-value="3">3</span>
                 </div>
                 <hr>
                 <label>CHILDREN (2y - 12y)</label>
-                <div class="d-flex flex-wrap" id="childrenGroup">
+                <div class="d-flex flex-wrap gap-1" id="childrenGroup">
                     <span class="btn-option" data-category="children" data-value="0">0</span>
                     <span class="btn-option" data-category="children" data-value="1">1</span>
                     <span class="btn-option" data-category="children" data-value="2">2</span>
                 </div>
                 <hr>
                 <label>INFANTS (below 2y)</label>
-                <div class="d-flex flex-wrap" id="infantsGroup">
+                <div class="d-flex flex-wrap gap-1" id="infantsGroup">
                     <span class="btn-option" data-category="infants" data-value="0">0</span>
                     <span class="btn-option" data-category="infants" data-value="1">1</span>
                     <span class="btn-option" data-category="infants" data-value="2">2</span>
                 </div>
                 <hr>
                 <label>CHOOSE TRAVEL CLASS</label>
-                <div class="d-flex flex-wrap" id="classGroup">
+                <div class="d-flex flex-wrap gap-1" id="classGroup">
                     <span class="btn-option" data-category="class" data-value="Economy">Economy/Premium Economy</span>
                     <span class="btn-option" data-category="class" data-value="Business">Business</span>
                     <span class="btn-option" data-category="class" data-value="First Class">First Class</span>
