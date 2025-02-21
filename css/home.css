@@ -27,6 +27,13 @@ display: block;
     margin: auto;
 }
 
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    font-style: oblique;
+    color: #ccc;
+}
+
 nav ul { list-style: none; display: flex; margin: 0; padding: 0; gap:10px}
 
 nav li { margin: 0 15px; }
