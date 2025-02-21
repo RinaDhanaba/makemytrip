@@ -214,6 +214,7 @@ const countries = [
     { name: "USA", code: "us", flag: "https://flagcdn.com/w40/us.png" }
 ];
 
+
 document.querySelectorAll(".countryDropdown").forEach(dropdown => {
     const countryList = dropdown.querySelector(".dropdown-content");
     const button = dropdown.querySelector(".dropdown-button");
@@ -225,26 +226,16 @@ document.querySelectorAll(".countryDropdown").forEach(dropdown => {
         div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
 
         div.addEventListener("click", () => {
-            // Update dropdown button with selected country flag and indicator
-            button.innerHTML = `<img src="${country.flag}" class="flag"> ▼`;
-            // Close the dropdown
+            const countryHTML = `<img src="${country.flag}" class="flag">`;
+
+            // Update all country dropdowns
+            updateSelection("selectedCountry", countryHTML);
+
+            // Close dropdown
             countryList.classList.remove("show");
         });
 
         countryList.appendChild(div);
-    });
-
-    // Toggle dropdown on button click
-    button.addEventListener("click", (e) => {
-        e.stopPropagation();
-        countryList.classList.toggle("show");
-    });
-});
-
-// Close the dropdown when clicking outside
-document.addEventListener("click", (e) => {
-    document.querySelectorAll(".dropdown-content").forEach(countryList => {
-        countryList.classList.remove("show");
     });
 });
 
