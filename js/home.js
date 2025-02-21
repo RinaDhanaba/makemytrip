@@ -205,8 +205,8 @@ document.querySelectorAll(".country-item, .currency-item, [data-lang]").forEach(
             value = flagImg;
         } 
         else if (item.hasAttribute("data-lang")) {
-            // Instead of using data-lang (which is "hi"), use the full text inside the div (e.g., "हिंदी")
-            value = item.innerText;
+            // Take the first 3 characters of the full language name and convert to uppercase
+            value = item.innerText.substring(0, 3).toUpperCase();
         } 
         else if (item.hasAttribute("data-currency")) {
             // Extract currency code
