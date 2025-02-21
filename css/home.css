@@ -465,6 +465,9 @@ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 padding: 10px;
 flex:1;
 }
+.ad-card img{
+    width: 90px;
+}
 
 
 
