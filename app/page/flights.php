@@ -27,6 +27,7 @@
       background: #fff;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     }
+    /* Airport dropdown styling */
     .dropdown {
       display: none;
       position: absolute;
@@ -46,6 +47,8 @@
     .dropdown-item:hover {
       background: #f1f1f1;
     }
+
+    /* Travellers dropdown styling */
     .dropdown-menu {
       display: none;
       position: absolute;
@@ -161,13 +164,13 @@
       <!-- Departure Date -->
       <div class="col-md-2">
         <label>Departure</label>
-        <input type="text" id="departureDate" class="form-control" placeholder="Tap to add departure date">
+        <input type="text" id="departureDate" class="form-control" placeholder="Select date">
       </div>
 
       <!-- Return Date (Always Visible) -->
       <div class="col-md-2" id="returnDateContainer">
         <label>Return</label>
-        <input type="text" id="returnDate" class="form-control" placeholder="Tap to add a return date for bigger discounts">
+        <input type="text" id="returnDate" class="form-control" placeholder="Select date">
       </div>
 
       <!-- Travellers & Class -->
@@ -237,11 +240,11 @@
 <script>
   // Airport list
   const airports = [
-    { code: \"BOM\", city: \"Mumbai\",    country: \"India\", airport: \"Chhatrapati Shivaji International Airport\" },
-    { code: \"DEL\", city: \"Delhi\",     country: \"India\", airport: \"Indira Gandhi International Airport\" },
-    { code: \"BLR\", city: \"Bengaluru\", country: \"India\", airport: \"Bengaluru International Airport\" },
-    { code: \"HYD\", city: \"Hyderabad\", country: \"India\", airport: \"Rajiv Gandhi International Airport\" },
-    { code: \"MAA\", city: \"Chennai\",   country: \"India\", airport: \"Chennai International Airport\" }
+    { code: "BOM", city: "Mumbai",    country: "India", airport: "Chhatrapati Shivaji International Airport" },
+    { code: "DEL", city: "Delhi",     country: "India", airport: "Indira Gandhi International Airport" },
+    { code: "BLR", city: "Bengaluru", country: "India", airport: "Bengaluru International Airport" },
+    { code: "HYD", city: "Hyderabad", country: "India", airport: "Rajiv Gandhi International Airport" },
+    { code: "MAA", city: "Chennai",   country: "India", airport: "Chennai International Airport" }
   ];
 
   $(document).ready(function() {
@@ -250,14 +253,12 @@
      * Auto-Select From/To  *
      ************************/
     // First airport in 'From'
-    let first = airports[0];
-    let last  = airports[airports.length - 1];
-    $("#from .selected-value").text(`${first.city}, ${first.country}`);
-    $("#from .sub-text").text(`${first.airport} (${first.code})`);
-
+    $("#from .selected-value").text(`${airports[0].city}, ${airports[0].country}`);
+    $("#from .sub-text").text(`${airports[0].airport} (${airports[0].code})`);
     // Last airport in 'To'
-    $("#to .selected-value").text(`${last.city}, ${last.country}`);
-    $("#to .sub-text").text(`${last.airport} (${last.code})`);
+    const lastIndex = airports.length - 1;
+    $("#to .selected-value").text(`${airports[lastIndex].city}, ${airports[lastIndex].country}`);
+    $("#to .sub-text").text(`${airports[lastIndex].airport} (${airports[lastIndex].code})`);
 
     /************************
      *  Swap Functionality  *
@@ -278,100 +279,80 @@
     /************************
      *  Airport Dropdowns   *
      ************************/
-    // Toggle the \"From\" and \"To\" dropdowns
-    $(\"#from, #to\").click(function(e) {
+    // Toggle the "From" and "To" dropdowns
+    $("#from, #to").click(function(e) {
       e.stopPropagation();
-      let dropdownId = $(this).attr(\"id\") + \"Dropdown\";
+      let dropdownId = $(this).attr("id") + "Dropdown";
       // Close other airport dropdowns
-      $(\".dropdown\").not(\"#\" + dropdownId).hide();
+      $(".dropdown").not("#" + dropdownId).hide();
       // Populate & toggle
-      populateDropdown($(this).attr(\"id\"), dropdownId);
-      $(\"#\" + dropdownId).toggle();
+      populateDropdown($(this).attr("id"), dropdownId);
+      $("#" + dropdownId).toggle();
     });
 
     // Populate the dropdown with airport data
     function populateDropdown(inputId, dropdownId) {
-      let dropdownEl = $(\"#\" + dropdownId);
+      let dropdownEl = $("#" + dropdownId);
       dropdownEl.empty(); // clear old items
       airports.forEach(airport => {
         dropdownEl.append(`
-          <div class=\"dropdown-item\" data-code=\"${airport.code}\">
-            <div class=\"selected-value\">${airport.city}, ${airport.country}</div>
-            <div class=\"sub-text\">${airport.airport} (${airport.code})</div>
+          <div class="dropdown-item" data-code="${airport.code}">
+            <div class="selected-value">${airport.city}, ${airport.country}</div>
+            <div class="sub-text">${airport.airport} (${airport.code})</div>
           </div>
         `);
       });
     }
 
-    // When an airport is clicked, update the \"From\" or \"To\" text
-    $(\".dropdown\").on(\"click\", \".dropdown-item\", function() {
-      let parentBox = $(this).closest(\".position-relative\").find(\".input-box\");
-      parentBox.find(\".selected-value\").text($(this).find(\".selected-value\").text());
-      parentBox.find(\".sub-text\").text($(this).find(\".sub-text\").text());
-      $(this).closest(\".dropdown\").hide();
+    // When an airport is clicked, update the "From" or "To" text
+    $(".dropdown").on("click", ".dropdown-item", function() {
+      let parentBox = $(this).closest(".position-relative").find(".input-box");
+      parentBox.find(".selected-value").text($(this).find(".selected-value").text());
+      parentBox.find(".sub-text").text($(this).find(".sub-text").text());
+      $(this).closest(".dropdown").hide();
     });
 
     // Close airport dropdown if clicked outside
     $(document).click(function(e) {
-      if (!$(e.target).closest(\".input-box, .dropdown\").length) {
-        $(\".dropdown\").hide();
+      if (!$(e.target).closest(".input-box, .dropdown").length) {
+        $(".dropdown").hide();
       }
     });
-
-    /************************
-     *   Custom Date Format *
-     ************************/
-    function formatDate(dateObj) {
-      // e.g. \"22 Feb'25 Saturday\"
-      const dayOfWeek = dateObj.toLocaleString('en-GB', { weekday: 'long' }); // e.g. Saturday
-      const day       = dateObj.getDate(); // e.g. 22
-      const month     = dateObj.toLocaleString('en-GB', { month: 'short' }); // e.g. Feb
-      const year      = dateObj.getFullYear().toString().slice(-2); // e.g. 25
-      return `${day} ${month}'${year} ${dayOfWeek}`;
-    }
 
     /************************
      *     Date Pickers     *
      ************************/
     // Departure Date
-    $(\"#departureDate\").flatpickr({
-      dateFormat: \"d M Y\",
-      minDate: \"today\",
+    $("#departureDate").flatpickr({
+      dateFormat: "d M Y",   // base date format
+      minDate: "today",
       onChange: function(selectedDates, dateStr, instance) {
-        if (selectedDates.length > 0) {
-          // Format selected date
-          let date = selectedDates[0];
-          instance.input.value = formatDate(date);
-        } else {
-          // Cleared date
-          instance.input.value = \"\";
-          instance.input.placeholder = \"Tap to add departure date\";
+        // If a valid date is selected, append the full weekday name
+        if (selectedDates.length) {
+          const dayName = selectedDates[0].toLocaleDateString('en-US', { weekday: 'long' });
+          instance.input.value = dateStr + " " + dayName; // e.g. "22 Feb 2025 Saturday"
         }
       }
     });
 
     // Return Date
-    $(\"#returnDate\").flatpickr({
-      dateFormat: \"d M Y\",
-      minDate: \"today\",
+    $("#returnDate").flatpickr({
+      dateFormat: "d M Y",   // base date format
+      minDate: "today",
       onChange: function(selectedDates, dateStr, instance) {
-        if (selectedDates.length > 0) {
-          // Format selected date
-          let date = selectedDates[0];
-          instance.input.value = formatDate(date);
-
-          // If user picks a return date while on One Way => switch to Round Trip
-          if ($(\"#oneWay\").is(\":checked\")) {
-            $(\"#roundTrip\").prop(\"checked\", true);
+        if (dateStr) {
+          // user picked a date
+          if ($("#oneWay").is(":checked")) {
+            $("#roundTrip").prop("checked", true);
+          }
+          if (selectedDates.length) {
+            const dayName = selectedDates[0].toLocaleDateString('en-US', { weekday: 'long' });
+            instance.input.value = dateStr + " " + dayName; // e.g. "23 Feb 2025 Sunday"
           }
         } else {
-          // If user cleared the date
-          instance.input.value = \"\";
-          instance.input.placeholder = \"Tap to add a return date for bigger discounts\";
-
-          // If user is on Round Trip => switch to One Way
-          if ($(\"#roundTrip\").is(\":checked\")) {
-            $(\"#oneWay\").prop(\"checked\", true);
+          // user cleared the date
+          if ($("#roundTrip").is(":checked")) {
+            $("#oneWay").prop("checked", true);
           }
         }
       }
@@ -381,43 +362,43 @@
      * Travellers & Class   *
      ************************/
     // Toggle travellers dropdown
-    $(\"#travellers\").click(function(e) {
+    $("#travellers").click(function(e) {
       e.stopPropagation();
-      $(\"#travellersDropdown\").toggle();
+      $("#travellersDropdown").toggle();
     });
 
     // Close travellers dropdown if clicked outside
     $(document).click(function(e) {
-      if (!$(e.target).closest(\"#travellersDropdown, #travellers\").length) {
-        $(\"#travellersDropdown\").hide();
+      if (!$(e.target).closest("#travellersDropdown, #travellers").length) {
+        $("#travellersDropdown").hide();
       }
     });
 
     // Handle selection (adults, children, infants, class)
-    $(\".btn-option\").click(function() {
-      let category = $(this).data(\"category\");
+    $(".btn-option").click(function() {
+      let category = $(this).data("category");
       // Only allow one selected per category
-      $(`.btn-option[data-category='${category}']`).removeClass(\"selected\");
-      $(this).addClass(\"selected\");
+      $(`.btn-option[data-category='${category}']`).removeClass("selected");
+      $(this).addClass("selected");
     });
 
     // Apply selection
-    $(\"#applyTravellers\").click(function() {
-      let adults   = $(\"#adultsGroup .selected\").data(\"value\")   || 1;
-      let children = $(\"#childrenGroup .selected\").data(\"value\") || 0;
-      let infants  = $(\"#infantsGroup .selected\").data(\"value\")  || 0;
-      let travelClass = $(\"#classGroup .selected\").data(\"value\") || \"Economy\";
+    $("#applyTravellers").click(function() {
+      let adults   = $("#adultsGroup .selected").data("value")   || 1;
+      let children = $("#childrenGroup .selected").data("value") || 0;
+      let infants  = $("#infantsGroup .selected").data("value")  || 0;
+      let travelClass = $("#classGroup .selected").data("value") || "Economy";
 
       let totalTravellers = parseInt(adults) + parseInt(children) + parseInt(infants);
 
       // Update the display
-      $(\"#travellers .selected-value\").text(
-        totalTravellers + \" Traveller\" + (totalTravellers > 1 ? \"s\" : \"\")
+      $("#travellers .selected-value").text(
+        totalTravellers + " Traveller" + (totalTravellers > 1 ? "s" : "")
       );
-      $(\"#travellers .sub-text\").text(travelClass);
+      $("#travellers .sub-text").text(travelClass);
 
       // Close the dropdown
-      $(\"#travellersDropdown\").hide();
+      $("#travellersDropdown").hide();
     });
   });
 </script>
