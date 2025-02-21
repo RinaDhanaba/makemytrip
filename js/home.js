@@ -191,13 +191,24 @@ document.getElementById("searchCurrency")?.addEventListener("input", (e) => {
 });
 
 // Update Dropdown Selection & Store in Session
-document.querySelectorAll(".currency-item, .country-item, [data-lang]").forEach(item => {
+document.querySelectorAll(".country-item, .currency-item, [data-lang]").forEach(item => {
     item.addEventListener("click", (e) => {
         const dropdown = e.target.closest('.generic-dropdown');
         const button = dropdown.querySelector('.dropdown-button');
         const type = button.id;
+
+        let value;
         
-        let value = item.dataset.lang || item.dataset.currency || item.innerHTML;
+        if (item.classList.contains("country-item")) {
+            // Extract only the flag image from the selected country
+            let tempDiv = document.createElement("div");
+            tempDiv.innerHTML = item.outerHTML;
+            let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").outerHTML : "";
+            value = flagImg; // Store only the flag
+        } else {
+            value = item.dataset.lang || item.dataset.currency || item.innerHTML;
+        }
+
         updateSelection(type, value);
         
         // Ensure dropdown button updates immediately
@@ -206,6 +217,7 @@ document.querySelectorAll(".currency-item, .country-item, [data-lang]").forEach(
         dropdown.querySelector('.dropdown-content').classList.remove('show');
     });
 });
+
 
 
 // Load saved selections on page load
