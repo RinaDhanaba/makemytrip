@@ -33,7 +33,7 @@ $defaultCountry = $countries["IN"];
 
 <div class="dropdown countryDropdown">
     <div class="dropdown-button" id="selectedCountry">
-        <img src="<?= $defaultCountry['flag'] ?>" class="flag"> <?= $defaultCountry['name'] ?> ▼
+       <img src="<?= $defaultCountry['flag'] ?>" class="flag"> ▼
     </div>
     <div class="dropdown-content" id="countryList">
         <?php foreach ($countries as $code => $country): ?>

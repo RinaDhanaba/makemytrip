@@ -118,26 +118,25 @@ document.addEventListener("DOMContentLoaded", function() {
 document.querySelectorAll('.dropdown').forEach(dropdown => {
     const button = dropdown.querySelector('.dropdown-button');
     const content = dropdown.querySelector('.dropdown-content');
-    
+
+    // Toggle dropdown visibility on button click
     button.addEventListener('click', () => content.classList.toggle('show'));
+
+    // Close dropdown when clicking outside
     document.addEventListener('click', (e) => {
         if (!dropdown.contains(e.target)) content.classList.remove('show');
     });
 });
 
-
-
-
-// Function to load saved selections from sessionStorage
+/**
+ * Load saved selections from sessionStorage (for Country, Language, and Currency).
+ */
 function loadSavedSelections() {
-    // Load Country (Only Flag)
+    // Load Country (Flag + Name)
     if (sessionStorage.getItem("selectedCountry")) {
-        let tempDiv = document.createElement("div");
-        tempDiv.innerHTML = sessionStorage.getItem("selectedCountry");
-        let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").outerHTML : sessionStorage.getItem("selectedCountry");
-
+        let storedCountry = JSON.parse(sessionStorage.getItem("selectedCountry"));
         document.querySelectorAll("#selectedCountry").forEach(el => {
-            el.innerHTML = flagImg + " ▼"; // Only show flag
+            el.innerHTML = `<img src="${storedCountry.flag}" class="flag"> ${storedCountry.name} ▼`;
         });
     }
 
@@ -159,16 +158,27 @@ function loadSavedSelections() {
     }
 }
 
-// Function to update selections and store in sessionStorage
+/**
+ * Update the selected dropdown item and save it in sessionStorage.
+ * @param {string} type - The type of dropdown (selectedCountry, selectedLanguage, selectedCurrency).
+ * @param {string} value - The selected value.
+ */
 function updateSelection(type, value) {
     let formattedValue = value;
 
     if (type === "selectedCountry") {
-        // Extract only the flag
+        // Extract flag and name from the clicked item
         let tempDiv = document.createElement("div");
         tempDiv.innerHTML = value;
-        let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").outerHTML : value;
-        formattedValue = flagImg; // Only show flag
+        let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").src : "";
+        let countryName = tempDiv.textContent.trim();
+
+        // Save country data in sessionStorage
+        let countryData = { name: countryName, flag: flagImg };
+        sessionStorage.setItem(type, JSON.stringify(countryData));
+
+        // Update UI
+        formattedValue = `<img src="${flagImg}" class="flag"> ${countryName} ▼`;
     } 
     else if (type === "selectedLanguage") {
         formattedValue = value.substring(0, 3).toUpperCase(); // First 3 letters
@@ -178,10 +188,13 @@ function updateSelection(type, value) {
         formattedValue = value.match(/\b[A-Z]{3}\b/) ? value.match(/\b[A-Z]{3}\b/)[0] : value;
     }
 
-    sessionStorage.setItem(type, value);
+    // Apply the selected value to all matching elements
     document.querySelectorAll(`#${type}`).forEach(el => {
         el.innerHTML = formattedValue + " ▼";
     });
+
+    // Store raw selection in sessionStorage
+    sessionStorage.setItem(type, value);
 }
 
 // Currency Search Functionality
@@ -201,13 +214,17 @@ document.querySelectorAll(".currency-item, [data-lang]").forEach(item => {
     });
 });
 
-
-
+/**
+ * Country Dropdown Handling
+ */
 document.addEventListener("DOMContentLoaded", function () {
     const selectedCountry = document.getElementById("selectedCountry");
     const countryList = document.getElementById("countryList");
 
-    // Toggle dropdown on button click
+    // Load saved selections from sessionStorage
+    loadSavedSelections();
+
+    // Toggle country dropdown on button click
     selectedCountry.addEventListener("click", (event) => {
         event.stopPropagation();
         countryList.classList.toggle("show");
@@ -218,10 +235,13 @@ document.addEventListener("DOMContentLoaded", function () {
         item.addEventListener("click", function () {
             const flag = this.getAttribute("data-flag");
             const name = this.getAttribute("data-name");
-            
-            // Update selected country display
+
+            // Update UI
             selectedCountry.innerHTML = `<img src="${flag}" class="flag"> ${name} ▼`;
-            
+
+            // Store in sessionStorage
+            sessionStorage.setItem("selectedCountry", JSON.stringify({ name, flag }));
+
             // Hide dropdown
             countryList.classList.remove("show");
         });
@@ -232,6 +252,7 @@ document.addEventListener("DOMContentLoaded", function () {
         countryList.classList.remove("show");
     });
 });
+
 
 
 // Load saved selections on page load
