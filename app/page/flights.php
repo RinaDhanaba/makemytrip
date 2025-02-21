@@ -4,177 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight Search</title>
+
+    <!-- Styles & Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui/1.12.1/jquery-ui.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <style>
+        body {
+            background-color: #f8f9fa;
+        }
         .flight-card {
-            max-width: 900px;
-            margin: auto;
+            background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
-        .trip-options label {
-            margin-right: 15px;
-            font-weight: bold;
-        }
-        .highlight {
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .header-text {
-            text-align: right;
-            font-size: 16px;
-            font-weight: bold;
-            color: #007bff;
-            margin-bottom: 10px;
-        }
-        .form-select {
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .search-btn {
-            background-color: #007bff;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .row-flex {
+        .select2-container--default .select2-results__option {
+            padding: 10px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 15px;
+        }
+        .airport-item {
+            display: flex;
+            align-items: center;
+        }
+        .airport-icon {
+            margin-right: 10px;
+        }
+        .airport-details {
+            flex-grow: 1;
+        }
+        .airport-code {
+            font-weight: bold;
+            color: #666;
+        }
+        .btn-search {
+            background-color: #007bff;
+            color: white;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: bold;
+        }
+        .travellers-dropdown {
+            display: none;
+            background: white;
+            padding: 15px;
+            position: absolute;
+            z-index: 1000;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
     <div class="container mt-5">
-        <div class="flight-card bg-white p-4">
-            <div class="header-text">Book International and Domestic Flights</div>
+        <div class="flight-card">
+            <div class="row g-3 align-items-center">
+                <!-- Trip Type -->
+                <div class="col-md-auto">
+                    <input type="radio" name="tripType" id="oneWay" checked> <label for="oneWay">One Way</label>
+                    <input type="radio" name="tripType" id="roundTrip"> <label for="roundTrip">Round Trip</label>
+                </div>
 
-            <div class="d-flex align-items-center mb-3 trip-options">
-                <input type="radio" name="trip" id="oneWay" checked>
-                <label for="oneWay">One Way</label>
-                <input type="radio" name="trip" id="roundTrip">
-                <label for="roundTrip">Round Trip</label>
-            </div>
-
-            <div class="row-flex">
-                <div>
+                <!-- From Location -->
+                <div class="col-md-3">
                     <label>From</label>
-                    <select id="from" class="form-select">
-                        <option>Delhi (DEL)</option>
-                        <option>Mumbai (BOM)</option>
-                        <option>Chennai (MAA)</option>
-                    </select>
+                    <select id="from" class="form-select"></select>
                 </div>
 
-                <div>
+                <!-- To Location -->
+                <div class="col-md-3">
                     <label>To</label>
-                    <select id="to" class="form-select">
-                        <option>Bengaluru (BLR)</option>
-                        <option>Kolkata (CCU)</option>
-                        <option>Hyderabad (HYD)</option>
-                    </select>
+                    <select id="to" class="form-select"></select>
                 </div>
 
-                <div>
+                <!-- Departure Date -->
+                <div class="col-md-2">
                     <label>Departure</label>
-                    <input type="text" id="departure" class="form-control highlight" placeholder="Select date">
+                    <input type="text" id="departureDate" class="form-control" placeholder="Select date">
                 </div>
 
-                <div id="returnSection">
+                <!-- Return Date (Hidden for One Way) -->
+                <div class="col-md-2" id="returnDateContainer" style="display: none;">
                     <label>Return</label>
-                    <input type="text" id="return" class="form-control highlight" placeholder="Tap to add return">
+                    <input type="text" id="returnDate" class="form-control" placeholder="Select date">
                 </div>
 
-                <div>
+                <!-- Travellers & Class -->
+                <div class="col-md-2 position-relative">
                     <label>Travellers & Class</label>
-                    <button id="travellersBtn" class="btn btn-outline-primary">1 Traveller, Economy</button>
-                </div>
-            </div>
+                    <input type="text" id="travellers" class="form-control" readonly>
+                    <div class="travellers-dropdown">
+                        <label>Adults (12+)</label>
+                        <input type="number" id="adults" class="form-control" min="1" max="9" value="1">
 
-            <div class="text-center mt-4">
-                <button class="search-btn">SEARCH</button>
+                        <label>Children (2-12)</label>
+                        <input type="number" id="children" class="form-control" min="0" max="6" value="0">
+
+                        <label>Infants (Below 2)</label>
+                        <input type="number" id="infants" class="form-control" min="0" max="2" value="0">
+
+                        <label>Class</label>
+                        <select id="travelClass" class="form-select">
+                            <option value="Economy">Economy/Premium Economy</option>
+                            <option value="Business">Business</option>
+                            <option value="First Class">First Class</option>
+                        </select>
+                        <button class="btn btn-primary mt-2" id="applyTravellers">Apply</button>
+                    </div>
+                </div>
+
+                <!-- Search Button -->
+                <div class="col-md-auto">
+                    <button class="btn btn-search">SEARCH</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Travellers & Class Dropdown -->
-    <div id="travellerModal" style="display: none; position: fixed; top: 20%; left: 50%; transform: translateX(-50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-        <h5>Select Travellers & Class</h5>
-        <label>Adults</label>
-        <input type="number" id="adults" min="1" max="9" value="1" class="form-control mb-2">
-        
-        <label>Children</label>
-        <input type="number" id="children" min="0" max="6" value="0" class="form-control mb-2">
-
-        <label>Infants</label>
-        <input type="number" id="infants" min="0" max="6" value="0" class="form-control mb-2">
-        
-        <label>Class</label>
-        <select id="classSelect" class="form-select">
-            <option>Economy/Premium Economy</option>
-            <option>Business</option>
-            <option>First Class</option>
-        </select>
-
-        <button id="applyTravellers" class="btn btn-primary mt-2">Apply</button>
-    </div>
-
     <script>
-        $(document).ready(function () {
-            // Custom Calendar
-            $("#departure, #return").datepicker({ dateFormat: "dd M yy" });
+        const airports = [
+            { code: "BOM", city: "Mumbai, India", airport: "Chhatrapati Shivaji International Airport" },
+            { code: "DEL", city: "New Delhi, India", airport: "Indira Gandhi International Airport" },
+            { code: "BLR", city: "Bengaluru, India", airport: "Bengaluru International Airport" },
+            { code: "HYD", city: "Hyderabad, India", airport: "Rajiv Gandhi International Airport" },
+            { code: "MAA", city: "Chennai, India", airport: "Chennai International Airport" }
+        ];
 
-            // Handle "Return" field click in One Way mode
-            $("#return").click(function () {
-                $("#roundTrip").prop("checked", true);
-                $("#returnSection").show();
+        function formatAirport(airport) {
+            if (!airport.id) return airport.text;
+            const data = airports.find(a => a.code === airport.id);
+            if (!data) return airport.text;
+            return $(`
+                <div class="airport-item">
+                    <span class="airport-icon">✈️</span>
+                    <div class="airport-details">
+                        <div><strong>${data.city}</strong></div>
+                        <div>${data.airport}</div>
+                    </div>
+                    <span class="airport-code">${data.code}</span>
+                </div>
+            `);
+        }
+
+        $(document).ready(function() {
+            $("#from, #to").select2({
+                data: airports.map(a => ({ id: a.code, text: `${a.city} (${a.code})` })),
+                templateResult: formatAirport,
+                templateSelection: formatAirport,
+                width: '100%'
             });
 
-            // Toggle Return field based on trip type
-            $("input[name='trip']").change(function () {
-                if ($("#oneWay").is(":checked")) {
-                    $("#returnSection").show();
-                } else {
-                    $("#returnSection").show();
-                }
+            $("#departureDate, #returnDate").flatpickr({
+                dateFormat: "d M Y",
+                minDate: "today"
             });
 
-            // Travellers & Class Dropdown
-            $("#travellersBtn").click(function () {
-                $("#travellerModal").show();
+            $("#roundTrip").change(function() {
+                $("#returnDateContainer").fadeIn();
             });
 
-            $("#applyTravellers").click(function () {
-                var adults = $("#adults").val();
-                var children = $("#children").val();
-                var infants = $("#infants").val();
-                var travelClass = $("#classSelect").val();
-                
-                var travellerText = `${adults} Traveller`;
-                if (children > 0) travellerText += `, ${children} Child`;
-                if (infants > 0) travellerText += `, ${infants} Infant`;
-
-                travellerText += `, ${travelClass}`;
-                
-                $("#travellersBtn").text(travellerText);
-                $("#travellerModal").hide();
+            $("#oneWay").change(function() {
+                $("#returnDateContainer").fadeOut();
             });
 
-            // Close modal on outside click
-            $(document).mouseup(function (e) {
-                var modal = $("#travellerModal");
-                if (!modal.is(e.target) && modal.has(e.target).length === 0) {
-                    modal.hide();
-                }
+            $("#travellers").click(function() {
+                $(".travellers-dropdown").toggle();
+            });
+
+            $("#applyTravellers").click(function() {
+                const adults = $("#adults").val();
+                const children = $("#children").val();
+                const infants = $("#infants").val();
+                const travelClass = $("#travelClass option:selected").text();
+                $("#travellers").val(`${adults} Adults, ${children} Children, ${infants} Infants - ${travelClass}`);
+                $(".travellers-dropdown").hide();
             });
         });
     </script>
