@@ -141,16 +141,18 @@
 
 
 <section class="offers-section">
+<div class="grid grid-2">
+    <h2>Offers</h2>
 <div class="offers-header">
-            <h2>Offers</h2>
-            <div class="tabs">
-                <span class="tab active" onclick="showOffers('all')">All Offers</span>
-                <span class="tab" onclick="showOffers('cabs')">Cabs</span>
-            </div>
-            <a href="#" class="view-all">VIEW ALL →</a>
-        </div>
+<div class="tabs">
+    <span class="tab active" onclick="showOffers('all')">All Offers</span>
+    <span class="tab" onclick="showOffers('cabs')">Cabs</span>
+</div>
+    <a href="#" class="view-all">VIEW ALL →</a>
+</div>
+</div>
 
-    <div class="offers-container" id="offers-container">
+    <div class="grid grid-2" id="offers-container">
     <div class="offers-grid">
         <?php foreach ($offers as $offer): ?>
             <div class="offer-card">

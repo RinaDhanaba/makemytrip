@@ -429,28 +429,28 @@ $(document).ready(function() {
 
 const offers = [
     {
-        image: "offer1.jpg",
+        image: "../media/Desktop-CabFeature-13Dec.webp",
         category: "cabs",
         title: "Your Outstation Cabs Made More Comfortable",
         description: "with New Features!",
         link: "#"
     },
     {
-        image: "offer2.jpg",
+        image: "../media/Desktop-CabFeature-13Dec.webp",
         category: "cabs",
         title: "FOR MAHA KUMBH 2025: Book Airport Cabs",
         description: "with FLAT 5% OFF*.",
         link: "#"
     },
     {
-        image: "offer3.jpg",
+        image: "../media/Desktop-CabFeature-13Dec.webp",
         category: "cabs",
         title: "FOR MAHA KUMBH 2025: Book Outstation Cabs",
         description: "with up to ₹500 OFF*.",
         link: "#"
     },
     {
-        image: "offer4.jpg",
+        image: "../media/Desktop-CabFeature-13Dec.webp",
         category: "cabs",
         title: "Launched: EV Airport Cabs",
         description: "for Journeys to/from the Hyderabad Airport.",
