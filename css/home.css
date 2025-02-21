@@ -187,18 +187,11 @@ margin:30px auto;
 
 .booking-container .flight-card {
     background: #fff;
-    padding: 20px;
+    padding: 80px clamp(5px, 2vw, 25px) 0;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
-  .booking-container .input-box {
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    position: relative; /* needed for clear (X) button positioning */
-  }
+
   .booking-container .dropdown, .dropdown-menu {
     display: none;
     position: absolute;
@@ -237,17 +230,8 @@ margin:30px auto;
     cursor: pointer;
     color: #007bff;
   }
-  .booking-container  #travellers {
-    background: #f8f9fa;
-    border-radius: 10px;
-    padding: 12px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  .booking-container #travellers .sub-text {
+
+  .booking-container .sub-text {
     font-size: 12px;
     color: gray;
     font-weight: normal;

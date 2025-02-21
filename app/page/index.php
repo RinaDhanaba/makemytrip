@@ -18,12 +18,12 @@
             /************************
              * Auto-Select From/To  *
              ************************/
-            $("#from .selected-value").text(`${airports[0].city}, ${airports[0].country}`);
-            $("#from .sub-text").text(`${airports[0].airport} (${airports[0].code})`);
+            $("#from .selected-value").text(`${airports[0].city}`);
+            $("#from .sub-text").text(`${airports[0].airport} (${airports[0].code}), ${airports[0].country}`);
         
             const lastIndex = airports.length - 1;
-            $("#to .selected-value").text(`${airports[lastIndex].city}, ${airports[lastIndex].country}`);
-            $("#to .sub-text").text(`${airports[lastIndex].airport} (${airports[lastIndex].code})`);
+            $("#to .selected-value").text(`${airports[lastIndex].city}`);
+            $("#to .sub-text").text(`${airports[lastIndex].airport} (${airports[lastIndex].code}), ${airports[lastIndex].country}`);
         
             /************************
              *  Swap Functionality  *
@@ -57,8 +57,8 @@
               airports.forEach(airport => {
                 dropdownEl.append(`
                   <div class="dropdown-item" data-code="${airport.code}">
-                    <div class="selected-value">${airport.city}, ${airport.country}</div>
-                    <div class="sub-text">${airport.airport} (${airport.code})</div>
+                    <div class="selected-value">${airport.city}</div>
+                    <div class="sub-text">${airport.airport} (${airport.code}), ${airport.country}</div>
                   </div>
                 `);
               });
@@ -81,7 +81,7 @@
              *    Departure Date    *
              ************************/
             const departureFlatpickr = flatpickr("#departureDateInput", {
-              dateFormat: "d M Y",
+              dateFormat: "j M\\'y",
               minDate: "today",         // No past dates
               defaultDate: "today",     // Today’s date by default
               clickOpens: false,        // We'll open it manually
@@ -111,7 +111,7 @@
              *     Return Date      *
              ************************/
             const returnFlatpickr = flatpickr("#returnDateInput", {
-              dateFormat: "d M Y",
+              dateFormat: "j M\\'y",
               minDate: "today",
               clickOpens: false,
               onChange: function(selectedDates, dateStr, instance) {
@@ -149,6 +149,11 @@
               returnFlatpickr.clear(); // triggers onChange -> switches to One Way
             });
         
+            // ⬇ ADD THIS to clear Return date on “One Way” click
+            $("#oneWay").on("click", function() {
+            // Clear the return date so it shows "Select Date" & hides clear button
+            returnFlatpickr.clear();
+            });
         
             /************************
              * Travellers & Class   *
@@ -203,8 +208,6 @@
             </div>
             </div>
 
-            <hr>
-
             <!-- Fields: From → Swap → To → Departure → Return → Travellers & Class -->
             <div class="row g-3 align-items-center mt-1">
             <!-- From Location -->
@@ -248,7 +251,7 @@
                 <label>Return</label>
                 <div id="returnDate" class="input-box">
                 <div class="selected-value">Select Date</div>
-                <div class="sub-text"></div>
+                <div class="sub-text">Tap to add a return date for bigger discounts</div>
                 <button id="clearReturnDate" class="clear-btn">×</button>
                 </div>
                 <!-- Hidden input for Flatpickr -->
