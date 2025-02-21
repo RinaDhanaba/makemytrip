@@ -209,9 +209,9 @@
             </div>
 
             <!-- Fields: From → Swap → To → Departure → Return → Travellers & Class -->
-            <div class="row g-3 align-items-center mt-1">
+            <div class="row g-3 align-items-top mt-1 flight-form-main" style="justify-content: space-between;">
             <!-- From Location -->
-            <div class="col-md-2 position-relative">
+            <div class="col-md-2 position-relative flight-form-inner">
                 <label>From</label>
                 <div id="from" class="input-box">
                 <div class="selected-value">Select Departure</div>
@@ -221,12 +221,12 @@
             </div>
 
             <!-- Swap Button -->
-            <div class="col-md-auto text-center">
-                <button id="swapBtn" class="swap-btn">⇄</button>
+            <div class="col-md-auto text-center position-relative">
+                <button id="swapBtn" class="swap-btn position-absolute">⇄</button>
             </div>
 
             <!-- To Location -->
-            <div class="col-md-2 position-relative">
+            <div class="col-md-2 position-relative flight-form-inner" style="padding-left: 20px;">
                 <label>To</label>
                 <div id="to" class="input-box">
                 <div class="selected-value">Select Destination</div>
@@ -236,7 +236,7 @@
             </div>
 
             <!-- Departure Date (with default "today") -->
-            <div class="col-md-2 position-relative">
+            <div class="col-md-2 position-relative flight-form-inner">
                 <label>Departure</label>
                 <div id="departureDate" class="input-box">
                 <div class="selected-value">Select Date</div>
@@ -247,7 +247,7 @@
             </div>
 
             <!-- Return Date + Clear Button -->
-            <div class="col-md-2 position-relative">
+            <div class="col-md-2 position-relative flight-form-inner">
                 <label>Return</label>
                 <div id="returnDate" class="input-box">
                 <div class="selected-value">Select Date</div>
@@ -259,7 +259,7 @@
             </div>
 
             <!-- Travellers & Class -->
-            <div class="col-md-2 position-relative">
+            <div class="col-md-2 position-relative flight-form-inner">
                 <label>Travellers & Class</label>
                 <div id="travellers" class="input-box">
                 <span class="selected-value">1 Traveller</span>

@@ -191,6 +191,14 @@ margin:30px auto;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
+  .flight-form-main{
+    border:1px solid #ddd;
+    }
+
+  .flight-form-main .flight-form-inner{
+  border:1px solid #ddd;
+  }
+
 
   .booking-container .dropdown, .dropdown-menu {
     display: none;
@@ -231,10 +239,16 @@ margin:30px auto;
     color: #007bff;
   }
 
+  .booking-container .selected-value{
+    font-weight: 800;
+    font-size: 25px;
+  }
+
   .booking-container .sub-text {
     font-size: 12px;
     color: gray;
     font-weight: normal;
+    display: block;
   }
   /* Hidden inputs for flatpickr */
   .booking-container  #departureDateInput, #returnDateInput {
