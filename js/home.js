@@ -197,7 +197,7 @@ document.querySelectorAll(".currency-item, .country-item, [data-lang]").forEach(
         const button = dropdown.querySelector('.dropdown-button');
         const type = button.id;
         
-        let value = item.dataset.lang || item.dataset.currency || item.outerHTML;
+        let value = item.dataset.lang || item.dataset.currency || item.innerHTML;
         updateSelection(type, value);
         
         // Ensure dropdown button updates immediately
