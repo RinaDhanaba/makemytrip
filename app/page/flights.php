@@ -27,61 +27,27 @@
       background: #fff;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     }
-    /* Airport dropdown styling */
-    .dropdown {
+    .dropdown, .dropdown-menu {
       display: none;
       position: absolute;
       background: #fff;
       width: 100%;
-      max-height: 200px;
-      overflow-y: auto;
       border-radius: 8px;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
       z-index: 1000;
     }
-    .dropdown-item {
-      padding: 10px;
-      border-bottom: 1px solid #eee;
+    .dropdown-item, .btn-option {
       cursor: pointer;
-    }
-    .dropdown-item:hover {
-      background: #f1f1f1;
-    }
-
-    /* Travellers dropdown styling */
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      background: #fff;
-      width: 100%;
-      max-height: 300px;
-      overflow-y: auto;
-      border-radius: 8px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
-      padding: 15px;
-    }
-    .btn-option {
-      display: inline-block;
       padding: 8px 12px;
+      margin: 4px 0;
       border-radius: 6px;
-      margin: 4px;
-      cursor: pointer;
+    }
+    .dropdown-item:hover, .btn-option:hover {
       background: #f1f1f1;
-      transition: 0.3s;
     }
     .btn-option.selected {
       background: #007bff;
       color: white;
-    }
-    .btn-apply {
-      background: linear-gradient(to right, #007bff, #0056b3);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
     }
     .btn-search {
       background-color: #007bff;
@@ -114,6 +80,11 @@
       color: gray;
       font-weight: normal;
     }
+
+    /* Ensure hidden inputs remain hidden */
+    #departureDateInput, #returnDateInput {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
@@ -132,7 +103,7 @@
       </div>
     </div>
 
-    <hr><!-- Just a horizontal separator for clarity -->
+    <hr>
 
     <!-- Second Row: From → Swap → To → Departure → Return → Travellers & Class → SEARCH -->
     <div class="row g-3 align-items-center mt-1">
@@ -161,41 +132,31 @@
         <div class="dropdown" id="toDropdown"></div>
       </div>
 
-      <!-- Departure Date (Clickable DIV + Hidden Input) -->
+      <!-- Departure Date -->
       <div class="col-md-2 position-relative">
         <label>Departure</label>
+        <!-- Clickable Div -->
         <div id="departureDate" class="input-box">
           <div class="selected-value">Select Date</div>
           <div class="sub-text"></div>
         </div>
-        <!-- Hidden input for Flatpickr -->
+        <!-- Hidden Input for Flatpickr -->
         <input type="hidden" id="departureDateInput">
       </div>
 
-      <!-- Return Date (Clickable DIV + Hidden Input) -->
-      <div class="col-md-2 position-relative" id="returnDateContainer">
+      <!-- Return Date -->
+      <div class="col-md-2 position-relative">
         <label>Return</label>
+        <!-- Clickable Div -->
         <div id="returnDate" class="input-box">
           <div class="selected-value">Select Date</div>
           <div class="sub-text"></div>
         </div>
-        <!-- Hidden input for Flatpickr -->
+        <!-- Hidden Input for Flatpickr -->
         <input type="hidden" id="returnDateInput">
       </div>
 
       <!-- Travellers & Class -->
-      <?php
-        $travellerOptions = [
-          "adults" => range(1, 9),
-          "children" => range(0, 6),
-          "infants" => range(0, 2)
-        ];
-        $classOptions = [
-          "Economy" => "Economy/Premium Economy",
-          "Business" => "Business",
-          "First Class" => "First Class"
-        ];
-      ?>
       <div class="col-md-2 position-relative">
         <label>Travellers & Class</label>
         <div id="travellers" class="input-box">
@@ -203,39 +164,36 @@
           <span class="sub-text">Economy</span>
         </div>
         <!-- Travellers Dropdown -->
-        <div class="dropdown-menu" id="travellersDropdown">
+        <div class="dropdown-menu" id="travellersDropdown" style="padding: 15px;">
           <label>ADULTS (12+)</label>
           <div class="d-flex flex-wrap" id="adultsGroup">
-            <?php foreach ($travellerOptions['adults'] as $val) { ?>
-              <span class="btn-option" data-category="adults" data-value="<?= $val; ?>"><?= $val; ?></span>
-            <?php } ?>
+            <span class="btn-option" data-category="adults" data-value="1">1</span>
+            <span class="btn-option" data-category="adults" data-value="2">2</span>
+            <span class="btn-option" data-category="adults" data-value="3">3</span>
+            <!-- Add as many as needed -->
           </div>
           <hr>
-
           <label>CHILDREN (2y - 12y)</label>
           <div class="d-flex flex-wrap" id="childrenGroup">
-            <?php foreach ($travellerOptions['children'] as $val) { ?>
-              <span class="btn-option" data-category="children" data-value="<?= $val; ?>"><?= $val; ?></span>
-            <?php } ?>
+            <span class="btn-option" data-category="children" data-value="0">0</span>
+            <span class="btn-option" data-category="children" data-value="1">1</span>
+            <span class="btn-option" data-category="children" data-value="2">2</span>
           </div>
           <hr>
-
           <label>INFANTS (below 2y)</label>
           <div class="d-flex flex-wrap" id="infantsGroup">
-            <?php foreach ($travellerOptions['infants'] as $val) { ?>
-              <span class="btn-option" data-category="infants" data-value="<?= $val; ?>"><?= $val; ?></span>
-            <?php } ?>
+            <span class="btn-option" data-category="infants" data-value="0">0</span>
+            <span class="btn-option" data-category="infants" data-value="1">1</span>
+            <span class="btn-option" data-category="infants" data-value="2">2</span>
           </div>
           <hr>
-
           <label>CHOOSE TRAVEL CLASS</label>
           <div class="d-flex flex-wrap" id="classGroup">
-            <?php foreach ($classOptions as $key => $label) { ?>
-              <span class="btn-option" data-category="class" data-value="<?= $key; ?>"><?= $label; ?></span>
-            <?php } ?>
+            <span class="btn-option" data-category="class" data-value="Economy">Economy/Premium Economy</span>
+            <span class="btn-option" data-category="class" data-value="Business">Business</span>
+            <span class="btn-option" data-category="class" data-value="First Class">First Class</span>
           </div>
-
-          <button class="btn-apply mt-3" id="applyTravellers">APPLY</button>
+          <button class="btn-search mt-3" id="applyTravellers">APPLY</button>
         </div>
       </div>
 
@@ -250,22 +208,20 @@
 <script>
   // Airport list
   const airports = [
-    { code: "BOM", city: "Mumbai",    country: "India", airport: "Chhatrapati Shivaji International Airport" },
-    { code: "DEL", city: "Delhi",     country: "India", airport: "Indira Gandhi International Airport" },
-    { code: "BLR", city: "Bengaluru", country: "India", airport: "Bengaluru International Airport" },
-    { code: "HYD", city: "Hyderabad", country: "India", airport: "Rajiv Gandhi International Airport" },
-    { code: "MAA", city: "Chennai",   country: "India", airport: "Chennai International Airport" }
+    { code: "BOM", city: "Mumbai",    country: "India", airport: "Chhatrapati Shivaji Intl Airport" },
+    { code: "DEL", city: "Delhi",     country: "India", airport: "Indira Gandhi Intl Airport" },
+    { code: "BLR", city: "Bengaluru", country: "India", airport: "Bengaluru Intl Airport" },
+    { code: "HYD", city: "Hyderabad", country: "India", airport: "Rajiv Gandhi Intl Airport" },
+    { code: "MAA", city: "Chennai",   country: "India", airport: "Chennai Intl Airport" }
   ];
 
   $(document).ready(function() {
-
     /************************
      * Auto-Select From/To  *
      ************************/
-    // First airport in 'From'
     $("#from .selected-value").text(`${airports[0].city}, ${airports[0].country}`);
     $("#from .sub-text").text(`${airports[0].airport} (${airports[0].code})`);
-    // Last airport in 'To'
+
     const lastIndex = airports.length - 1;
     $("#to .selected-value").text(`${airports[lastIndex].city}, ${airports[lastIndex].country}`);
     $("#to .sub-text").text(`${airports[lastIndex].airport} (${airports[lastIndex].code})`);
@@ -279,7 +235,6 @@
       let toVal   = $("#to .selected-value").text();
       let toSub   = $("#to .sub-text").text();
 
-      // Swap
       $("#from .selected-value").text(toVal);
       $("#from .sub-text").text(toSub);
       $("#to .selected-value").text(fromVal);
@@ -289,21 +244,17 @@
     /************************
      *  Airport Dropdowns   *
      ************************/
-    // Toggle the "From" and "To" dropdowns
     $("#from, #to").click(function(e) {
       e.stopPropagation();
       let dropdownId = $(this).attr("id") + "Dropdown";
-      // Close other airport dropdowns
       $(".dropdown").not("#" + dropdownId).hide();
-      // Populate & toggle
-      populateDropdown($(this).attr("id"), dropdownId);
+      populateDropdown(dropdownId);
       $("#" + dropdownId).toggle();
     });
 
-    // Populate the dropdown with airport data
-    function populateDropdown(inputId, dropdownId) {
+    function populateDropdown(dropdownId) {
       let dropdownEl = $("#" + dropdownId);
-      dropdownEl.empty(); // clear old items
+      dropdownEl.empty();
       airports.forEach(airport => {
         dropdownEl.append(`
           <div class="dropdown-item" data-code="${airport.code}">
@@ -314,7 +265,6 @@
       });
     }
 
-    // When an airport is clicked, update the "From" or "To" text
     $(".dropdown").on("click", ".dropdown-item", function() {
       let parentBox = $(this).closest(".position-relative").find(".input-box");
       parentBox.find(".selected-value").text($(this).find(".selected-value").text());
@@ -322,7 +272,6 @@
       $(this).closest(".dropdown").hide();
     });
 
-    // Close airport dropdown if clicked outside
     $(document).click(function(e) {
       if (!$(e.target).closest(".input-box, .dropdown").length) {
         $(".dropdown").hide();
@@ -332,14 +281,12 @@
     /************************
      *    Departure Date    *
      ************************/
-    // Attach flatpickr to the hidden input
     const departureFlatpickr = flatpickr("#departureDateInput", {
       dateFormat: "d M Y",
       minDate: "today",
       clickOpens: false, // We'll open manually
       onChange: function(selectedDates, dateStr, instance) {
         if (selectedDates.length) {
-          // Show date + weekday in the clickable div
           const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
           $("#departureDate .selected-value").text(dateStr);
           $("#departureDate .sub-text").text(weekday);
@@ -347,7 +294,7 @@
       }
     });
 
-    // Open flatpickr on div click
+    // Open flatpickr on the div
     $("#departureDate").on("click", function(e) {
       e.stopPropagation();
       departureFlatpickr.open();
@@ -359,19 +306,16 @@
     const returnFlatpickr = flatpickr("#returnDateInput", {
       dateFormat: "d M Y",
       minDate: "today",
-      clickOpens: false, // We'll open manually
+      clickOpens: false,
       onChange: function(selectedDates, dateStr, instance) {
         if (dateStr) {
-          // user picked a date
           if ($("#oneWay").is(":checked")) {
             $("#roundTrip").prop("checked", true);
           }
-          // Show date + weekday
           const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
           $("#returnDate .selected-value").text(dateStr);
           $("#returnDate .sub-text").text(weekday);
         } else {
-          // user cleared the date
           if ($("#roundTrip").is(":checked")) {
             $("#oneWay").prop("checked", true);
           }
@@ -384,48 +328,39 @@
       returnFlatpickr.open();
     });
 
-    // (Optional) If you want to clear Return date programmatically:
-    // returnFlatpickr.clear();
-
     /************************
      * Travellers & Class   *
      ************************/
-    // Toggle travellers dropdown
     $("#travellers").click(function(e) {
       e.stopPropagation();
       $("#travellersDropdown").toggle();
     });
 
-    // Close travellers dropdown if clicked outside
     $(document).click(function(e) {
       if (!$(e.target).closest("#travellersDropdown, #travellers").length) {
         $("#travellersDropdown").hide();
       }
     });
 
-    // Handle selection (adults, children, infants, class)
     $(".btn-option").click(function() {
       let category = $(this).data("category");
-      // Only allow one selected per category
       $(`.btn-option[data-category='${category}']`).removeClass("selected");
       $(this).addClass("selected");
     });
 
-    // Apply selection
     $("#applyTravellers").click(function() {
-      let adults       = $("#adultsGroup .selected").data("value")   || 1;
-      let children     = $("#childrenGroup .selected").data("value") || 0;
-      let infants      = $("#infantsGroup .selected").data("value")  || 0;
-      let travelClass  = $("#classGroup .selected").data("value")    || "Economy";
-      let totalTravels = parseInt(adults) + parseInt(children) + parseInt(infants);
+      let adults   = $("#adultsGroup .selected").data("value")   || 1;
+      let children = $("#childrenGroup .selected").data("value") || 0;
+      let infants  = $("#infantsGroup .selected").data("value")  || 0;
+      let travelClass = $("#classGroup .selected").data("value") || "Economy";
 
-      // Update the display
+      let totalTravellers = adults + children + infants;
+
       $("#travellers .selected-value").text(
-        totalTravels + " Traveller" + (totalTravels > 1 ? "s" : "")
+        totalTravellers + " Traveller" + (totalTravellers > 1 ? "s" : "")
       );
       $("#travellers .sub-text").text(travelClass);
 
-      // Close the dropdown
       $("#travellersDropdown").hide();
     });
   });
