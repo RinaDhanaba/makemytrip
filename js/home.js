@@ -176,7 +176,7 @@ function updateSelection(type, value) {
         formattedValue = value.match(/\b[A-Z]{3}\b/) ? value.match(/\b[A-Z]{3}\b/)[0] : value;
     }
 
-    sessionStorage.setItem(type, value);
+    sessionStorage.setItem(type, formattedValue);
     document.querySelectorAll(`#${type}`).forEach(el => {
         el.innerHTML = formattedValue + " ▼";
     });
@@ -191,50 +191,25 @@ document.getElementById("searchCurrency")?.addEventListener("input", (e) => {
 });
 
 // Update Dropdown Selection & Store in Session
-document.querySelectorAll(".currency-item, [data-lang]").forEach(item => {
-    item.addEventListener("click", () => {
-        const type = item.closest('.dropdown').querySelector('.dropdown-button').id;
-        updateSelection(type, item.innerHTML);
-        item.closest('.dropdown-content').classList.remove('show');
+document.querySelectorAll(".currency-item, .country-item, [data-lang]").forEach(item => {
+    item.addEventListener("click", (e) => {
+        const dropdown = e.target.closest('.generic-dropdown');
+        const button = dropdown.querySelector('.dropdown-button');
+        const type = button.id;
+        
+        let value = item.dataset.lang || item.dataset.currency || item.outerHTML;
+        updateSelection(type, value);
+        
+        // Ensure dropdown button updates immediately
+        button.innerHTML = value + " ▼";
+        
+        dropdown.querySelector('.dropdown-content').classList.remove('show');
     });
 });
-
-// Country Dropdown Population
-const countries = [
-    { name: "India", code: "in", flag: "https://flagcdn.com/w40/in.png" },
-    { name: "UAE", code: "ae", flag: "https://flagcdn.com/w40/ae.png" },
-    { name: "USA", code: "us", flag: "https://flagcdn.com/w40/us.png" }
-];
-
-
-document.querySelectorAll(".countryDropdown").forEach(dropdown => {
-    const countryList = dropdown.querySelector(".dropdown-content");
-    const button = dropdown.querySelector(".dropdown-button");
-
-    // Populate country list inside each dropdown
-    countries.forEach(country => {
-        let div = document.createElement("div");
-        div.classList.add("dropdown-item");
-        div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
-
-        div.addEventListener("click", () => {
-            const countryHTML = `<img src="${country.flag}" class="flag">`;
-
-            // Update all country dropdowns
-            updateSelection("selectedCountry", countryHTML);
-
-            // Close dropdown
-            countryList.classList.remove("show");
-        });
-
-        countryList.appendChild(div);
-    });
-});
-
 
 
 // Load saved selections on page load
-window.addEventListener("load", loadSavedSelections);
+window.addEventListener("DOMContentLoaded", loadSavedSelections);
 
 
 
