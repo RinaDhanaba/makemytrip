@@ -172,9 +172,9 @@
 
 
 <div style="display:flex; gap:10px; margin:50px auto; max-width:1200px;    justify-content: space-between; ">
-<div class="ad-card">Planning to book an international flight?<br><a href="">Check Travel Guidelines</a></div>
-<div class="ad-card">We are now available in हिंदी!<br><a href="">Change Language</a></div>
-<div class="ad-card">Complete your web check-in on MakeMyTrip in easy steps. <br><a href="">Know More</a></div>
+<div class="ad-card grid grid-2 gap-1"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>Planning to book an international flight?<br><a href="">Check Travel Guidelines</a></p></div>
+<div class="ad-card grid grid-2 gap-1"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>We are now available in हिंदी!<br><a href="">Change Language</a></p></div>
+<div class="ad-card grid grid-2 gap-1"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>Complete your web check-in on MakeMyTrip in easy steps. <br><a href="">Know More</a></p></div>
 </div>
 
 
