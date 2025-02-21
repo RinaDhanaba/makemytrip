@@ -24,7 +24,7 @@
     <div class="dropdown-button" id="selectedCountry">
         <img src="https://flagcdn.com/w40/in.png" class="flag"> ▼
     </div>
-    <div class="dropdown-content"></div>
+    <div class="dropdown-content countryList"></div>
     </div>
 
     <!-- Language Dropdown -->
