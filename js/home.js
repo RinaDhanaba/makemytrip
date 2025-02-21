@@ -238,6 +238,195 @@ window.addEventListener("load", loadSavedSelections);
 
 
 
+
+
+
+$(document).ready(function() {
+    // Airport list
+    const airports = [
+      { code: "BOM", city: "Mumbai",    country: "India", airport: "Chhatrapati Shivaji Intl Airport" },
+      { code: "DEL", city: "Delhi",     country: "India", airport: "Indira Gandhi Intl Airport" },
+      { code: "BLR", city: "Bengaluru", country: "India", airport: "Bengaluru Intl Airport" },
+      { code: "HYD", city: "Hyderabad", country: "India", airport: "Rajiv Gandhi Intl Airport" },
+      { code: "MAA", city: "Chennai",   country: "India", airport: "Chennai Intl Airport" }
+    ];
+  
+    /************************
+     * Auto-Select From/To  *
+     ************************/
+    $("#from .selected-value").text(`${airports[0].city}`);
+    $("#from .sub-text").text(`${airports[0].airport} (${airports[0].code}), ${airports[0].country}`);
+  
+    const lastIndex = airports.length - 1;
+    $("#to .selected-value").text(`${airports[lastIndex].city}`);
+    $("#to .sub-text").text(`${airports[lastIndex].airport} (${airports[lastIndex].code}), ${airports[lastIndex].country}`);
+  
+    /************************
+     *  Swap Functionality  *
+     ************************/
+    $("#swapBtn").click(function() {
+      let fromVal = $("#from .selected-value").text();
+      let fromSub = $("#from .sub-text").text();
+      let toVal   = $("#to .selected-value").text();
+      let toSub   = $("#to .sub-text").text();
+  
+      $("#from .selected-value").text(toVal);
+      $("#from .sub-text").text(toSub);
+      $("#to .selected-value").text(fromVal);
+      $("#to .sub-text").text(fromSub);
+    });
+  
+    /************************
+     *  Airport Dropdowns   *
+     ************************/
+    $("#from, #to").click(function(e) {
+      e.stopPropagation();
+      let dropdownId = $(this).attr("id") + "Dropdown";
+      // Hide other dropdowns in booking-container
+      $(".booking-container .dropdown").not("#" + dropdownId).hide();
+      populateDropdown(dropdownId);
+      $("#" + dropdownId).toggle();
+    });
+  
+    function populateDropdown(dropdownId) {
+      let dropdownEl = $("#" + dropdownId);
+      dropdownEl.empty();
+      airports.forEach(airport => {
+        dropdownEl.append(`
+          <div class="dropdown-item" data-code="${airport.code}">
+            <div class="selected-value">${airport.city}</div>
+            <div class="sub-text">${airport.airport} (${airport.code}), ${airport.country}</div>
+          </div>
+        `);
+      });
+    }
+  
+    // Delegate click event for booking-container dropdown items
+    $(".booking-container .dropdown").on("click", ".dropdown-item", function() {
+      let parentBox = $(this).closest(".position-relative").find(".input-box");
+      parentBox.find(".selected-value").text($(this).find(".selected-value").text());
+      parentBox.find(".sub-text").text($(this).find(".sub-text").text());
+      $(this).closest(".dropdown").hide();
+    });
+  
+    // Hide booking dropdowns when clicking outside
+    $(document).click(function(e) {
+      if (!$(e.target).closest(".input-box, .booking-container .dropdown").length) {
+        $(".booking-container .dropdown").hide();
+      }
+    });
+  
+    /************************
+     *    Departure Date    *
+     ************************/
+    const departureFlatpickr = flatpickr("#departureDateInput", {
+      dateFormat: "j M\\'y",
+      minDate: "today",
+      defaultDate: "today",
+      clickOpens: false,
+      onReady: function(selectedDates, dateStr) {
+        if (selectedDates.length) {
+          const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
+          $("#departureDate .selected-value").text(dateStr);
+          $("#departureDate .sub-text").text(weekday);
+        }
+      },
+      onChange: function(selectedDates, dateStr) {
+        if (selectedDates.length) {
+          const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
+          $("#departureDate .selected-value").text(dateStr);
+          $("#departureDate .sub-text").text(weekday);
+        }
+      }
+    });
+  
+    $("#departureDate").on("click", function(e) {
+      e.stopPropagation();
+      departureFlatpickr.open();
+    });
+  
+    /************************
+     *     Return Date      *
+     ************************/
+    const returnFlatpickr = flatpickr("#returnDateInput", {
+      dateFormat: "j M\\'y",
+      minDate: "today",
+      clickOpens: false,
+      onChange: function(selectedDates, dateStr) {
+        if (dateStr) {
+          if ($("#oneWay").is(":checked")) {
+            $("#roundTrip").prop("checked", true);
+          }
+          const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
+          $("#returnDate .selected-value").text(dateStr);
+          $("#returnDate .sub-text").text(weekday);
+          $("#clearReturnDate").show();
+        } else {
+          if ($("#roundTrip").is(":checked")) {
+            $("#oneWay").prop("checked", true);
+          }
+          $("#returnDate .selected-value").text("");
+          $("#returnDate .sub-text").text("Tap to add a return date for bigger discounts");
+          $("#clearReturnDate").hide();
+        }
+      }
+    });
+  
+    $("#returnDate").on("click", function(e) {
+      e.stopPropagation();
+      returnFlatpickr.open();
+    });
+  
+    $("#clearReturnDate").click(function(e) {
+      e.stopPropagation();
+      returnFlatpickr.clear();
+    });
+  
+    $("#oneWay").on("click", function() {
+      returnFlatpickr.clear();
+    });
+  
+    /************************
+     * Travellers & Class   *
+     ************************/
+    $("#travellers").click(function(e) {
+      e.stopPropagation();
+      $("#travellersDropdown").toggle();
+    });
+  
+    $(document).click(function(e) {
+      if (!$(e.target).closest("#travellersDropdown, #travellers").length) {
+        $("#travellersDropdown").hide();
+      }
+    });
+  
+    $(".btn-option").click(function() {
+      let category = $(this).data("category");
+      $(`.btn-option[data-category='${category}']`).removeClass("selected");
+      $(this).addClass("selected");
+    });
+  
+    $("#applyTravellers").click(function() {
+      let adults   = $("#adultsGroup .selected").data("value")   || 1;
+      let children = $("#childrenGroup .selected").data("value") || 0;
+      let infants  = $("#infantsGroup .selected").data("value")  || 0;
+      let travelClass = $("#classGroup .selected").data("value") || "Economy";
+  
+      let totalTravellers = adults + children + infants;
+      $("#travellers .selected-value").text(totalTravellers + " Traveller" + (totalTravellers > 1 ? "s" : ""));
+      $("#travellers .sub-text").text(travelClass);
+      $("#travellersDropdown").hide();
+    });
+  });
+  
+
+
+
+
+
+
+
+
 const offers = [
     {
         image: "offer1.jpg",
