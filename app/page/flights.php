@@ -27,7 +27,7 @@
             color: gray;
             text-align: right;
         }
-        
+
         .input-box {
             cursor: pointer;
             padding: 10px;
@@ -67,6 +67,27 @@
             color: white;
             border-radius: 20px;
             padding: 10px 20px;
+            font-weight: bold;
+        }
+
+        .btn-option {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin: 4px;
+            cursor: pointer;
+            background: #f1f1f1;
+            transition: 0.3s;
+        }
+        .btn-option.selected {
+            background: #007bff;
+            color: white;
+        }
+        .btn-apply {
+            background: linear-gradient(to right, #007bff, #0056b3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
             font-weight: bold;
         }
     </style>
@@ -122,29 +143,36 @@
                 </div>
 
                 <!-- Travellers & Class -->
-                <div class="col-md-3 position-relative">
+                <div class="col-md-3">
                     <label>Travellers & Class</label>
-                    <div id="travellers" class="input-box">
-                        <div class="selected-value">1 Traveller</div>
-                        <div class="sub-text">Economy/Premium Economy</div>
-                    </div>
-                    <div class="dropdown" id="travellersDropdown">
+                    <div id="travellers" class="input-box">1 Traveller - Economy</div>
+                    <div class="dropdown p-3" id="travellersDropdown">
                         <label>Adults (12+)</label>
-                        <input type="number" id="adults" class="form-control" min="1" max="9" value="1">
-
+                        <div class="d-flex flex-wrap" id="adultsGroup">
+                            <span class="btn-option selected" data-value="1">1</span>
+                            <span class="btn-option" data-value="2">2</span>
+                            <span class="btn-option" data-value="3">3</span>
+                            <span class="btn-option" data-value="4">4</span>
+                            <span class="btn-option" data-value=">9">>9</span>
+                        </div>
                         <label>Children (2-12)</label>
-                        <input type="number" id="children" class="form-control" min="0" max="6" value="0">
-
+                        <div class="d-flex flex-wrap" id="childrenGroup">
+                            <span class="btn-option selected" data-value="0">0</span>
+                            <span class="btn-option" data-value="1">1</span>
+                            <span class="btn-option" data-value=">6">>6</span>
+                        </div>
                         <label>Infants (Below 2)</label>
-                        <input type="number" id="infants" class="form-control" min="0" max="2" value="0">
-
-                        <label>Class</label>
-                        <select id="travelClass" class="form-select">
-                            <option value="Economy">Economy/Premium Economy</option>
-                            <option value="Business">Business</option>
-                            <option value="First Class">First Class</option>
-                        </select>
-                        <button class="btn btn-primary mt-2" id="applyTravellers">Apply</button>
+                        <div class="d-flex flex-wrap" id="infantsGroup">
+                            <span class="btn-option selected" data-value="0">0</span>
+                            <span class="btn-option" data-value="1">1</span>
+                        </div>
+                        <label>Choose Travel Class</label>
+                        <div class="d-flex" id="classGroup">
+                            <span class="btn-option selected" data-value="Economy">Economy/Premium Economy</span>
+                            <span class="btn-option" data-value="Business">Business</span>
+                            <span class="btn-option" data-value="First Class">First Class</span>
+                        </div>
+                        <button class="btn btn-apply mt-3" id="applyTravellers">APPLY</button>
                     </div>
                 </div>
 
@@ -203,6 +231,30 @@
             $("#travellers").find(".selected-value").text(text);
             $("#travellersDropdown").hide();
         });
+
+
+
+
+
+        $(document).ready(function() {
+            $("#travellers").click(function() {
+                $("#travellersDropdown").toggle();
+            });
+            $(".btn-option").click(function() {
+                $(this).siblings().removeClass("selected");
+                $(this).addClass("selected");
+            });
+            $("#applyTravellers").click(function() {
+                let adults = $("#adultsGroup .selected").text();
+                let children = $("#childrenGroup .selected").text();
+                let infants = $("#infantsGroup .selected").text();
+                let travelClass = $("#classGroup .selected").text();
+                $("#travellers").text(`${adults} Traveller - ${travelClass}`);
+                $("#travellersDropdown").hide();
+            });
+        });
+
+
     </script>
 </body>
 </html>
