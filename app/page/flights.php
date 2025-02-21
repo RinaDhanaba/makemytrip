@@ -49,6 +49,13 @@
             padding: 10px 20px;
             font-weight: bold;
         }
+        .swap-btn {
+            cursor: pointer;
+            font-size: 24px;
+            color: #007bff;
+            text-align: center;
+            user-select: none;
+        }
         .travellers-dropdown {
             display: none;
             background: white;
@@ -57,6 +64,7 @@
             z-index: 1000;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            width: 250px;
         }
     </style>
 </head>
@@ -75,6 +83,9 @@
                     <label>From</label>
                     <select id="from" class="form-select"></select>
                 </div>
+
+                <!-- Swap Button -->
+                <div class="col-md-auto swap-btn" id="swapBtn">⇄</div>
 
                 <!-- To Location -->
                 <div class="col-md-3">
@@ -164,25 +175,31 @@
                 minDate: "today"
             });
 
-            $("#roundTrip").change(function() {
-                $("#returnDateContainer").fadeIn();
+            $("#roundTrip").change(() => $("#returnDateContainer").fadeIn());
+            $("#oneWay").change(() => $("#returnDateContainer").fadeOut());
+
+            $("#travellers").click(() => $(".travellers-dropdown").toggle());
+
+            $(document).click(e => {
+                if (!$(e.target).closest(".travellers-dropdown, #travellers").length) {
+                    $(".travellers-dropdown").hide();
+                }
             });
 
-            $("#oneWay").change(function() {
-                $("#returnDateContainer").fadeOut();
-            });
-
-            $("#travellers").click(function() {
-                $(".travellers-dropdown").toggle();
-            });
-
-            $("#applyTravellers").click(function() {
+            $("#applyTravellers").click(() => {
                 const adults = $("#adults").val();
                 const children = $("#children").val();
                 const infants = $("#infants").val();
                 const travelClass = $("#travelClass option:selected").text();
                 $("#travellers").val(`${adults} Adults, ${children} Children, ${infants} Infants - ${travelClass}`);
                 $(".travellers-dropdown").hide();
+            });
+
+            $("#swapBtn").click(() => {
+                let fromVal = $("#from").val();
+                let toVal = $("#to").val();
+                $("#from").val(toVal).trigger("change");
+                $("#to").val(fromVal).trigger("change");
             });
         });
     </script>
