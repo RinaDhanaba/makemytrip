@@ -201,28 +201,21 @@ document.querySelectorAll(".currency-item, [data-lang]").forEach(item => {
     });
 });
 
-
-// Country Dropdown Population
-const country = [
-    { name: "India", code: "in", flag: "https://flagcdn.com/w40/in.png" },
-    { name: "UAE", code: "ae", flag: "https://flagcdn.com/w40/ae.png" },
-    { name: "USA", code: "us", flag: "https://flagcdn.com/w40/us.png" }
-];
-
-const countryDropdown = document.querySelector(".countryDropdown");
-const selectedCountry = document.getElementById("selectedCountry");
-
-country.forEach(country => {
-    let div = document.createElement("div");
-    div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
-    div.addEventListener("click", () => {
-        const countryHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
-        updateSelection("selectedCountry", countryHTML);
-        countryDropdown.classList.remove("show");
+document.addEventListener("DOMContentLoaded", function () {
+    const selectedCountry = document.getElementById("selectedCountry");
+    const countryList = document.getElementById("countryList");
+    
+    // Handle country selection
+    document.querySelectorAll(".country-item").forEach(item => {
+        item.addEventListener("click", function () {
+            const flag = this.querySelector("img").src;
+            const name = this.textContent.trim();
+            selectedCountry.innerHTML = `<img src="${flag}" class="flag"> ▼`;
+            countryList.classList.remove("show");
+        });
     });
-    countryDropdown.appendChild(div);
-});
 
+});
 
 // Load saved selections on page load
 window.addEventListener("load", loadSavedSelections);

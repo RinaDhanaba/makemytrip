@@ -20,11 +20,24 @@
     <div style="font-size:12px; text-align:center;">Login/ <br>Create account</div>
 
     <!-- Country Dropdown -->
+    <?php 
+    $countries = [
+        "IN" => ["name" => "India", "flag" => "https://flagcdn.com/w40/in.png"],
+        "AE" => ["name" => "UAE", "flag" => "https://flagcdn.com/w40/ae.png"],
+        "US" => ["name" => "USA", "flag" => "https://flagcdn.com/w40/us.png"]
+    ];
+    ?>
     <div class="dropdown countryDropdown">
     <div class="dropdown-button" id="selectedCountry">
         <img src="https://flagcdn.com/w40/in.png" class="flag"> ▼
     </div>
-    <div class="dropdown-content"></div>
+    <div class="dropdown-content" id="countryList">
+        <?php foreach ($countries as $code => $country): ?>
+            <div class="country-item" data-country="<?= $code ?>">
+                <img src="<?= $country['flag'] ?>" class="flag"> <?= $country['name'] ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
     </div>
 
     <!-- Language Dropdown -->
