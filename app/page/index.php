@@ -125,11 +125,11 @@
 <div style="margin: 60px auto 20px auto;    color: #fff;    text-align: center;">>> Explore More >> </div>
 
 <div class="extra-info-banner">
-    <div class="extra-info-banner-btn">Where2Go</div>
-    <div class="extra-info-banner-btn">Insurance<br>For International Trips</div>
-    <div class="extra-info-banner-btn">Explore International Flights<br>Cheapest Flights to Paris, Bali, Tokyo & more</div>
-    <div class="extra-info-banner-btn">MICE<br>Offsites, Events & Meetings</div>
-    <div class="extra-info-banner-btn">Gift Cards</div>
+    <div class="extra-info-banner-btn"> <i class="bi bi-airplane-engines"></i> Where2Go</div>
+    <div class="extra-info-banner-btn"> <i class="bi bi-airplane-engines"></i> Insurance<br>For International Trips</div>
+    <div class="extra-info-banner-btn"> <i class="bi bi-airplane-engines"></i> Explore International Flights<br>Cheapest Flights to Paris, Bali, Tokyo & more</div>
+    <div class="extra-info-banner-btn"> <i class="bi bi-airplane-engines"></i> MICE<br>Offsites, Events & Meetings</div>
+    <div class="extra-info-banner-btn"> <i class="bi bi-airplane-engines"></i> Gift Cards</div>
 </div>
 </div>  
 
@@ -140,7 +140,7 @@
 
 
 
-<section class="offers-section">
+<section class="offers-section card">
 <div class="grid grid-2">
     <h2>Offers</h2>
 <div class="offers-header">
@@ -237,7 +237,7 @@
 
 <div class="faq">
 
-<div class="grid grid-2 container" style="padding-bottom:20px; border-bottom:2px solid #333; margin-bottom:20px">
+<div class="grid grid-2 container" style="padding-bottom:20px; border-bottom: 1px solid #ccc; margin-bottom:20px">
     <div >
         <b>Q - How do I make a flight booking on MakeMyTrip?</b>
         <p>A: You can book a flight on MakeMyTrip in five easy steps: Head over to the MakeMyTrip flight booking page, Enter your departure and arrival destinations, Select your air travel dates, Choose from our wide range of cheap flights based on your airfare preferences, Click on ‘Book Now’ and your air flight booking is done. Alternatively, you can also use the MakeMyTrip app for your flight ticket booking. Download the MakeMyTrip app, Put in the details i.e. date of journey, departure and arrival destinations, travel class of your choice, Select on your best comfortable option and click on 'Book Now'.</p>
