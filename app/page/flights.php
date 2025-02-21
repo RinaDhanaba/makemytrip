@@ -11,10 +11,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <!-- jQuery & Bootstrap Bundle -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 
     <style>
         body {
@@ -260,21 +256,10 @@
             { code: "MAA", city: "Chennai", country: "India", airport: "Chennai International Airport" }
         ];
 
-        function populateDropdown(id, dropdownId) {
-            let dropdown = $(`#${dropdownId}`);
-            dropdown.empty();
-            airports.forEach(airport => {
-                dropdown.append(`
-                    <div class="dropdown-item" data-code="${airport.code}">
-                        <div class="selected-value">${airport.city}, ${airport.country}</div>
-                        <div class="sub-text">${airport.airport} (${airport.code})</div>
-                    </div>
-                `);
-            });
-        }
-
-        $("#from, #to").click(function () {
+        $("#from, #to").click(function (event) {
+            event.stopPropagation();
             let dropdownId = $(this).attr("id") + "Dropdown";
+            $(".dropdown").not(`#${dropdownId}`).hide(); // Hide other dropdowns
             populateDropdown($(this).attr("id"), dropdownId);
             $(`#${dropdownId}`).toggle();
         });
@@ -285,6 +270,30 @@
             parentInput.find(".sub-text").text($(this).find(".sub-text").text());
             $(this).closest(".dropdown").hide();
         });
+
+        $(".dropdown").click(function (event) {
+            event.stopPropagation();
+        });
+
+        $(document).click(function (event) {
+            if (!$(event.target).closest(".input-box, .dropdown").length) {
+                $(".dropdown").hide();
+            }
+        });
+
+        function populateDropdown(id, dropdownId) {
+            let dropdown = $(`#${dropdownId}`);
+            dropdown.empty(); // Clear previous content
+            airports.forEach(airport => {
+                dropdown.append(`
+                    <div class="dropdown-item" data-code="${airport.code}">
+                        <div class="selected-value">${airport.city}, ${airport.country}</div>
+                        <div class="sub-text">${airport.airport} (${airport.code})</div>
+                    </div>
+                `);
+            });
+        }
+
 
         $("#departureDate, #returnDate").flatpickr({ dateFormat: "d M Y", minDate: "today" });
 
