@@ -152,9 +152,9 @@ color: #fff;
     color:#fff;
 }
 
-.nav-menu-home{
+.nav-menu-home {
 background: #fff;
-max-width: 1000px;
+max-width: 900px;
 margin: 40px auto 0;;
 box-shadow: 1px 1px 1px #ddd;
 border-radius: 20px;
@@ -326,22 +326,26 @@ margin:30px auto;
 
 .extra-info-banner{
 max-width: 1100px;
+width: fit-content;
 margin: 0px auto -50px auto;
 background-color: #fff;
 padding: 10px;
 border-radius: 50px;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 display:flex;
-gap:20px;
-justify-content: space-around;
+justify-content: center;
 align-items: center;
 position: relative;
 top: 35px;
 }
 
-.extra-info-banner-btn:not(:last-child) {
-border-right: 1px solid #ccc;
-}
+.extra-info-banner-btn:not(:last-child) { border-right: 1px solid #ccc;}
+
+.extra-info-banner-btn{ padding: 0 10px;}
+
+.extra-info-banner-btn p { font-size: 12px;  margin: 0;}
+
+.extra-info-banner-btn i{color: var(--primary-color)}
 
 
 
