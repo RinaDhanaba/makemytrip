@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight Search</title>
-
+    
     <!-- Styles & Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <style>
@@ -23,24 +21,39 @@
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
-        .select2-container--default .select2-results__option {
+        .input-box {
+            cursor: pointer;
             padding: 10px;
-            display: flex;
-            align-items: center;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
-        .airport-item {
-            display: flex;
-            align-items: center;
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: white;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
         }
-        .airport-icon {
-            margin-right: 10px;
+        .dropdown-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
         }
-        .airport-details {
-            flex-grow: 1;
+        .dropdown-item:hover {
+            background: #f1f1f1;
         }
-        .airport-code {
+        .selected-value {
+            font-size: 16px;
             font-weight: bold;
-            color: #666;
+        }
+        .sub-text {
+            font-size: 12px;
+            color: gray;
         }
         .btn-search {
             background-color: #007bff;
@@ -49,27 +62,11 @@
             padding: 10px 20px;
             font-weight: bold;
         }
-        .swap-btn {
-            cursor: pointer;
-            font-size: 24px;
-            color: #007bff;
-            text-align: center;
-            user-select: none;
-        }
-        .travellers-dropdown {
-            display: none;
-            background: white;
-            padding: 15px;
-            position: absolute;
-            z-index: 1000;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            width: 250px;
-        }
     </style>
 </head>
 <body>
     <div class="container mt-5">
+        <h5 class="mb-3">Book International and Domestic Flights</h5>
         <div class="flight-card">
             <div class="row g-3 align-items-center">
                 <!-- Trip Type -->
@@ -79,18 +76,23 @@
                 </div>
 
                 <!-- From Location -->
-                <div class="col-md-3">
+                <div class="col-md-3 position-relative">
                     <label>From</label>
-                    <select id="from" class="form-select"></select>
+                    <div id="from" class="input-box">
+                        <div class="selected-value">Select Departure</div>
+                        <div class="sub-text">Airport will appear here</div>
+                    </div>
+                    <div class="dropdown" id="fromDropdown"></div>
                 </div>
 
-                <!-- Swap Button -->
-                <div class="col-md-auto swap-btn" id="swapBtn">⇄</div>
-
                 <!-- To Location -->
-                <div class="col-md-3">
+                <div class="col-md-3 position-relative">
                     <label>To</label>
-                    <select id="to" class="form-select"></select>
+                    <div id="to" class="input-box">
+                        <div class="selected-value">Select Destination</div>
+                        <div class="sub-text">Airport will appear here</div>
+                    </div>
+                    <div class="dropdown" id="toDropdown"></div>
                 </div>
 
                 <!-- Departure Date -->
@@ -99,17 +101,20 @@
                     <input type="text" id="departureDate" class="form-control" placeholder="Select date">
                 </div>
 
-                <!-- Return Date (Hidden for One Way) -->
+                <!-- Return Date -->
                 <div class="col-md-2" id="returnDateContainer" style="display: none;">
                     <label>Return</label>
                     <input type="text" id="returnDate" class="form-control" placeholder="Select date">
                 </div>
 
                 <!-- Travellers & Class -->
-                <div class="col-md-2 position-relative">
+                <div class="col-md-3 position-relative">
                     <label>Travellers & Class</label>
-                    <input type="text" id="travellers" class="form-control" readonly>
-                    <div class="travellers-dropdown">
+                    <div id="travellers" class="input-box">
+                        <div class="selected-value">1 Traveller</div>
+                        <div class="sub-text">Economy/Premium Economy</div>
+                    </div>
+                    <div class="dropdown" id="travellersDropdown">
                         <label>Adults (12+)</label>
                         <input type="number" id="adults" class="form-control" min="1" max="9" value="1">
 
@@ -139,68 +144,50 @@
 
     <script>
         const airports = [
-            { code: "BOM", city: "Mumbai, India", airport: "Chhatrapati Shivaji International Airport" },
-            { code: "DEL", city: "New Delhi, India", airport: "Indira Gandhi International Airport" },
-            { code: "BLR", city: "Bengaluru, India", airport: "Bengaluru International Airport" },
-            { code: "HYD", city: "Hyderabad, India", airport: "Rajiv Gandhi International Airport" },
-            { code: "MAA", city: "Chennai, India", airport: "Chennai International Airport" }
+            { code: "BOM", city: "Mumbai", country: "India", airport: "Chhatrapati Shivaji International Airport" },
+            { code: "DEL", city: "Delhi", country: "India", airport: "Indira Gandhi International Airport" },
+            { code: "BLR", city: "Bengaluru", country: "India", airport: "Bengaluru International Airport" },
+            { code: "HYD", city: "Hyderabad", country: "India", airport: "Rajiv Gandhi International Airport" },
+            { code: "MAA", city: "Chennai", country: "India", airport: "Chennai International Airport" }
         ];
 
-        function formatAirport(airport) {
-            if (!airport.id) return airport.text;
-            const data = airports.find(a => a.code === airport.id);
-            if (!data) return airport.text;
-            return $(`
-                <div class="airport-item">
-                    <span class="airport-icon">✈️</span>
-                    <div class="airport-details">
-                        <div><strong>${data.city}</strong></div>
-                        <div>${data.airport}</div>
+        function populateDropdown(id, dropdownId) {
+            let dropdown = $(`#${dropdownId}`);
+            dropdown.empty();
+            airports.forEach(airport => {
+                dropdown.append(`
+                    <div class="dropdown-item" data-code="${airport.code}">
+                        <div class="selected-value">${airport.city}, ${airport.country}</div>
+                        <div class="sub-text">${airport.airport} (${airport.code})</div>
                     </div>
-                    <span class="airport-code">${data.code}</span>
-                </div>
-            `);
+                `);
+            });
         }
 
-        $(document).ready(function() {
-            $("#from, #to").select2({
-                data: airports.map(a => ({ id: a.code, text: `${a.city} (${a.code})` })),
-                templateResult: formatAirport,
-                templateSelection: formatAirport,
-                width: '100%'
-            });
+        $("#from, #to").click(function () {
+            let dropdownId = $(this).attr("id") + "Dropdown";
+            populateDropdown($(this).attr("id"), dropdownId);
+            $(`#${dropdownId}`).toggle();
+        });
 
-            $("#departureDate, #returnDate").flatpickr({
-                dateFormat: "d M Y",
-                minDate: "today"
-            });
+        $(".dropdown").on("click", ".dropdown-item", function () {
+            let parentInput = $(this).closest(".position-relative").find(".input-box");
+            parentInput.find(".selected-value").text($(this).find(".selected-value").text());
+            parentInput.find(".sub-text").text($(this).find(".sub-text").text());
+            $(this).closest(".dropdown").hide();
+        });
 
-            $("#roundTrip").change(() => $("#returnDateContainer").fadeIn());
-            $("#oneWay").change(() => $("#returnDateContainer").fadeOut());
+        $("#departureDate, #returnDate").flatpickr({ dateFormat: "d M Y", minDate: "today" });
 
-            $("#travellers").click(() => $(".travellers-dropdown").toggle());
+        $("#roundTrip").change(function () { $("#returnDateContainer").fadeIn(); });
+        $("#oneWay").change(function () { $("#returnDateContainer").fadeOut(); });
 
-            $(document).click(e => {
-                if (!$(e.target).closest(".travellers-dropdown, #travellers").length) {
-                    $(".travellers-dropdown").hide();
-                }
-            });
+        $("#travellers").click(function () { $("#travellersDropdown").toggle(); });
 
-            $("#applyTravellers").click(() => {
-                const adults = $("#adults").val();
-                const children = $("#children").val();
-                const infants = $("#infants").val();
-                const travelClass = $("#travelClass option:selected").text();
-                $("#travellers").val(`${adults} Adults, ${children} Children, ${infants} Infants - ${travelClass}`);
-                $(".travellers-dropdown").hide();
-            });
-
-            $("#swapBtn").click(() => {
-                let fromVal = $("#from").val();
-                let toVal = $("#to").val();
-                $("#from").val(toVal).trigger("change");
-                $("#to").val(fromVal).trigger("change");
-            });
+        $("#applyTravellers").click(function () {
+            let text = `${$("#adults").val()} Traveller`;
+            $("#travellers").find(".selected-value").text(text);
+            $("#travellersDropdown").hide();
         });
     </script>
 </body>
