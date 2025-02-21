@@ -209,17 +209,45 @@ const countries = [
     { name: "USA", code: "us", flag: "https://flagcdn.com/w40/us.png" }
 ];
 
-const countryList = document.getElementById("countryList");
+const countryDropdown = document.querySelector(".countryDropdown");
+const selectedCountry = document.getElementById("selectedCountry");
+const countryList = document.createElement("div");
+countryList.classList.add("dropdown-content");
+
+// Populate dropdown list
 countries.forEach(country => {
     let div = document.createElement("div");
     div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
     div.addEventListener("click", () => {
-        const countryHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
-        updateSelection("selectedCountry", countryHTML);
+        selectedCountry.innerHTML = `<img src="${country.flag}" class="flag"> ▼`;
         countryList.classList.remove("show");
     });
     countryList.appendChild(div);
 });
+// Append dropdown list to the container
+countryDropdown.appendChild(countryList);
+
+// Toggle dropdown on button click
+selectedCountry.addEventListener("click", (event) => {
+    event.stopPropagation(); // Prevent immediate closing
+    countryList.classList.toggle("show");
+});
+
+// Close dropdown when clicking outside
+document.addEventListener("click", () => {
+    countryList.classList.remove("show");
+});
+
+// countries.forEach(country => {
+//     let div = document.createElement("div");
+//     div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
+//     div.addEventListener("click", () => {
+//         const countryHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
+//         updateSelection("selectedCountry", countryHTML);
+//         countryList.classList.remove("show");
+//     });
+//     countryList.appendChild(div);
+// });
 
 
 // Load saved selections on page load
