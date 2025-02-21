@@ -236,23 +236,42 @@
 
 
 
-        $(document).ready(function() {
-            $("#travellers").click(function() {
-                $("#travellersDropdown").toggle();
-            });
-            $(".btn-option").click(function() {
-                $(this).siblings().removeClass("selected");
-                $(this).addClass("selected");
-            });
-            $("#applyTravellers").click(function() {
-                let adults = $("#adultsGroup .selected").text();
-                let children = $("#childrenGroup .selected").text();
-                let infants = $("#infantsGroup .selected").text();
-                let travelClass = $("#classGroup .selected").text();
-                $("#travellers").text(`${adults} Traveller - ${travelClass}`);
-                $("#travellersDropdown").hide();
-            });
-        });
+        $(document).ready(function () {
+    // Toggle Traveller Dropdown
+    $("#travellers").click(function (event) {
+        event.stopPropagation(); // Prevents closing when clicking inside
+        $("#travellersDropdown").toggle();
+    });
+
+    // Close dropdown if clicked outside
+    $(document).click(function (event) {
+        if (!$(event.target).closest("#travellersDropdown, #travellers").length) {
+            $("#travellersDropdown").hide();
+        }
+    });
+
+    // Handle button selection
+    $(".btn-option").click(function () {
+        $(this).siblings().removeClass("selected");
+        $(this).addClass("selected");
+    });
+
+    // Apply selection
+    $("#applyTravellers").click(function () {
+        let adults = $("#adultsGroup .selected").text();
+        let children = $("#childrenGroup .selected").text();
+        let infants = $("#infantsGroup .selected").text();
+        let travelClass = $("#classGroup .selected").text();
+
+        let displayText = `${adults} Adult${adults > 1 ? 's' : ''}`;
+        if (children !== "0") displayText += `, ${children} Child${children > 1 ? 'ren' : ''}`;
+        if (infants !== "0") displayText += `, ${infants} Infant${infants > 1 ? 's' : ''}`;
+        displayText += ` - ${travelClass}`;
+
+        $("#travellers").text(displayText);
+        $("#travellersDropdown").hide();
+    });
+});
 
 
     </script>
