@@ -244,8 +244,8 @@ window.addEventListener("load", loadSavedSelections);
 
 
 
- // Airport list
- const airports = [
+   // Airport list
+   const airports = [
     { code: "BOM", city: "Mumbai",    country: "India", airport: "Chhatrapati Shivaji Intl Airport" },
     { code: "DEL", city: "Delhi",     country: "India", airport: "Indira Gandhi Intl Airport" },
     { code: "BLR", city: "Bengaluru", country: "India", airport: "Bengaluru Intl Airport" },
