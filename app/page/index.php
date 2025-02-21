@@ -3,84 +3,124 @@
 
 <div class="bgGradient">
     <div class="booking-container">
-        <form action="search.php" method="GET">
-
-            <!-- Trip Type Selection -->
-            <div class="trip-options">
-                <label><input type="radio" name="trip" value="one-way" onclick="switchTab('one-way')" checked> One Way</label>
-                <label><input type="radio" name="trip" value="round-trip" onclick="switchTab('round-trip')"> Round Trip</label>
-                <label><input type="radio" name="trip" value="multi-city" onclick="switchTab('multi-city')"> Multi City</label>
-            </div>
-
-            <p>Book International and Domestic Flights</p>
-
-            <!-- One Way Section -->
-            <div id="one-way" class="tab-content">
-                <div class="flight-section">
-                    <div class="flight-box">
-                        <label>From</label>
-                        <input type="text" id="from-input" name="from" placeholder="Enter city or airport" onkeyup="filterOptions('from-input', 'from-dropdown')" required>
-                        <div class="dropdown-content" id="from-dropdown"></div>
-                    </div>
-                    <div class="swap-icon" onclick="swapValues()">⇄</div>
-                    <div class="flight-box">
-                        <label>To</label>
-                        <input type="text" id="to-input" name="to" placeholder="Enter city or airport" onkeyup="filterOptions('to-input', 'to-dropdown')" required>
-                        <div class="dropdown-content" id="to-dropdown"></div>
-                    </div>
-                </div>
-
-                <div class="date-section">
-                    <div class="date-box">
-                        <label>Departure</label>
-                        <input type="date" name="departure" required>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Round Trip Section -->
-            <div id="round-trip" class="tab-content" style="display: none;">
-                <div class="flight-section">
-                    <div class="flight-box">
-                        <label>From</label>
-                        <input type="text" id="from-input-rt" name="from" placeholder="Enter city or airport" onkeyup="filterOptions('from-input-rt', 'from-dropdown-rt')" required>
-                        <div class="dropdown-content" id="from-dropdown-rt"></div>
-                    </div>
-                    <div class="swap-icon" onclick="swapValuesRT()">⇄</div>
-                    <div class="flight-box">
-                        <label>To</label>
-                        <input type="text" id="to-input-rt" name="to" placeholder="Enter city or airport" onkeyup="filterOptions('to-input-rt', 'to-dropdown-rt')" required>
-                        <div class="dropdown-content" id="to-dropdown-rt"></div>
-                    </div>
-                </div>
-
-                <div class="date-section">
-                    <div class="date-box">
-                        <label>Departure</label>
-                        <input type="date" name="departure" required>
-                    </div>
-                    <div class="date-box">
-                        <label>Return</label>
-                        <input type="date" name="return" required>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Multi City Section -->
-            <div id="multi-city" class="tab-content" style="display: none;">
-                <div id="multi-city-container">
-                    <div class="multi-city-row">
-                        <input type="text" placeholder="From" name="multi_from[]" required>
-                        <input type="text" placeholder="To" name="multi_to[]" required>
-                        <input type="date" name="multi_departure[]" required>
-                    </div>
-                </div>
-                <button type="button" onclick="addCity()">+ Add City</button>
-            </div>
-
-            <button type="submit" class="search-btn">SEARCH</button>
-        </form>
+    <div class="container mt-5">
+  <div class="flight-card">
+    <!-- Top Row: Trip Types + Right-aligned text -->
+    <div class="row g-3 align-items-center">
+      <div class="col-md-6">
+        <input type="radio" name="tripType" id="oneWay" checked>
+        <label for="oneWay">One Way</label>
+        <input type="radio" name="tripType" id="roundTrip">
+        <label for="roundTrip">Round Trip</label>
+      </div>
+      <div class="col-md-6 text-end">
+        <span style="font-size:14px; color:gray;">Book International and Domestic Flights</span>
+      </div>
     </div>
+
+    <hr>
+
+    <!-- Fields: From → Swap → To → Departure → Return → Travellers & Class -->
+    <div class="row g-3 align-items-center mt-1">
+      <!-- From Location -->
+      <div class="col-md-2 position-relative">
+        <label>From</label>
+        <div id="from" class="input-box">
+          <div class="selected-value">Select Departure</div>
+          <div class="sub-text">Airport will appear here</div>
+        </div>
+        <div class="dropdown" id="fromDropdown"></div>
+      </div>
+
+      <!-- Swap Button -->
+      <div class="col-md-auto text-center">
+        <button id="swapBtn" class="swap-btn">⇄</button>
+      </div>
+
+      <!-- To Location -->
+      <div class="col-md-2 position-relative">
+        <label>To</label>
+        <div id="to" class="input-box">
+          <div class="selected-value">Select Destination</div>
+          <div class="sub-text">Airport will appear here</div>
+        </div>
+        <div class="dropdown" id="toDropdown"></div>
+      </div>
+
+      <!-- Departure Date (with default "today") -->
+      <div class="col-md-2 position-relative">
+        <label>Departure</label>
+        <div id="departureDate" class="input-box">
+          <div class="selected-value">Select Date</div>
+          <div class="sub-text"></div>
+        </div>
+        <!-- Hidden input for Flatpickr -->
+        <input type="hidden" id="departureDateInput">
+      </div>
+
+      <!-- Return Date + Clear Button -->
+      <div class="col-md-2 position-relative">
+        <label>Return</label>
+        <div id="returnDate" class="input-box">
+          <div class="selected-value">Select Date</div>
+          <div class="sub-text"></div>
+          <button id="clearReturnDate" class="clear-btn">×</button>
+        </div>
+        <!-- Hidden input for Flatpickr -->
+        <input type="hidden" id="returnDateInput">
+      </div>
+
+      <!-- Travellers & Class -->
+      <div class="col-md-2 position-relative">
+        <label>Travellers & Class</label>
+        <div id="travellers" class="input-box">
+          <span class="selected-value">1 Traveller</span>
+          <span class="sub-text">Economy</span>
+        </div>
+        <!-- Travellers Dropdown -->
+        <div class="dropdown-menu" id="travellersDropdown" style="padding: 15px;">
+          <label>ADULTS (12+)</label>
+          <div class="d-flex flex-wrap" id="adultsGroup">
+            <span class="btn-option" data-category="adults" data-value="1">1</span>
+            <span class="btn-option" data-category="adults" data-value="2">2</span>
+            <span class="btn-option" data-category="adults" data-value="3">3</span>
+          </div>
+          <hr>
+          <label>CHILDREN (2y - 12y)</label>
+          <div class="d-flex flex-wrap" id="childrenGroup">
+            <span class="btn-option" data-category="children" data-value="0">0</span>
+            <span class="btn-option" data-category="children" data-value="1">1</span>
+            <span class="btn-option" data-category="children" data-value="2">2</span>
+          </div>
+          <hr>
+          <label>INFANTS (below 2y)</label>
+          <div class="d-flex flex-wrap" id="infantsGroup">
+            <span class="btn-option" data-category="infants" data-value="0">0</span>
+            <span class="btn-option" data-category="infants" data-value="1">1</span>
+            <span class="btn-option" data-category="infants" data-value="2">2</span>
+          </div>
+          <hr>
+          <label>CHOOSE TRAVEL CLASS</label>
+          <div class="d-flex flex-wrap" id="classGroup">
+            <span class="btn-option" data-category="class" data-value="Economy">Economy/Premium Economy</span>
+            <span class="btn-option" data-category="class" data-value="Business">Business</span>
+            <span class="btn-option" data-category="class" data-value="First Class">First Class</span>
+          </div>
+          <button class="btn-search mt-3" id="applyTravellers">APPLY</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Button BELOW, Centered -->
+    <div class="row mt-4">
+      <div class="col text-center">
+        <button class="btn-search">SEARCH</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 </div>
 
 <div style="margin: 60px auto 20px auto;    color: #fff;    text-align: center;">>> Explore More >> </div>

@@ -244,72 +244,187 @@ window.addEventListener("load", loadSavedSelections);
 
 
 
-// Airport Data
-const airports = [
-    { city: "Mumbai", country: "India", code: "BOM", airport: "Chhatrapati Shivaji International Airport" },
-    { city: "New Delhi", country: "India", code: "DEL", airport: "Indira Gandhi International Airport" },
-    { city: "Bangkok", country: "Thailand", code: "BKK", airport: "Suvarnabhumi Airport" },
-    { city: "Dubai", country: "UAE", code: "DXB", airport: "Dubai International Airport" }
-];
+ // Airport list
+ const airports = [
+    { code: "BOM", city: "Mumbai",    country: "India", airport: "Chhatrapati Shivaji Intl Airport" },
+    { code: "DEL", city: "Delhi",     country: "India", airport: "Indira Gandhi Intl Airport" },
+    { code: "BLR", city: "Bengaluru", country: "India", airport: "Bengaluru Intl Airport" },
+    { code: "HYD", city: "Hyderabad", country: "India", airport: "Rajiv Gandhi Intl Airport" },
+    { code: "MAA", city: "Chennai",   country: "India", airport: "Chennai Intl Airport" }
+  ];
 
-// Filter dropdown based on input
-function filterOptions(inputId, dropdownId) {
-    let input = document.getElementById(inputId).value.toLowerCase();
-    let dropdown = document.getElementById(dropdownId);
-    dropdown.innerHTML = ""; // Clear previous results
+  $(document).ready(function() {
+    /************************
+     * Auto-Select From/To  *
+     ************************/
+    $("#from .selected-value").text(`${airports[0].city}, ${airports[0].country}`);
+    $("#from .sub-text").text(`${airports[0].airport} (${airports[0].code})`);
+    const lastIndex = airports.length - 1;
+    $("#to .selected-value").text(`${airports[lastIndex].city}, ${airports[lastIndex].country}`);
+    $("#to .sub-text").text(`${airports[lastIndex].airport} (${airports[lastIndex].code})`);
 
-    if (input.length > 0) {
-        let filtered = airports.filter(a => 
-            a.city.toLowerCase().includes(input) || 
-            a.code.toLowerCase().includes(input) ||
-            a.airport.toLowerCase().includes(input)
-        );
+    /************************
+     *  Swap Functionality  *
+     ************************/
+    $("#swapBtn").click(function() {
+      let fromVal = $("#from .selected-value").text();
+      let fromSub = $("#from .sub-text").text();
+      let toVal   = $("#to .selected-value").text();
+      let toSub   = $("#to .sub-text").text();
 
-        filtered.forEach(a => {
-            let option = document.createElement("div");
-            option.classList.add("dropdown-item");
-            option.innerHTML = `<b>${a.city}, ${a.country}</b> (${a.code})<br><small>${a.airport}</small>`;
-            option.onclick = () => {
-                document.getElementById(inputId).value = `${a.city}, ${a.country} (${a.code})`;
-                dropdown.innerHTML = "";
-            };
-            dropdown.appendChild(option);
-        });
+      $("#from .selected-value").text(toVal);
+      $("#from .sub-text").text(toSub);
+      $("#to .selected-value").text(fromVal);
+      $("#to .sub-text").text(fromSub);
+    });
+
+    /************************
+     *  Airport Dropdowns   *
+     ************************/
+    $("#from, #to").click(function(e) {
+      e.stopPropagation();
+      let dropdownId = $(this).attr("id") + "Dropdown";
+      $(".dropdown").not("#" + dropdownId).hide(); // close others
+      populateDropdown(dropdownId);
+      $("#" + dropdownId).toggle();
+    });
+
+    function populateDropdown(dropdownId) {
+      let dropdownEl = $("#" + dropdownId);
+      dropdownEl.empty();
+      airports.forEach(airport => {
+        dropdownEl.append(`
+          <div class="dropdown-item" data-code="${airport.code}">
+            <div class="selected-value">${airport.city}, ${airport.country}</div>
+            <div class="sub-text">${airport.airport} (${airport.code})</div>
+          </div>
+        `);
+      });
     }
-}
 
-// Swap From & To Values (One Way)
-function swapValues() {
-    let fromInput = document.getElementById("from-input");
-    let toInput = document.getElementById("to-input");
-    [fromInput.value, toInput.value] = [toInput.value, fromInput.value];
-}
+    $(".dropdown").on("click", ".dropdown-item", function() {
+      let parentBox = $(this).closest(".position-relative").find(".input-box");
+      parentBox.find(".selected-value").text($(this).find(".selected-value").text());
+      parentBox.find(".sub-text").text($(this).find(".sub-text").text());
+      $(this).closest(".dropdown").hide();
+    });
 
-// Swap From & To Values (Round Trip)
-function swapValuesRT() {
-    let fromInput = document.getElementById("from-input-rt");
-    let toInput = document.getElementById("to-input-rt");
-    [fromInput.value, toInput.value] = [toInput.value, fromInput.value];
-}
+    $(document).click(function(e) {
+      if (!$(e.target).closest(".input-box, .dropdown").length) {
+        $(".dropdown").hide();
+      }
+    });
 
-// Toggle Sections
-function switchTab(tabId) {
-    document.getElementById('one-way').style.display = (tabId === 'one-way') ? 'block' : 'none';
-    document.getElementById('round-trip').style.display = (tabId === 'round-trip') ? 'block' : 'none';
-    document.getElementById('multi-city').style.display = (tabId === 'multi-city') ? 'block' : 'none';
-}
+    /************************
+     *    Departure Date    *
+     ************************/
+    const departureFlatpickr = flatpickr("#departureDateInput", {
+      dateFormat: "d M Y",
+      minDate: "today",         // No past dates
+      defaultDate: "today",     // Today’s date by default
+      clickOpens: false,        // We'll open it manually
+      onReady: function(selectedDates, dateStr, instance) {
+        // Once it's ready, set the UI to today's date + weekday
+        if (selectedDates.length) {
+          const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
+          $("#departureDate .selected-value").text(dateStr);
+          $("#departureDate .sub-text").text(weekday);
+        }
+      },
+      onChange: function(selectedDates, dateStr, instance) {
+        if (selectedDates.length) {
+          const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
+          $("#departureDate .selected-value").text(dateStr);
+          $("#departureDate .sub-text").text(weekday);
+        }
+      }
+    });
 
-// Add Multi-City Row
-function addCity() {
-    let container = document.getElementById('multi-city-container');
-    let newRow = document.createElement("div");
-    newRow.classList.add("multi-city-row");
-    newRow.innerHTML = `<input type="text" placeholder="From" name="multi_from[]" required>
-                        <input type="text" placeholder="To" name="multi_to[]" required>
-                        <input type="date" name="multi_departure[]" required>`;
-    container.appendChild(newRow);
-}
+    // Open flatpickr on the div
+    $("#departureDate").on("click", function(e) {
+      e.stopPropagation();
+      departureFlatpickr.open();
+    });
 
+    /************************
+     *     Return Date      *
+     ************************/
+    const returnFlatpickr = flatpickr("#returnDateInput", {
+      dateFormat: "d M Y",
+      minDate: "today",
+      clickOpens: false,
+      onChange: function(selectedDates, dateStr, instance) {
+        if (dateStr) {
+          // If user picks a return date, switch to Round Trip
+          if ($("#oneWay").is(":checked")) {
+            $("#roundTrip").prop("checked", true);
+          }
+          const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
+          $("#returnDate .selected-value").text(dateStr);
+          $("#returnDate .sub-text").text(weekday);
+          // Show the clear button
+          $("#clearReturnDate").show();
+        } else {
+          // If user clears the date, switch to One Way
+          if ($("#roundTrip").is(":checked")) {
+            $("#oneWay").prop("checked", true);
+          }
+          $("#returnDate .selected-value").text("Select Date");
+          $("#returnDate .sub-text").text("");
+          $("#clearReturnDate").hide();
+        }
+      }
+    });
+
+    // Open return date picker on div click
+    $("#returnDate").on("click", function(e) {
+      e.stopPropagation();
+      returnFlatpickr.open();
+    });
+
+    // Clear button for return date
+    $("#clearReturnDate").click(function(e) {
+      e.stopPropagation();
+      returnFlatpickr.clear(); // triggers onChange -> switches to One Way
+    });
+
+    /************************
+     * Travellers & Class   *
+     ************************/
+    $("#travellers").click(function(e) {
+      e.stopPropagation();
+      $("#travellersDropdown").toggle();
+    });
+
+    $(document).click(function(e) {
+      if (!$(e.target).closest("#travellersDropdown, #travellers").length) {
+        $("#travellersDropdown").hide();
+      }
+    });
+
+    $(".btn-option").click(function() {
+      let category = $(this).data("category");
+      // Only allow one selection per category
+      $(`.btn-option[data-category='${category}']`).removeClass("selected");
+      $(this).addClass("selected");
+    });
+
+    $("#applyTravellers").click(function() {
+      let adults   = parseInt($("#adultsGroup .selected").data("value")   || 1);
+      let children = parseInt($("#childrenGroup .selected").data("value") || 0);
+      let infants  = parseInt($("#infantsGroup .selected").data("value")  || 0);
+      let travelClass = $("#classGroup .selected").data("value") || "Economy";
+
+      let totalTravellers = adults + children + infants;
+
+      $("#travellers .selected-value").text(
+        totalTravellers + " Traveller" + (totalTravellers > 1 ? "s" : "")
+      );
+      $("#travellers .sub-text").text(travelClass);
+
+      $("#travellersDropdown").hide();
+    });
+  });
 
 
 

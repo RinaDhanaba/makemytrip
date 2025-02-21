@@ -185,144 +185,92 @@ margin:30px auto;
 
 
 
-.booking-container {
-max-width: 1200px;
-margin: 50px auto 0px auto;
-background-color: #fff;
-padding: 50px 30px 0px 30px;
-border-radius: 8px;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-form {
-display: flex;
-flex-direction: column;
-gap: 15px;
-}
-
-/* Trip Options */
-.trip-options {
-display: flex;
-justify-content: space-between;
-padding: 10px;gap:20px;
-}
-
-.trip-options-inner {
-display: flex;
-justify-content: flex-start;
-gap:20px;
-}
-
-.trip-options label {
-cursor: pointer;
-font-weight: bold;
-}
-
-/* Flight Details */
-.flight-section {
-display: flex;
-align-items: center;
-gap: 10px;
-padding: 15px 0;
-}
-
-.flight-box, .multi-city-box {
-display: flex;
-flex-direction: row;
-align-content: center;
-align-items: center;
-gap: 10px;
-}
-
-.multi-city-box input {
-margin-bottom: 5px;
-}
-
-.flight-box input, .multi-city-box input {
-padding: 10px;
-border: 1px solid #ccc;
-border-radius: 5px;
-}
-
-.swap-icon {
-font-size: 20px;
-color: #007bff;
-}
-
-/* Date Section */
-.date-section {
-display: flex;
-gap: 10px;
-padding: 15px 0;
-}
-
-.date-box input {
-padding: 10px;
-border: 1px solid #ccc;
-border-radius: 5px;
-}
-
-/* Multi-City */
-.add-city {
-background: #007bff;
-color: white;
-border: none;
-padding: 10px;
-width: 100%;
-border-radius: 5px;
-font-size: 14px;
-cursor: pointer;
-margin-top: 10px;
-}
-
-/* Fare Section */
-.fare-section {
-padding: 10px 0;
-}
-
-.fare-options {
-display: flex;
-flex-wrap: wrap;
-gap: 10px;
-}
-
-.fare-label {
-background: #f4f4f4;
-padding: 5px 10px;
-border-radius: 5px;
-cursor: pointer;
-}
-
-/* Search Button */
-.search-btn {
-background: #007bff;
-color: white;
-border: none;
-padding: 15px;
-width: 100%;
-border-radius: 5px;
-font-size: 18px;
-cursor: pointer;
-margin-top: 15px;
-position: relative;
-top: 30px;
-width: 200px;
-margin: auto;
-border-radius: 50px;
-}
-
-.search-btn:hover {
-background: #0056b3;
-}
-
-@media (max-width: 600px) {
-.booking-container {
-    max-width: 90%;
-}
-}
-
-
-
+.flight-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  .input-box {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* needed for clear (X) button positioning */
+  }
+  .dropdown, .dropdown-menu {
+    display: none;
+    position: absolute;
+    background: #fff;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  .dropdown-item, .btn-option {
+    cursor: pointer;
+    padding: 8px 12px;
+    margin: 4px 0;
+    border-radius: 6px;
+  }
+  .dropdown-item:hover, .btn-option:hover {
+    background: #f1f1f1;
+  }
+  .btn-option.selected {
+    background: #007bff;
+    color: white;
+  }
+  .btn-search {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+  }
+  .swap-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #007bff;
+  }
+  #travellers {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  #travellers .sub-text {
+    font-size: 12px;
+    color: gray;
+    font-weight: normal;
+  }
+  /* Hidden inputs for flatpickr */
+  #departureDateInput, #returnDateInput {
+    display: none !important;
+  }
+  /* Clear (X) button for Return date */
+  .clear-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: #999;
+    cursor: pointer;
+    display: none; /* hidden by default, shown once a date is selected */
+  }
+  .clear-btn:hover {
+    color: #000;
+  }
 
 
 
