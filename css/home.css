@@ -185,13 +185,13 @@ margin:30px auto;
 
 
 
-.flight-card {
+.booking-container .flight-card {
     background: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
-  .input-box {
+  .booking-container .input-box {
     cursor: pointer;
     padding: 10px;
     border-radius: 8px;
@@ -199,7 +199,7 @@ margin:30px auto;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     position: relative; /* needed for clear (X) button positioning */
   }
-  .dropdown, .dropdown-menu {
+  .booking-container .dropdown, .dropdown-menu {
     display: none;
     position: absolute;
     background: #fff;
@@ -208,20 +208,20 @@ margin:30px auto;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
   }
-  .dropdown-item, .btn-option {
+  .booking-container .dropdown-item, .btn-option {
     cursor: pointer;
     padding: 8px 12px;
     margin: 4px 0;
     border-radius: 6px;
   }
-  .dropdown-item:hover, .btn-option:hover {
+  .booking-container .dropdown-item:hover, .btn-option:hover {
     background: #f1f1f1;
   }
-  .btn-option.selected {
+  .booking-container .btn-option.selected {
     background: #007bff;
     color: white;
   }
-  .btn-search {
+  .booking-container .btn-search {
     background-color: #007bff;
     color: #fff;
     border-radius: 20px;
@@ -230,14 +230,14 @@ margin:30px auto;
     border: none;
     cursor: pointer;
   }
-  .swap-btn {
+  .booking-container .swap-btn {
     background: none;
     border: none;
     font-size: 24px;
     cursor: pointer;
     color: #007bff;
   }
-  #travellers {
+  .booking-container  #travellers {
     background: #f8f9fa;
     border-radius: 10px;
     padding: 12px;
@@ -247,17 +247,17 @@ margin:30px auto;
     font-size: 18px;
     font-weight: bold;
   }
-  #travellers .sub-text {
+  .booking-container #travellers .sub-text {
     font-size: 12px;
     color: gray;
     font-weight: normal;
   }
   /* Hidden inputs for flatpickr */
-  #departureDateInput, #returnDateInput {
+  .booking-container  #departureDateInput, #returnDateInput {
     display: none !important;
   }
   /* Clear (X) button for Return date */
-  .clear-btn {
+  .booking-container  .clear-btn {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -268,9 +268,10 @@ margin:30px auto;
     cursor: pointer;
     display: none; /* hidden by default, shown once a date is selected */
   }
-  .clear-btn:hover {
+ .booking-container .clear-btn:hover {
     color: #000;
   }
+
 
 
 
