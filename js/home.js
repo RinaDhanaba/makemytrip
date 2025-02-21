@@ -212,32 +212,45 @@ const countries = [
     { name: "India", code: "in", flag: "https://flagcdn.com/w40/in.png" },
     { name: "UAE", code: "ae", flag: "https://flagcdn.com/w40/ae.png" },
     { name: "USA", code: "us", flag: "https://flagcdn.com/w40/us.png" }
-];
-
-
-document.querySelectorAll(".countryDropdown").forEach(dropdown => {
+  ];
+  
+  document.querySelectorAll(".countryDropdown").forEach(dropdown => {
     const countryList = dropdown.querySelector(".dropdown-content");
     const button = dropdown.querySelector(".dropdown-button");
-
+  
     // Populate country list inside each dropdown
     countries.forEach(country => {
-        let div = document.createElement("div");
-        div.classList.add("dropdown-item");
-        div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
-
-        div.addEventListener("click", () => {
-            const countryHTML = `<img src="${country.flag}" class="flag">`;
-
-            // Update all country dropdowns
-            updateSelection("selectedCountry", countryHTML);
-
-            // Close dropdown
-            countryList.classList.remove("show");
-        });
-
-        countryList.appendChild(div);
+      let div = document.createElement("div");
+      div.classList.add("dropdown-item");
+      div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
+  
+      div.addEventListener("click", (e) => {
+        e.stopPropagation();
+        // Prepare only the flag HTML
+        const countryHTML = `<img src="${country.flag}" class="flag">`;
+        // Update the selection and save it (this updates all elements with id "selectedCountry")
+        updateSelection("selectedCountry", countryHTML);
+        // Close the dropdown list
+        countryList.classList.remove("show");
+      });
+  
+      countryList.appendChild(div);
     });
-});
+  
+    // Toggle dropdown on button click
+    button.addEventListener("click", (e) => {
+      e.stopPropagation();
+      countryList.classList.toggle("show");
+    });
+  });
+  
+  // Close country dropdown when clicking outside
+  document.addEventListener("click", () => {
+    document.querySelectorAll(".countryDropdown .dropdown-content").forEach(list => {
+      list.classList.remove("show");
+    });
+  });
+  
 
 
 
