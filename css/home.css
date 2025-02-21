@@ -464,10 +464,10 @@ border-radius: 10px;
 box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 padding: 10px;
 flex:1;
+justify-content: flex-start;
 }
-.ad-card img{
-    width: 90px;
-}
+.ad-card img{ width: 90px;}
+.ad-card p{ margin:0;}
 
 
 
