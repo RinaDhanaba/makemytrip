@@ -92,6 +92,13 @@
       border: none;
       cursor: pointer;
     }
+    .swap-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #007bff;
+    }
     #travellers {
       background: #f8f9fa;
       border-radius: 10px;
@@ -119,8 +126,6 @@
         <label for="oneWay">One Way</label>
         <input type="radio" name="tripType" id="roundTrip">
         <label for="roundTrip">Round Trip</label>
-        <input type="radio" name="tripType" id="multiCity">
-        <label for="multiCity">Multi City</label>
       </div>
       <div class="col-md-6 text-end">
         <span style="font-size:14px; color:gray;">Book International and Domestic Flights</span>
@@ -129,7 +134,7 @@
 
     <hr><!-- Just a horizontal separator for clarity -->
 
-    <!-- Second Row: From → To → Departure → Return → Travellers & Class → SEARCH -->
+    <!-- Second Row: From → Swap → To → Departure → Return → Travellers & Class → SEARCH -->
     <div class="row g-3 align-items-center mt-1">
       <!-- From Location -->
       <div class="col-md-2 position-relative">
@@ -141,9 +146,9 @@
         <div class="dropdown" id="fromDropdown"></div>
       </div>
 
-      <!-- Arrow or plane icon between From and To (optional) -->
-      <div class="col-md-auto text-center" style="font-size:24px;">
-        &rarr;
+      <!-- Swap Button -->
+      <div class="col-md-auto text-center">
+        <button id="swapBtn" class="swap-btn">⇄</button>
       </div>
 
       <!-- To Location -->
@@ -162,8 +167,8 @@
         <input type="text" id="departureDate" class="form-control" placeholder="Select date">
       </div>
 
-      <!-- Return Date -->
-      <div class="col-md-2" id="returnDateContainer" style="display: none;">
+      <!-- Return Date (Always Visible) -->
+      <div class="col-md-2" id="returnDateContainer">
         <label>Return</label>
         <input type="text" id="returnDate" class="form-control" placeholder="Select date">
       </div>
@@ -243,6 +248,34 @@
   ];
 
   $(document).ready(function() {
+
+    /************************
+     * Auto-Select From/To  *
+     ************************/
+    // First airport in 'From'
+    $("#from .selected-value").text(`${airports[0].city}, ${airports[0].country}`);
+    $("#from .sub-text").text(`${airports[0].airport} (${airports[0].code})`);
+    // Last airport in 'To'
+    const lastIndex = airports.length - 1;
+    $("#to .selected-value").text(`${airports[lastIndex].city}, ${airports[lastIndex].country}`);
+    $("#to .sub-text").text(`${airports[lastIndex].airport} (${airports[lastIndex].code})`);
+
+    /************************
+     *  Swap Functionality  *
+     ************************/
+    $("#swapBtn").click(function() {
+      let fromVal = $("#from .selected-value").text();
+      let fromSub = $("#from .sub-text").text();
+      let toVal   = $("#to .selected-value").text();
+      let toSub   = $("#to .sub-text").text();
+
+      // Swap
+      $("#from .selected-value").text(toVal);
+      $("#from .sub-text").text(toSub);
+      $("#to .selected-value").text(fromVal);
+      $("#to .sub-text").text(fromSub);
+    });
+
     /************************
      *  Airport Dropdowns   *
      ************************/
@@ -289,18 +322,31 @@
     /************************
      *     Date Pickers     *
      ************************/
-    $("#departureDate, #returnDate").flatpickr({
+    // Departure Date
+    $("#departureDate").flatpickr({
       dateFormat: "d M Y",
       minDate: "today"
     });
 
-    // Show/hide return date if round trip is selected
-    $("#roundTrip").change(function() {
-      $("#returnDateContainer").fadeIn();
-    });
-    $("#oneWay").change(function() {
-      $("#returnDateContainer").fadeOut();
-      $("#returnDate").val(""); // clear any existing return date
+    // Return Date with onChange logic
+    $("#returnDate").flatpickr({
+      dateFormat: "d M Y",
+      minDate: "today",
+      // If user selects a date in Return while on One Way, switch to Round Trip
+      // If user clears the date in Return while on Round Trip, switch to One Way
+      onChange: function(selectedDates, dateStr, instance) {
+        if (dateStr) {
+          // user picked a date
+          if ($("#oneWay").is(":checked")) {
+            $("#roundTrip").prop("checked", true);
+          }
+        } else {
+          // user cleared the date
+          if ($("#roundTrip").is(":checked")) {
+            $("#oneWay").prop("checked", true);
+          }
+        }
+      }
     });
 
     /************************
