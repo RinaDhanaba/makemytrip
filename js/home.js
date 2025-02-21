@@ -219,10 +219,16 @@ document.querySelectorAll(".countryDropdown").forEach(dropdown => {
         div.classList.add("dropdown-item");
         div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
 
-        div.addEventListener("click", () => {
-            // Update dropdown button with selected country flag and indicator
+        div.addEventListener("click", (e) => {
+            e.stopPropagation(); // Prevent dropdown from closing immediately
+
+            // Update only the clicked dropdown button
             button.innerHTML = `<img src="${country.flag}" class="flag"> ▼`;
-            // Close the dropdown
+
+            // Save selection in sessionStorage
+            sessionStorage.setItem("selectedCountry", button.innerHTML);
+
+            // Close dropdown
             countryList.classList.remove("show");
         });
 
@@ -232,16 +238,37 @@ document.querySelectorAll(".countryDropdown").forEach(dropdown => {
     // Toggle dropdown on button click
     button.addEventListener("click", (e) => {
         e.stopPropagation();
+
+        // Hide all other dropdowns before opening this one
+        document.querySelectorAll(".countryDropdown .dropdown-content").forEach(list => {
+            if (list !== countryList) {
+                list.classList.remove("show");
+            }
+        });
+
         countryList.classList.toggle("show");
     });
 });
 
-// Close the dropdown when clicking outside
-document.addEventListener("click", (e) => {
+// Close dropdowns when clicking outside
+document.addEventListener("click", () => {
     document.querySelectorAll(".dropdown-content").forEach(countryList => {
         countryList.classList.remove("show");
     });
 });
+
+// Load saved country selection
+function loadSavedCountrySelection() {
+    const savedCountry = sessionStorage.getItem("selectedCountry");
+    if (savedCountry) {
+        document.querySelectorAll(".dropdown-button#selectedCountry").forEach(button => {
+            button.innerHTML = savedCountry;
+        });
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadSavedCountrySelection);
+
 
 
 
