@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 // Generic Dropdown Handler
-document.querySelectorAll('.dropdown').forEach(dropdown => {
+document.querySelectorAll('.generic-dropdown').forEach(dropdown => {
     const button = dropdown.querySelector('.dropdown-button');
     const content = dropdown.querySelector('.dropdown-content');
     

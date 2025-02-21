@@ -31,7 +31,7 @@ $countries = [
 $defaultCountry = $countries["IN"];
 ?>
 
-<div class="dropdown countryDropdown">
+<div class="generic-dropdown countryDropdown">
     <div class="dropdown-button" id="selectedCountry">
        <img src="<?= $defaultCountry['flag'] ?>" class="flag"> ▼
     </div>
@@ -45,7 +45,7 @@ $defaultCountry = $countries["IN"];
 </div>
 
     <!-- Language Dropdown -->
-    <div class="dropdown" id="languageDropdown">
+    <div class="generic-dropdown" id="languageDropdown">
         <div class="dropdown-button" id="selectedLanguage">ENG ▼</div>
         <div class="dropdown-content">
             <div data-lang="en">English</div>
@@ -55,7 +55,7 @@ $defaultCountry = $countries["IN"];
     </div>
 
     <!-- Currency Dropdown -->
-    <div class="dropdown" id="currencyDropdown">
+    <div class="generic-dropdown" id="currencyDropdown">
         <div class="dropdown-button" id="selectedCurrency">INR ▼</div>
         <div class="dropdown-content">
             <input type="text" class="search-box" id="searchCurrency" placeholder="Search Currency">
