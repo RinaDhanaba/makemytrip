@@ -26,6 +26,7 @@
       border-radius: 8px;
       background: #fff;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      position: relative; /* needed for clear (X) button positioning */
     }
     .dropdown, .dropdown-menu {
       display: none;
@@ -80,10 +81,24 @@
       color: gray;
       font-weight: normal;
     }
-
-    /* Ensure hidden inputs remain hidden */
+    /* Hidden inputs for flatpickr */
     #departureDateInput, #returnDateInput {
       display: none !important;
+    }
+    /* Clear (X) button for Return date */
+    .clear-btn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      color: #999;
+      cursor: pointer;
+      display: none; /* hidden by default, shown once a date is selected */
+    }
+    .clear-btn:hover {
+      color: #000;
     }
   </style>
 </head>
@@ -105,7 +120,7 @@
 
     <hr>
 
-    <!-- Second Row: From → Swap → To → Departure → Return → Travellers & Class → SEARCH -->
+    <!-- Fields: From → Swap → To → Departure → Return → Travellers & Class -->
     <div class="row g-3 align-items-center mt-1">
       <!-- From Location -->
       <div class="col-md-2 position-relative">
@@ -132,27 +147,26 @@
         <div class="dropdown" id="toDropdown"></div>
       </div>
 
-      <!-- Departure Date -->
+      <!-- Departure Date (with default "today") -->
       <div class="col-md-2 position-relative">
         <label>Departure</label>
-        <!-- Clickable Div -->
         <div id="departureDate" class="input-box">
           <div class="selected-value">Select Date</div>
           <div class="sub-text"></div>
         </div>
-        <!-- Hidden Input for Flatpickr -->
+        <!-- Hidden input for Flatpickr -->
         <input type="hidden" id="departureDateInput">
       </div>
 
-      <!-- Return Date -->
+      <!-- Return Date + Clear Button -->
       <div class="col-md-2 position-relative">
         <label>Return</label>
-        <!-- Clickable Div -->
         <div id="returnDate" class="input-box">
           <div class="selected-value">Select Date</div>
           <div class="sub-text"></div>
+          <button id="clearReturnDate" class="clear-btn">×</button>
         </div>
-        <!-- Hidden Input for Flatpickr -->
+        <!-- Hidden input for Flatpickr -->
         <input type="hidden" id="returnDateInput">
       </div>
 
@@ -170,7 +184,6 @@
             <span class="btn-option" data-category="adults" data-value="1">1</span>
             <span class="btn-option" data-category="adults" data-value="2">2</span>
             <span class="btn-option" data-category="adults" data-value="3">3</span>
-            <!-- Add as many as needed -->
           </div>
           <hr>
           <label>CHILDREN (2y - 12y)</label>
@@ -196,12 +209,15 @@
           <button class="btn-search mt-3" id="applyTravellers">APPLY</button>
         </div>
       </div>
+    </div>
 
-      <!-- Search Button -->
-      <div class="col-md-auto">
-        <button class="btn-search mt-4">SEARCH</button>
+    <!-- Search Button BELOW, Centered -->
+    <div class="row mt-4">
+      <div class="col text-center">
+        <button class="btn-search">SEARCH</button>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -221,7 +237,6 @@
      ************************/
     $("#from .selected-value").text(`${airports[0].city}, ${airports[0].country}`);
     $("#from .sub-text").text(`${airports[0].airport} (${airports[0].code})`);
-
     const lastIndex = airports.length - 1;
     $("#to .selected-value").text(`${airports[lastIndex].city}, ${airports[lastIndex].country}`);
     $("#to .sub-text").text(`${airports[lastIndex].airport} (${airports[lastIndex].code})`);
@@ -247,7 +262,7 @@
     $("#from, #to").click(function(e) {
       e.stopPropagation();
       let dropdownId = $(this).attr("id") + "Dropdown";
-      $(".dropdown").not("#" + dropdownId).hide();
+      $(".dropdown").not("#" + dropdownId).hide(); // close others
       populateDropdown(dropdownId);
       $("#" + dropdownId).toggle();
     });
@@ -283,8 +298,17 @@
      ************************/
     const departureFlatpickr = flatpickr("#departureDateInput", {
       dateFormat: "d M Y",
-      minDate: "today",
-      clickOpens: false, // We'll open manually
+      minDate: "today",         // No past dates
+      defaultDate: "today",     // Today’s date by default
+      clickOpens: false,        // We'll open it manually
+      onReady: function(selectedDates, dateStr, instance) {
+        // Once it's ready, set the UI to today's date + weekday
+        if (selectedDates.length) {
+          const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
+          $("#departureDate .selected-value").text(dateStr);
+          $("#departureDate .sub-text").text(weekday);
+        }
+      },
       onChange: function(selectedDates, dateStr, instance) {
         if (selectedDates.length) {
           const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
@@ -309,23 +333,37 @@
       clickOpens: false,
       onChange: function(selectedDates, dateStr, instance) {
         if (dateStr) {
+          // If user picks a return date, switch to Round Trip
           if ($("#oneWay").is(":checked")) {
             $("#roundTrip").prop("checked", true);
           }
           const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
           $("#returnDate .selected-value").text(dateStr);
           $("#returnDate .sub-text").text(weekday);
+          // Show the clear button
+          $("#clearReturnDate").show();
         } else {
+          // If user clears the date, switch to One Way
           if ($("#roundTrip").is(":checked")) {
             $("#oneWay").prop("checked", true);
           }
+          $("#returnDate .selected-value").text("Select Date");
+          $("#returnDate .sub-text").text("");
+          $("#clearReturnDate").hide();
         }
       }
     });
 
+    // Open return date picker on div click
     $("#returnDate").on("click", function(e) {
       e.stopPropagation();
       returnFlatpickr.open();
+    });
+
+    // Clear button for return date
+    $("#clearReturnDate").click(function(e) {
+      e.stopPropagation();
+      returnFlatpickr.clear(); // triggers onChange -> switches to One Way
     });
 
     /************************
@@ -344,14 +382,15 @@
 
     $(".btn-option").click(function() {
       let category = $(this).data("category");
+      // Only allow one selection per category
       $(`.btn-option[data-category='${category}']`).removeClass("selected");
       $(this).addClass("selected");
     });
 
     $("#applyTravellers").click(function() {
-      let adults   = $("#adultsGroup .selected").data("value")   || 1;
-      let children = $("#childrenGroup .selected").data("value") || 0;
-      let infants  = $("#infantsGroup .selected").data("value")  || 0;
+      let adults   = parseInt($("#adultsGroup .selected").data("value")   || 1);
+      let children = parseInt($("#childrenGroup .selected").data("value") || 0);
+      let infants  = parseInt($("#infantsGroup .selected").data("value")  || 0);
       let travelClass = $("#classGroup .selected").data("value") || "Economy";
 
       let totalTravellers = adults + children + infants;
