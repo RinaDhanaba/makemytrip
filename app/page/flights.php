@@ -161,16 +161,26 @@
         <div class="dropdown" id="toDropdown"></div>
       </div>
 
-      <!-- Departure Date -->
-      <div class="col-md-2">
+      <!-- Departure Date (Clickable DIV + Hidden Input) -->
+      <div class="col-md-2 position-relative">
         <label>Departure</label>
-        <input type="text" id="departureDate" class="form-control" placeholder="Select date">
+        <div id="departureDate" class="input-box">
+          <div class="selected-value">Select Date</div>
+          <div class="sub-text"></div>
+        </div>
+        <!-- Hidden input for Flatpickr -->
+        <input type="hidden" id="departureDateInput">
       </div>
 
-      <!-- Return Date (Always Visible) -->
-      <div class="col-md-2" id="returnDateContainer">
+      <!-- Return Date (Clickable DIV + Hidden Input) -->
+      <div class="col-md-2 position-relative" id="returnDateContainer">
         <label>Return</label>
-        <input type="text" id="returnDate" class="form-control" placeholder="Select date">
+        <div id="returnDate" class="input-box">
+          <div class="selected-value">Select Date</div>
+          <div class="sub-text"></div>
+        </div>
+        <!-- Hidden input for Flatpickr -->
+        <input type="hidden" id="returnDateInput">
       </div>
 
       <!-- Travellers & Class -->
@@ -320,35 +330,46 @@
     });
 
     /************************
-     *     Date Pickers     *
+     *    Departure Date    *
      ************************/
-    // Departure Date
-    $("#departureDate").flatpickr({
-      dateFormat: "d M Y",   // base date format
+    // Attach flatpickr to the hidden input
+    const departureFlatpickr = flatpickr("#departureDateInput", {
+      dateFormat: "d M Y",
       minDate: "today",
+      clickOpens: false, // We'll open manually
       onChange: function(selectedDates, dateStr, instance) {
-        // If a valid date is selected, append the full weekday name
         if (selectedDates.length) {
-          const dayName = selectedDates[0].toLocaleDateString('en-US', { weekday: 'long' });
-          instance.input.value = dateStr + " " + dayName; // e.g. "22 Feb 2025 Saturday"
+          // Show date + weekday in the clickable div
+          const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
+          $("#departureDate .selected-value").text(dateStr);
+          $("#departureDate .sub-text").text(weekday);
         }
       }
     });
 
-    // Return Date
-    $("#returnDate").flatpickr({
-      dateFormat: "d M Y",   // base date format
+    // Open flatpickr on div click
+    $("#departureDate").on("click", function(e) {
+      e.stopPropagation();
+      departureFlatpickr.open();
+    });
+
+    /************************
+     *     Return Date      *
+     ************************/
+    const returnFlatpickr = flatpickr("#returnDateInput", {
+      dateFormat: "d M Y",
       minDate: "today",
+      clickOpens: false, // We'll open manually
       onChange: function(selectedDates, dateStr, instance) {
         if (dateStr) {
           // user picked a date
           if ($("#oneWay").is(":checked")) {
             $("#roundTrip").prop("checked", true);
           }
-          if (selectedDates.length) {
-            const dayName = selectedDates[0].toLocaleDateString('en-US', { weekday: 'long' });
-            instance.input.value = dateStr + " " + dayName; // e.g. "23 Feb 2025 Sunday"
-          }
+          // Show date + weekday
+          const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
+          $("#returnDate .selected-value").text(dateStr);
+          $("#returnDate .sub-text").text(weekday);
         } else {
           // user cleared the date
           if ($("#roundTrip").is(":checked")) {
@@ -357,6 +378,14 @@
         }
       }
     });
+
+    $("#returnDate").on("click", function(e) {
+      e.stopPropagation();
+      returnFlatpickr.open();
+    });
+
+    // (Optional) If you want to clear Return date programmatically:
+    // returnFlatpickr.clear();
 
     /************************
      * Travellers & Class   *
@@ -384,16 +413,15 @@
 
     // Apply selection
     $("#applyTravellers").click(function() {
-      let adults   = $("#adultsGroup .selected").data("value")   || 1;
-      let children = $("#childrenGroup .selected").data("value") || 0;
-      let infants  = $("#infantsGroup .selected").data("value")  || 0;
-      let travelClass = $("#classGroup .selected").data("value") || "Economy";
-
-      let totalTravellers = parseInt(adults) + parseInt(children) + parseInt(infants);
+      let adults       = $("#adultsGroup .selected").data("value")   || 1;
+      let children     = $("#childrenGroup .selected").data("value") || 0;
+      let infants      = $("#infantsGroup .selected").data("value")  || 0;
+      let travelClass  = $("#classGroup .selected").data("value")    || "Economy";
+      let totalTravels = parseInt(adults) + parseInt(children) + parseInt(infants);
 
       // Update the display
       $("#travellers .selected-value").text(
-        totalTravellers + " Traveller" + (totalTravellers > 1 ? "s" : "")
+        totalTravels + " Traveller" + (totalTravels > 1 ? "s" : "")
       );
       $("#travellers .sub-text").text(travelClass);
 
