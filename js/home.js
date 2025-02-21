@@ -114,29 +114,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-// Generic Dropdown Handler (excluding country dropdowns)
+// Generic Dropdown Handler
 document.querySelectorAll('.dropdown').forEach(dropdown => {
     const button = dropdown.querySelector('.dropdown-button');
     const content = dropdown.querySelector('.dropdown-content');
-
-    // Toggle dropdown visibility on button click
+    
     button.addEventListener('click', () => content.classList.toggle('show'));
-
-    // Close dropdown when clicking outside
     document.addEventListener('click', (e) => {
         if (!dropdown.contains(e.target)) content.classList.remove('show');
     });
 });
 
-/**
- * Load saved selections from sessionStorage (for Country, Language, and Currency).
- */
+
+// Function to load saved selections from sessionStorage
 function loadSavedSelections() {
-    // Load Country (Flag + Name)
+    // Load Country (Only Flag)
     if (sessionStorage.getItem("selectedCountry")) {
-        let storedCountry = JSON.parse(sessionStorage.getItem("selectedCountry"));
+        let tempDiv = document.createElement("div");
+        tempDiv.innerHTML = sessionStorage.getItem("selectedCountry");
+        let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").outerHTML : sessionStorage.getItem("selectedCountry");
+
         document.querySelectorAll("#selectedCountry").forEach(el => {
-            el.innerHTML = `<img src="${storedCountry.flag}" class="flag"> ${storedCountry.name} ▼`;
+            el.innerHTML = flagImg + " ▼"; // Only show flag
         });
     }
 
@@ -158,27 +157,16 @@ function loadSavedSelections() {
     }
 }
 
-/**
- * Update the selected dropdown item and save it in sessionStorage.
- * @param {string} type - The type of dropdown (selectedCountry, selectedLanguage, selectedCurrency).
- * @param {string} value - The selected value.
- */
+// Function to update selections and store in sessionStorage
 function updateSelection(type, value) {
     let formattedValue = value;
 
     if (type === "selectedCountry") {
-        // Extract flag and name from the clicked item
+        // Extract only the flag
         let tempDiv = document.createElement("div");
         tempDiv.innerHTML = value;
-        let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").src : "";
-        let countryName = tempDiv.textContent.trim();
-
-        // Save country data in sessionStorage
-        let countryData = { name: countryName, flag: flagImg };
-        sessionStorage.setItem(type, JSON.stringify(countryData));
-
-        // Update UI
-        formattedValue = `<img src="${flagImg}" class="flag"> ${countryName} ▼`;
+        let flagImg = tempDiv.querySelector("img") ? tempDiv.querySelector("img").outerHTML : value;
+        formattedValue = flagImg; // Only show flag
     } 
     else if (type === "selectedLanguage") {
         formattedValue = value.substring(0, 3).toUpperCase(); // First 3 letters
@@ -188,13 +176,10 @@ function updateSelection(type, value) {
         formattedValue = value.match(/\b[A-Z]{3}\b/) ? value.match(/\b[A-Z]{3}\b/)[0] : value;
     }
 
-    // Apply the selected value to all matching elements
+    sessionStorage.setItem(type, value);
     document.querySelectorAll(`#${type}`).forEach(el => {
         el.innerHTML = formattedValue + " ▼";
     });
-
-    // Store raw selection in sessionStorage
-    sessionStorage.setItem(type, value);
 }
 
 // Currency Search Functionality
@@ -214,42 +199,35 @@ document.querySelectorAll(".currency-item, [data-lang]").forEach(item => {
     });
 });
 
-/**
- * Country Dropdown Handling
- */
-document.addEventListener("DOMContentLoaded", function () {
-    const selectedCountry = document.getElementById("selectedCountry");
-    const countryList = document.getElementById("countryList");
+// Country Dropdown Population
+const countries = [
+    { name: "India", code: "in", flag: "https://flagcdn.com/w40/in.png" },
+    { name: "UAE", code: "ae", flag: "https://flagcdn.com/w40/ae.png" },
+    { name: "USA", code: "us", flag: "https://flagcdn.com/w40/us.png" }
+];
 
-    // Load saved selections from sessionStorage
-    loadSavedSelections();
 
-    // Toggle country dropdown on button click
-    selectedCountry.addEventListener("click", (event) => {
-        event.stopPropagation();
-        countryList.classList.toggle("show");
-    });
+document.querySelectorAll(".countryDropdown").forEach(dropdown => {
+    const countryList = dropdown.querySelector(".dropdown-content");
+    const button = dropdown.querySelector(".dropdown-button");
 
-    // Handle country selection
-    document.querySelectorAll(".country-item").forEach(item => {
-        item.addEventListener("click", function () {
-            const flag = this.getAttribute("data-flag");
-            const name = this.getAttribute("data-name");
+    // Populate country list inside each dropdown
+    countries.forEach(country => {
+        let div = document.createElement("div");
+        div.classList.add("dropdown-item");
+        div.innerHTML = `<img src="${country.flag}" class="flag"> ${country.name}`;
 
-            // Update UI
-            selectedCountry.innerHTML = `<img src="${flag}" class="flag"> ${name} ▼`;
+        div.addEventListener("click", () => {
+            const countryHTML = `<img src="${country.flag}" class="flag">`;
 
-            // Store in sessionStorage
-            sessionStorage.setItem("selectedCountry", JSON.stringify({ name, flag }));
+            // Update all country dropdowns
+            updateSelection("selectedCountry", countryHTML);
 
-            // Hide dropdown
+            // Close dropdown
             countryList.classList.remove("show");
         });
-    });
 
-    // Close dropdown when clicking outside
-    document.addEventListener("click", () => {
-        countryList.classList.remove("show");
+        countryList.appendChild(div);
     });
 });
 
@@ -257,15 +235,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Load saved selections on page load
 window.addEventListener("load", loadSavedSelections);
-
-
-
-
-
-
-
-
-
 
 
 
