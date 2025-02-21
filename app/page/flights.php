@@ -47,6 +47,20 @@
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
             z-index: 1000;
         }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background: white;
+            width: 100%;
+            max-height: 250px;
+            overflow-y: auto;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            padding: 15px;
+        }
+
         .dropdown-item {
             padding: 10px;
             border-bottom: 1px solid #eee;
@@ -124,6 +138,9 @@
 }
 
 
+
+
+
     </style>
 </head>
 <body>
@@ -177,63 +194,64 @@
                 </div>
 
                 <!-- Travellers & Class -->
-                <?php
-                    // Define options as arrays
-                    $travellerOptions = [
-                        "adults" => range(1, 9),  // 1 to 9 adults
-                        "children" => range(0, 6), // 0 to 6 children
-                        "infants" => range(0, 2)   // 0 to 2 infants
-                    ];
+                    <div class="container mt-5">
+                    <div class="flight-card">
+                        <div class="row g-3">
+                            <!-- Travellers & Class -->
+                            <?php
+                            $travellerOptions = [
+                                "adults" => range(1, 9),
+                                "children" => range(0, 6),
+                                "infants" => range(0, 2)
+                            ];
+                            $classOptions = [
+                                "Economy" => "Economy/Premium Economy",
+                                "Business" => "Business",
+                                "First Class" => "First Class"
+                            ];
+                            ?>
+                            <div class="col-md-4 position-relative">
+                                <label>Travellers & Class</label>
+                                <div id="travellers" class="input-box">
+                                    <span class="selected-value">1 Traveller</span>
+                                    <span class="sub-text">Economy</span>
+                                </div>
+                                <div class="dropdown-menu" id="travellersDropdown">
+                                    <label>Adults (12+)</label>
+                                    <div class="d-flex flex-wrap">
+                                        <?php foreach ($travellerOptions['adults'] as $value) { ?>
+                                            <span class="btn-option" data-category="adults" data-value="<?= $value; ?>"><?= $value; ?></span>
+                                        <?php } ?>
+                                    </div>
 
-                    $classOptions = [
-                        "Economy" => "Economy/Premium Economy",
-                        "Business" => "Business",
-                        "First Class" => "First Class"
-                    ];
-                    ?>
-                <div class="container mt-5">
-                    <div class="row g-3 align-items-center">
-                        <!-- Travellers & Class -->
-                        <div class="col-md-4 position-relative">
-                            <label>Travellers & Class</label>
-                            <div id="travellers">
-                                <span class="selected-value">1 Traveller</span>
-                                <span class="sub-text">Economy</span>
+                                    <label>Children (2-12)</label>
+                                    <div class="d-flex flex-wrap">
+                                        <?php foreach ($travellerOptions['children'] as $value) { ?>
+                                            <span class="btn-option" data-category="children" data-value="<?= $value; ?>"><?= $value; ?></span>
+                                        <?php } ?>
+                                    </div>
+
+                                    <label>Infants (Below 2)</label>
+                                    <div class="d-flex flex-wrap">
+                                        <?php foreach ($travellerOptions['infants'] as $value) { ?>
+                                            <span class="btn-option" data-category="infants" data-value="<?= $value; ?></span>
+                                        <?php } ?>
+                                    </div>
+
+                                    <label>Choose Travel Class</label>
+                                    <div class="d-flex">
+                                        <?php foreach ($classOptions as $key => $label) { ?>
+                                            <span class="btn-option" data-category="class" data-value="<?= $key; ?>"><?= $label; ?></span>
+                                        <?php } ?>
+                                    </div>
+
+                                    <button class="btn btn-apply mt-3" id="applyTravellers">APPLY</button>
+                                </div>
                             </div>
-                            <div class="dropdown p-3" id="travellersDropdown">
-                                <!-- Adults -->
-                                <label>Adults (12+)</label>
-                                <div class="d-flex flex-wrap" id="adultsGroup">
-                                    <?php foreach ($travellerOptions['adults'] as $value) { ?>
-                                        <span class="btn-option" data-category="adults" data-value="<?= $value; ?>"><?= $value; ?></span>
-                                    <?php } ?>
-                                </div>
-                                
-                                <!-- Children -->
-                                <label>Children (2-12)</label>
-                                <div class="d-flex flex-wrap" id="childrenGroup">
-                                    <?php foreach ($travellerOptions['children'] as $value) { ?>
-                                        <span class="btn-option" data-category="children" data-value="<?= $value; ?>"><?= $value; ?></span>
-                                    <?php } ?>
-                                </div>
 
-                                <!-- Infants -->
-                                <label>Infants (Below 2)</label>
-                                <div class="d-flex flex-wrap" id="infantsGroup">
-                                    <?php foreach ($travellerOptions['infants'] as $value) { ?>
-                                        <span class="btn-option" data-category="infants" data-value="<?= $value; ?>"><?= $value; ?></span>
-                                    <?php } ?>
-                                </div>
-
-                                <!-- Class Selection -->
-                                <label>Choose Travel Class</label>
-                                <div class="d-flex" id="classGroup">
-                                    <?php foreach ($classOptions as $key => $label) { ?>
-                                        <span class="btn-option" data-category="class" data-value="<?= $key; ?>"><?= $label; ?></span>
-                                    <?php } ?>
-                                </div>
-
-                                <button class="btn btn-apply mt-3" id="applyTravellers">APPLY</button>
+                            <!-- Search Button -->
+                            <div class="col-md-auto">
+                                <button class="btn btn-primary">SEARCH</button>
                             </div>
                         </div>
                     </div>
@@ -258,7 +276,7 @@
 
 
 
-        $(document).ready(function () {
+    $(document).ready(function () {
         // Toggle Airport Dropdowns
         $("#from, #to").click(function (event) {
             event.stopPropagation();
@@ -302,39 +320,6 @@
             }
         });
 
-        // Toggle Traveller Dropdown
-        $("#travellers").click(function (event) {
-            event.stopPropagation();
-            $("#travellersDropdown").toggle();
-        });
-
-        // Close Traveller dropdown when clicking outside
-        $(document).click(function (event) {
-            if (!$(event.target).closest("#travellersDropdown, #travellers").length) {
-                $("#travellersDropdown").hide();
-            }
-        });
-
-        // Handle Traveller & Class Selection
-        $(".btn-option").click(function () {
-            let category = $(this).data("category");
-            $(`.btn-option[data-category="${category}"]`).removeClass("selected");
-            $(this).addClass("selected");
-        });
-
-        // Apply Traveller Selection
-        $("#applyTravellers").click(function () {
-            let adults = $("#adultsGroup .selected").data("value") || 1;
-            let children = $("#childrenGroup .selected").data("value") || 0;
-            let infants = $("#infantsGroup .selected").data("value") || 0;
-            let travelClass = $("#classGroup .selected").data("value") || "Economy";
-
-            let totalTravellers = parseInt(adults) + parseInt(children) + parseInt(infants);
-            $("#travellers .selected-value").text(`${totalTravellers} Traveller${totalTravellers > 1 ? 's' : ''}`);
-            $("#travellers .sub-text").text(travelClass);
-
-            $("#travellersDropdown").hide();
-        });
 
         // Initialize Date Pickers
         $("#departureDate, #returnDate").flatpickr({ dateFormat: "d M Y", minDate: "today" });
@@ -343,6 +328,54 @@
         $("#roundTrip").change(function () { $("#returnDateContainer").fadeIn(); });
         $("#oneWay").change(function () { $("#returnDateContainer").fadeOut(); });
     });
+
+
+
+
+
+    $(document).ready(function () {
+            // Toggle Travellers dropdown
+            $("#travellers").click(function (event) {
+                event.stopPropagation();
+                $("#travellersDropdown").toggle();
+            });
+
+            // Close dropdown if clicked outside
+            $(document).click(function (event) {
+                if (!$(event.target).closest("#travellersDropdown, #travellers").length) {
+                    $("#travellersDropdown").hide();
+                }
+            });
+
+            // Handle selection in dropdown
+            $(".btn-option").click(function () {
+                let category = $(this).data("category");
+                $(`.btn-option[data-category="${category}"]`).removeClass("selected");
+                $(this).addClass("selected");
+            });
+
+            // Apply selection
+            $("#applyTravellers").click(function () {
+                let adults = $(".btn-option[data-category='adults'].selected").data("value") || 1;
+                let children = $(".btn-option[data-category='children'].selected").data("value") || 0;
+                let infants = $(".btn-option[data-category='infants'].selected").data("value") || 0;
+                let travelClass = $(".btn-option[data-category='class'].selected").data("value") || "Economy";
+
+                let totalTravellers = parseInt(adults) + parseInt(children) + parseInt(infants);
+                
+                $("#travellers .selected-value").text(`${totalTravellers} Traveller${totalTravellers > 1 ? 's' : ''}`);
+                $("#travellers .sub-text").text(travelClass);
+                
+                $("#travellersDropdown").hide();
+            });
+
+            // Ensure dropdown closes when clicking outside
+            $(document).click(function (event) {
+                if (!$(event.target).closest(".dropdown-menu, .input-box").length) {
+                    $(".dropdown-menu").hide();
+                }
+            });
+        });
 
 
 
