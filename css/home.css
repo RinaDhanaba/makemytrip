@@ -520,3 +520,56 @@ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 .faq b{
     font-size: 14px;
 }
+
+
+
+
+
+
+
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dropdown-button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.flag {
+    width: 20px;
+    height: 14px;
+}
+
+.dropdown-content {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    display: none;
+    min-width: 100px;
+    z-index: 10;
+}
+
+.dropdown-content .dropdown-item {
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dropdown-content .dropdown-item:hover {
+    background: #f0f0f0;
+}
+
+.dropdown-content.show {
+    display: block;
+}
