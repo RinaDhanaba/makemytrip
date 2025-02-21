@@ -467,7 +467,7 @@ flex:1;
 justify-content: flex-start;
 }
 .ad-card img{ width: 90px;}
-.ad-card p{ margin:0;}
+.ad-card p{ margin:0; font-size: 14px;}
 
 
 

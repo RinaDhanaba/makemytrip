@@ -1,10 +1,10 @@
 <footer class="footer">
     <!-- Social Media Links -->
     <div class="social-icons">
-        <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
-        <a href="#"><img src="x-icon.png" alt="X (Twitter)"></a>
-        <a href="#"><img src="linkedin-icon.png" alt="LinkedIn"></a>
-        <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+        <a href="#"><i class="bi bi-instagram"></i></a>
+        <a href="#"><i class="bi bi-twitter-x"></i></a>
+        <a href="#"><i class="bi bi-linkedin"></i></a>
+        <a href="#"><i class="bi bi-facebook"></i></a>
     </div>
 
     <!-- Copyright and Country Info -->
