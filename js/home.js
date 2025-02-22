@@ -1,101 +1,62 @@
 function handleNavOverflow() {
   const navbar = document.querySelector(".navbar_inner");
-  const navMenu = document.querySelector(".nav-menu");
   const moreDropdown = document.querySelector(".more-dropdown");
   const moreMenu = document.getElementById("moreMenu");
 
-  // 1) Grab all nav items EXCEPT the 'More' dropdown.
+  // Select all navigation items, excluding "More"
   const navItems = [
       ...document.querySelectorAll(".nav-menu .nav-item:not(.more-dropdown)")
   ];
 
-  // Temporarily show the 'More' link so we can measure it.
+  // Reset: Show "More" temporarily to measure its width
   moreDropdown.style.display = "inline-block";
-
-  // Clear anything that might be in 'More'.
   moreMenu.innerHTML = "";
 
-  // 2) Figure out how much horizontal space we have.
+  // Calculate available space
   const navbarWidth = navbar.clientWidth;
+  let usedSpace = 0;
 
-  // Calculate how much space is used by elements that are NOT part of the .nav-menu
+  // Measure non-menu elements (like logo, search bar, etc.)
   const otherElements = [...navbar.children].filter(
       el => !el.classList.contains("nav-menu")
   );
-  let usedSpace = otherElements.reduce(
-      (acc, el) => acc + el.getBoundingClientRect().width,
-      0
-  );
+  otherElements.forEach(el => {
+      usedSpace += el.getBoundingClientRect().width;
+  });
 
-  // Measure the width of the 'More' dropdown itself.
+  // Measure the "More" dropdown width
   const moreWidth = moreDropdown.getBoundingClientRect().width;
 
-  // The space left for actual nav items = total minus other stuff minus 'More' link.
-  let availableSpace = navbarWidth - usedSpace - moreWidth;
+  // Allow a small buffer to avoid borderline cutoffs
+  const buffer = 5;
+  let availableSpace = navbarWidth - usedSpace - moreWidth - buffer;
 
-  // A small optional buffer to avoid borderline cutoffs (adjust if needed).
-  const buffer = 5; 
-  availableSpace -= buffer;
-
-  // Ensure all real items are shown before measuring them.
+  // Show all items initially (so we can measure their natural width)
   navItems.forEach(item => {
       item.style.display = "inline-block";
   });
 
+  // Move overflowing items to "More"
   let totalWidth = 0;
   let itemsMoved = false;
-
-  // 3) Loop through the items and move any that don't fit into 'More'.
   navItems.forEach((item, index) => {
       const itemWidth = item.getBoundingClientRect().width;
       if (totalWidth + itemWidth > availableSpace) {
-          // Doesn't fit: move to 'More'
           itemsMoved = true;
           item.style.display = "none";
 
-          // Clone so the link still works in the dropdown
+          // Clone the item for the dropdown
           const clone = item.cloneNode(true);
           clone.style.display = "block";
           clone.dataset.id = `item-${index}`;
           moreMenu.appendChild(clone);
       } else {
-          // Fits: keep it in main nav
           totalWidth += itemWidth;
       }
   });
 
-  // If nothing was moved, hide the 'More' link entirely
+  // Hide "More" if not needed
   if (!itemsMoved) {
-      moreDropdown.style.display = "none";
-  }
-
-  adjustNavbarWidth();
-}
-
-function adjustNavbarWidth() {
-  const navbar = document.querySelector(".navbar_inner");
-  const moreDropdown = document.querySelector(".more-dropdown");
-
-  // Prevent horizontal scroll if things still overflow
-  if (navbar.scrollWidth > navbar.clientWidth) {
-      navbar.style.overflowX = "hidden";
-  } else {
-      navbar.style.overflowX = "";
-  }
-
-  // Make navbar sticky after a certain scroll
-  window.addEventListener("scroll", () => {
-      const mainNavbar = document.querySelector(".navbar");
-      if (window.scrollY > 100) {
-          mainNavbar.classList.add("sticky");
-      } else {
-          mainNavbar.classList.remove("sticky");
-      }
-  });
-
-  // Hide 'More' if it has no items
-  const moreMenu = document.getElementById("moreMenu");
-  if (!moreMenu.children.length) {
       moreDropdown.style.display = "none";
   }
 }
