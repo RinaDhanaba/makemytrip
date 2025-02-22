@@ -59,7 +59,7 @@ function handleNavOverflow() {
   if (navbar.scrollWidth > navbar.clientWidth) {
       navbar.style.overflowX = "auto";
   } else {
-      navbar.style.overflowX = "";
+      navbar.style.overflowX = "auto";
   }
 }
 
