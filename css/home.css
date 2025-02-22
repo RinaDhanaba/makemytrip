@@ -153,6 +153,7 @@ row-gap: 30px;
 }
 @media (max-width: 468px) {
   .top-navbar {flex-wrap:nowrap;align-items: flex-start;}
+  .top-navbar .nav-div-item {border:none;}
   .top-navbar .small_text {text-wrap:wrap}
 }
 .nav-div-item{
@@ -244,7 +245,7 @@ margin:30px auto;
 
 .booking-container .flight-card {
     background: #fff;
-    padding: 80px clamp(5px, 2vw, 25px) 0;
+    padding: 80px 25px 0;
     border-radius: 25px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
