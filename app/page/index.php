@@ -7,15 +7,15 @@
     <div class="container mt-5">
         <div class="flight-card">
             <!-- Top Row: Trip Types + Right-aligned text -->
-            <div class="row g-3 align-items-center">
-            <div class="col-md-6">
+            <div class="flex g-3 align-items-start">
+            <div class="col">
                 <input type="radio" name="tripType" id="oneWay" checked>
                 <label for="oneWay">One Way</label>
                 <input type="radio" name="tripType" id="roundTrip">
                 <label for="roundTrip">Round Trip</label>
             </div>
-            <div class="col-md-6 text-end">
-                <span style="font-size:14px; color:gray;">Book International and Domestic Flights</span>
+            <div class="col text-end">
+                <span style="font-size:12px; color:var(--primary-light)">Book International and Domestic Flights</span>
             </div>
             </div>
 

@@ -190,7 +190,7 @@ flex-wrap: wrap;
     margin-top: 10px;
   }
 }
-.nav-item-home {flex: 1;}
+.nav-item-home {flex: 1;text-align: center;}
 
 
 
@@ -225,10 +225,10 @@ margin:30px auto;
 
 .booking-container{margin-top: 80px;}
 @media (max-width: 992px) {
-  .booking-container{margin-top: 100px;}
+  .booking-container{margin-top: 160px;}
 }
 @media (max-width: 768px) {
-  .booking-container{margin-top: 150px;}
+  .booking-container{margin-top:0px;}
 }
 
 
