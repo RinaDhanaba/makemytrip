@@ -83,15 +83,15 @@ nav .dropdown-button {
     font-size: 14px; 
 }
 
-nav .dropdown-content {
+nav .dropdown-content , nav .dropdown-content-nav {
 display: none; position: absolute;right: 0;background: white; border: 1px solid #ccc;
 min-width: 200px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); z-index: 1;
 }
-nav .dropdown-content div {
+nav .dropdown-content div, nav .dropdown-content-nav div {
 padding: 10px; display: flex; align-items: center; gap: 10px; cursor: pointer;
 }
-nav .dropdown-content div:hover { background: #f1f1f1; }
-nav  .dropdown-content.show {  display: block;  }
+nav .dropdown-content div:hover, nav .dropdown-content-nav div:hover { background: #f1f1f1; }
+nav  .dropdown-content.show, nav  .dropdown-content-nav.show {  display: block;  }
 nav .flag { width: 20px; height: 14px; }
 nav .search-box { width: 100%; padding: 8px; border: 1px solid #ccc; margin-bottom: 8px; }
 
