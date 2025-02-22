@@ -153,7 +153,7 @@ row-gap: 30px;
 }
 @media (max-width: 468px) {
   .top-navbar {flex-wrap:nowrap;}
-  .top-navbar * {text-wrap:wrap}
+  .top-navbar .small_text {text-wrap:wrap}
 }
 .nav-div-item{
     border-left:1px solid #ddd;
