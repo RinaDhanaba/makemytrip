@@ -129,12 +129,26 @@ header{
 display: flex;
 justify-content: space-around;
 align-items: center;
+flex-wrap: wrap;
 padding: 10px 5px;
 white-space: nowrap;
 width: 100%;
 max-width: 1200px;
 margin:auto;
 color: #fff;
+flex-wrap: wrap;
+row-gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .top-navbar .logo{width: 0;}
+  .top-navbar .admin-controls{display: none;}
+}
+
+@media (max-width: 480px) {
+  .flex-item {
+      flex: 1 1 100%; /* 1 column */
+  }
 }
 
 .nav-div-item{
@@ -334,6 +348,7 @@ padding: 10px;
 border-radius: 50px;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 display:flex;
+flex-wrap: wrap;
 justify-content: center;
 align-items: center;
 position: relative;

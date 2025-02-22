@@ -5,7 +5,7 @@
 $menu_items = [
     "Flights" => ["link" => "/flights", "icon" => "bi bi-airplane-engines"],
     "Hotels" => ["link" => "/hotel", "icon" => "bi bi-house-door"],
-    "Holiday Package" => ["link" => "/holidays", "icon" => "bi bi-car-front"],
+    "Holiday Package" => ["link" => "/holidays", "icon" => "bi bi-suitcase-fill"],
     "Cabs/Car Rental " => ["link" => "/car-rental", "icon" => "bi bi-car-front"],
     "Visa Assistance" => ["link" => "/visa", "icon" => "bi bi-cash"],
     "Travel Insurance" => ["link" => "/insurance", "icon" => "bi bi-shield-lock"]
@@ -28,9 +28,8 @@ $menu_items = [
 <div class="nav-div-item"><p>My Trips</p> <p class="small_text">Manage your bookings</p></div>
 
 
-    <div style="display:flex;gap: 20px; flex-wrap:wrap;align-content: center;align-items: center;">
-    <div style="color: #fff; font-size: 12px; background-image: linear-gradient(93deg, #53b2fe, #065af3);
-    padding: 10px; border-radius: 4px;">Login/ Create account</div>
+    <div class="flex gap-1 admin-controls">
+    <div style="color: #fff; font-size: 12px; background-image: linear-gradient(93deg, #53b2fe, #065af3); padding: 10px; border-radius: 4px;">Login/ Create account</div>
 
     <!-- Country Dropdown -->
     <?php 
