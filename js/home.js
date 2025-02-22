@@ -39,7 +39,7 @@ function handleNavOverflow() {
   });
 
   // Select the dropdown content element (adjust this selector if needed)
-  const dropdownContent = moreDropdown.querySelector('.dropdown-content');
+  const dropdownContent = moreDropdown.querySelector('.dropdown-content-nav');
 
   // Add event listener to toggle the "show" class when the dropdown button is clicked.
   const dropdownButton = moreDropdown.querySelector('.dropdown-button');
@@ -81,7 +81,7 @@ function adjustNavbarWidth() {
   });
 
   // Hide "More" dropdown if empty
-  if (moreDropdown.querySelector(".dropdown-content").children.length === 0) {
+  if (moreDropdown.querySelector(".dropdown-content-nav").children.length === 0) {
       moreDropdown.style.display = "none";
   }
 }
@@ -89,7 +89,7 @@ function adjustNavbarWidth() {
 // Run on page load, resize, and user interaction
 document.addEventListener("DOMContentLoaded", () => {
   const moreDropdown = document.querySelector(".more-dropdown");
-  const dropdownContent = moreDropdown.querySelector('.dropdown-content');
+  const dropdownContent = moreDropdown.querySelector('.dropdown-content-nav');
   const dropdownButton = moreDropdown.querySelector('.dropdown-button');
   
   if (dropdownButton && dropdownContent) {
