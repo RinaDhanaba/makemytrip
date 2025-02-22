@@ -59,6 +59,7 @@ function adjustNavbarWidth() {
   
   // Prevent horizontal overflow in case nav items exceed container width
   navbarNav.style.overflowX = navbarNav.scrollWidth > navbarNav.clientWidth ? "hidden" : "";
+}
 
 // Function to set up hover events for the "More" dropdown on desktop
 function setupMoreDropdownHover() {
