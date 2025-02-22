@@ -91,7 +91,7 @@ $defaultCountry = $countries["IN"];
 
 <div class="nav-menu-home">
         <?php foreach ($menu_items as $item => $data): ?>
-            <div class="nav-item-home"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></div>
+            <div class="nav-item-home <?= $active_class ?>"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></div>
         <?php endforeach; ?>
 </div>
 

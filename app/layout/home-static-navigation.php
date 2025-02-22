@@ -6,7 +6,7 @@
 
     <ul class="nav-menu">
         <?php foreach ($menu_items as $item => $data): ?>
-            <li class="nav-item"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></li>
+            <li class="nav-item <?= $active_class ?>"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></li>
         <?php endforeach; ?>
         <li class="more-dropdown hidden">
             <div class="dropdown">
