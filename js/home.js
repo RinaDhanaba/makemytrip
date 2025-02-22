@@ -1,6 +1,6 @@
 
 function handleNavOverflow() {
-  const navbar = document.querySelector(".navbar_inner"); // Use inner container instead of full navbar
+  const navbar = document.querySelector(".navbar_inner_nav"); // Use inner container instead of full navbar
   const moreDropdown = document.querySelector(".more-dropdown");
   const moreMenu = document.getElementById("moreMenu");
   const navItems = [...document.querySelectorAll(".navbar .nav-menu .nav-item")];
@@ -47,7 +47,7 @@ function handleNavOverflow() {
 }
 
 function adjustNavbarWidth() {
-  const navbar = document.querySelector(".navbar_inner"); // Use inner container
+  const navbar = document.querySelector(".navbar_inner_nav"); // Use inner container
   const moreDropdown = document.querySelector(".more-dropdown");
 
   // Ensure navbar stays within its container
