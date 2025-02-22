@@ -1,11 +1,11 @@
 function handleNavOverflow() {
-  const navbar = document.querySelector(".navbar_inner_nav"); // Use inner container instead of full navbar
+  const navbar = document.querySelector(".navbar_inner_nav");
   const moreDropdown = document.querySelector(".more-dropdown");
   const moreMenu = document.getElementById("moreMenu");
   const navItems = [...document.querySelectorAll(".navbar .nav-menu .nav-item")];
 
-  let navbarWidth = navbar.clientWidth; // Container width
-  let usedSpace = moreDropdown.clientWidth; // Start with "More" dropdown width
+  let navbarWidth = navbar.clientWidth;
+  let usedSpace = moreDropdown.clientWidth;
   let itemsMoved = false;
 
   // Reset More Menu
@@ -38,10 +38,18 @@ function handleNavOverflow() {
       }
   });
 
-  // Select the dropdown content element
+  // Select the dropdown content element (adjust this selector if needed)
   const dropdownContent = moreDropdown.querySelector('.dropdown-content');
-  // Add event listener to toggle the "show" class
-  moreMenu.addEventListener('click', () => dropdownContent.classList.toggle('show'));
+
+  // Add event listener to toggle the "show" class when the dropdown button is clicked.
+  const dropdownButton = moreDropdown.querySelector('.dropdown-button');
+  if (dropdownButton && dropdownContent) {
+      dropdownButton.addEventListener('click', (e) => {
+          // Prevent the click from triggering other handlers (like closing the dropdown)
+          e.stopPropagation();
+          dropdownContent.classList.toggle('show');
+      });
+  }
 
   // Show/Hide "More" dropdown based on overflow
   moreDropdown.style.display = itemsMoved ? "block" : "none";
@@ -49,6 +57,7 @@ function handleNavOverflow() {
   // Ensure navbar does not exceed container width
   adjustNavbarWidth();
 }
+
 
 function adjustNavbarWidth() {
   const navbar = document.querySelector(".navbar_inner_nav"); // Use inner container
@@ -78,7 +87,21 @@ function adjustNavbarWidth() {
 }
 
 // Run on page load, resize, and user interaction
-document.addEventListener("DOMContentLoaded", handleNavOverflow);
+document.addEventListener("DOMContentLoaded", () => {
+  const moreDropdown = document.querySelector(".more-dropdown");
+  const dropdownContent = moreDropdown.querySelector('.dropdown-content');
+  const dropdownButton = moreDropdown.querySelector('.dropdown-button');
+  
+  if (dropdownButton && dropdownContent) {
+    dropdownButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownContent.classList.toggle('show');
+    });
+  }
+  
+  handleNavOverflow();
+});
+
 window.addEventListener("resize", handleNavOverflow);
 window.addEventListener("load", handleNavOverflow);
 window.addEventListener("click", handleNavOverflow);
