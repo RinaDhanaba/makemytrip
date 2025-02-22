@@ -31,7 +31,7 @@ display: block;
   .navbar_inner{
       flex-direction:column;
   }
-  nav .admin-controls {
+  .navbar .admin-controls {
       width:100%;
       order: -1;
   }
