@@ -59,10 +59,15 @@ document.addEventListener("DOMContentLoaded", function() {
   window.addEventListener("resize", handleNavOverflow);
 
   // --- Initialize once on page load ---
-  handleNavOverflow();
+  
 });
 
-
+// Run on page load, resize, and user interaction
+document.addEventListener("DOMContentLoaded", handleNavOverflow);
+window.addEventListener("resize", handleNavOverflow);
+window.addEventListener("load", handleNavOverflow);
+window.addEventListener("click", handleNavOverflow);
+window.addEventListener("scroll", handleNavOverflow);
 
 
 
