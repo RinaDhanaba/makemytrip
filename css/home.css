@@ -151,7 +151,10 @@ row-gap: 30px;
   .top-navbar .logo{display: none;}
   .top-navbar .admin-controls{display: none;}
 }
-
+@media (max-width: 468px) {
+  .top-navbar {flex-wrap:nowrap;}
+  .top-navbar * {text-wrap:wrap}
+}
 .nav-div-item{
     border-left:1px solid #ddd;
     padding-left: 10px;
@@ -161,7 +164,7 @@ row-gap: 30px;
 
 .small_text{
     font-size: 12px;
-    color: var(--primary-color);
+    color: var(--primary-light) !important;
 }
 .nav-div-item p {margin:0; color:#fff;}
 
