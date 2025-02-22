@@ -1,4 +1,3 @@
-
 function handleNavOverflow() {
   const navbar = document.querySelector(".navbar_inner_nav"); // Use inner container instead of full navbar
   const moreDropdown = document.querySelector(".more-dropdown");
@@ -39,7 +38,10 @@ function handleNavOverflow() {
       }
   });
 
-  moreMenu.addEventListener('click', () => content.classList.toggle('show'));
+  // Select the dropdown content element
+  const dropdownContent = moreDropdown.querySelector('.dropdown-content');
+  // Add event listener to toggle the "show" class
+  moreMenu.addEventListener('click', () => dropdownContent.classList.toggle('show'));
 
   // Show/Hide "More" dropdown based on overflow
   moreDropdown.style.display = itemsMoved ? "block" : "none";
