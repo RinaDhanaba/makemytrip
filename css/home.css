@@ -35,6 +35,8 @@ display: block;
   .navbar .admin-controls {
       width:100%;
       order: -1;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
   }
   .navbar_inner_nav{
     width: 100%;
@@ -52,7 +54,7 @@ display: block;
     color: #ccc;
 }
 
-nav ul { list-style: none; display: flex; margin: 0; padding: 0; gap:10px}
+nav ul { list-style: none; display: flex; margin: 0; padding: 0; gap:10px; justify-content: flex-end;}
 
 nav li { margin: 0 15px; }
 
@@ -68,7 +70,7 @@ display: none;
 }
 
 /* Dropdowns */
-nav .generic-dropdown { position: relative; display: inline-block; cursor: pointer; }
+/* nav .generic-dropdown { position: relative; display: inline-block; cursor: pointer; }
 
 nav .dropdown-button { 
     padding: 10px;
@@ -94,43 +96,31 @@ nav .flag { width: 20px; height: 14px; }
 nav .search-box { width: 100%; padding: 8px; border: 1px solid #ccc; margin-bottom: 8px; }
 
 /* Currency */
-nav .currency-group { font-weight: bold; padding: 5px 0; color: #666; border-bottom: 1px solid #ddd; margin-top: 5px; }
+/* nav .currency-group { font-weight: bold; padding: 5px 0; color: #666; border-bottom: 1px solid #ddd; margin-top: 5px; }
 nav .currency-item { padding: 8px 12px; cursor: pointer; display: flex; justify-content: space-between; }
-nav .currency-item:hover { background: #f1f1f1; }
+nav .currency-item:hover { background: #f1f1f1; } */
 
 /* Show dropdown */
-nav .show { display: block; }
+/* nav .show { display: block; } */
 
 /* Responsive */
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
 .navbar { flex-direction: column; }
 nav ul { flex-direction: column; align-items: center; width: 100%; }
 nav li { margin: 10px 0; }
+ */
 
-.nav-container {
-width: 100%;
-overflow-x: auto;
-}
-
-.nav-menu {
-flex-direction: row;
-justify-content: flex-end;
-flex-wrap: nowrap;
-margin: 0;
-padding: 0;
-}
-
-.nav-actions {
+/* .nav-actions {
 flex-wrap: wrap;
 align-content: center;
 align-items: center;
 gap: 20px;
-}
+} */
 
-nav .more-dropdown {
+/* nav .more-dropdown {
 display: block;
 }
-}
+} */
 
 
 
