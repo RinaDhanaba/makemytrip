@@ -7,22 +7,22 @@
     <div class="container mt-5">
         <div class="flight-card">
             <!-- Top Row: Trip Types + Right-aligned text -->
-            <div class="row g-3 align-items-center">
-            <div class="col-md-6">
+            <div class="flex g-3 align-items-start">
+            <div class="col">
                 <input type="radio" name="tripType" id="oneWay" checked>
                 <label for="oneWay">One Way</label>
                 <input type="radio" name="tripType" id="roundTrip">
                 <label for="roundTrip">Round Trip</label>
             </div>
-            <div class="col-md-6 text-end">
-                <span style="font-size:14px; color:gray;">Book International and Domestic Flights</span>
+            <div class="col text-end">
+                <span style="font-size:12px; color:var(--primary-light)">Book International and Domestic Flights</span>
             </div>
             </div>
 
             <!-- Fields: From → Swap → To → Departure → Return → Travellers & Class -->
-            <div class="row align-items-top flight-form-main">
+            <div class="flex align-items-top flight-form-main">
             <!-- From Location -->
-            <div class="col-md-2 position-relative flight-form-inner">
+            <div class="position-relative flight-form-inner">
                 <label>From</label>
                 <div id="from" class="input-box">
                 <div class="selected-value">Select Departure</div>
@@ -37,7 +37,7 @@
             </div>
 
             <!-- To Location -->
-            <div class="col-md-2 position-relative flight-form-inner" style="padding-left: 30px;">
+            <div class="position-relative flight-form-inner" style="padding-left: 30px;">
                 <label>To</label>
                 <div id="to" class="input-box">
                 <div class="selected-value">Select Destination</div>
@@ -47,7 +47,7 @@
             </div>
 
             <!-- Departure Date (with default "today") -->
-            <div class="col-md-2 position-relative flight-form-inner">
+            <div class="position-relative flight-form-inner">
                 <label>Departure</label>
                 <div id="departureDate" class="input-box">
                 <div class="selected-value">Select Date</div>
@@ -58,7 +58,7 @@
             </div>
 
             <!-- Return Date + Clear Button -->
-            <div class="col-md-2 position-relative flight-form-inner">
+            <div class="position-relative flight-form-inner">
                 <label>Return</label>
                 <div id="returnDate" class="input-box">
                 <div class="selected-value"></div>
@@ -70,7 +70,7 @@
             </div>
 
             <!-- Travellers & Class -->
-            <div class="col-md-2 position-relative flight-form-inner">
+            <div class="position-relative flight-form-inner">
                 <label>Travellers & Class</label>
                 <div id="travellers" class="input-box">
                 <span class="selected-value">1 Traveller</span>
@@ -125,11 +125,11 @@
 <div style="margin: 60px auto 20px auto;    color: #fff;    text-align: center;">>> Explore More >> </div>
 
 <div class="extra-info-banner">
-    <div class="extra-info-banner-btn flex gap-2"> <i class="bi bi-airplane-engines"></i> <p>Where2Go</p> </div>
-    <div class="extra-info-banner-btn flex gap-2"> <i class="bi bi-airplane-engines"></i> <p>Insurance<br>For International Trips</p> </div>
-    <div class="extra-info-banner-btn flex gap-2"> <i class="bi bi-airplane-engines"></i> <p>Explore International Flights<br>Cheapest Flights to Paris, Bali, Tokyo & more</p> </div>
-    <div class="extra-info-banner-btn flex gap-2"> <i class="bi bi-airplane-engines"></i> <p>MICE<br>Offsites, Events & Meetings</p> </div>
-    <div class="extra-info-banner-btn flex gap-2"> <i class="bi bi-airplane-engines"></i> <p>Gift Cards</p> </div>
+    <div class="extra-info-banner-btn flex flex-row gap-2"> <i class="bi bi-airplane-engines"></i> <p>Where2Go</p> </div>
+    <div class="extra-info-banner-btn flex flex-row gap-2"> <i class="bi bi-airplane-engines"></i> <p>Insurance<br>For International Trips</p> </div>
+    <div class="extra-info-banner-btn flex flex-row gap-2"> <i class="bi bi-airplane-engines"></i> <p>Explore International Flights<br>Cheapest Flights to Paris, Bali, Tokyo & more</p> </div>
+    <div class="extra-info-banner-btn flex flex-row gap-2"> <i class="bi bi-airplane-engines"></i> <p>MICE<br>Offsites, Events & Meetings</p> </div>
+    <div class="extra-info-banner-btn flex flex-row gap-2"> <i class="bi bi-airplane-engines"></i> <p>Gift Cards</p> </div>
 </div>
 </div>  
 
@@ -171,10 +171,10 @@
 
 
 
-<div style="display:flex; gap:10px; margin:50px auto; max-width:1200px;    justify-content: space-between; ">
-<div class="ad-card flex gap-1"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>Planning to book an international flight?<br><a href="">Check Travel Guidelines</a></p></div>
-<div class="ad-card flex gap-1"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>We are now available in हिंदी!<br><a href="">Change Language</a></p></div>
-<div class="ad-card flex gap-1"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>Complete your web check-in on MakeMyTrip in easy steps. <br><a href="">Know More</a></p></div>
+<div class="grid grid-3 container mt-5 p-0">
+<div class="ad-card flex gap-1" style="flex-direction: row;"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>Planning to book an international flight?<br><a href="">Check Travel Guidelines</a></p></div>
+<div class="ad-card flex gap-1" style="flex-direction: row;"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>We are now available in हिंदी!<br><a href="">Change Language</a></p></div>
+<div class="ad-card flex gap-1" style="flex-direction: row;"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>Complete your web check-in on MakeMyTrip in easy steps. <br><a href="">Know More</a></p></div>
 </div>
 
 
@@ -213,7 +213,7 @@
 
 
 
-<div style="max-width:1200px;margin: 50px auto;" class="terms-condition">
+<div style="max-width:1200px;margin: 50px auto;" class="terms-condition p-1">
 <b>MakeMyTrip</b>
 <p>About Us, Investor Relations, Careers, Sustainability, MMT Foundation, Legal Notices, CSR Policy & Committee, myPartner - Travel Agent Portal, List your hotel, Partners- Redbus, Partners- Goibibo, Advertise with Us, Holiday-Franchise
 </p>
@@ -237,7 +237,7 @@
 
 <div class="faq">
 
-<div class="grid grid-2 container" style="padding-bottom:20px; border-bottom: 1px solid #ccc; margin-bottom:20px">
+<div class="grid grid-2 container p-1" style="padding-bottom:20px; border-bottom: 1px solid #ccc; margin-bottom:20px">
     <div >
         <b>Q - How do I make a flight booking on MakeMyTrip?</b>
         <p>A: You can book a flight on MakeMyTrip in five easy steps: Head over to the MakeMyTrip flight booking page, Enter your departure and arrival destinations, Select your air travel dates, Choose from our wide range of cheap flights based on your airfare preferences, Click on ‘Book Now’ and your air flight booking is done. Alternatively, you can also use the MakeMyTrip app for your flight ticket booking. Download the MakeMyTrip app, Put in the details i.e. date of journey, departure and arrival destinations, travel class of your choice, Select on your best comfortable option and click on 'Book Now'.</p>
@@ -247,7 +247,7 @@
         <p>A: Of course, you can. While making domestic flight bookings, you can avail any special offer that is active at that time. In accordance with the offer selected, a listing of eligible cheapest flights would show up on your screen. You can then apply the price filter and click on the downwards arrow, following which budget-friendly flights would start showing up in ascending order from the top (lowest price on top).</p>
     </div>
 </div>
-<div class="grid grid-2 container">
+<div class="grid grid-2 container p-1">
     <div >
         <b>Q - How can I avail budget air tickets on MakeMyTrip?</b>
         <p>A: It’s super-easy to avail budget airfare while booking your cheap flight tickets on MakeMyTrip. Just select the ‘Price’ filter once the available flight options are displayed and adjust according to your convenience. On the MakeMyTrip app, you can select the downward arrow, which will show the lowest airfare at the top and continue downward in ascending order.</p>
