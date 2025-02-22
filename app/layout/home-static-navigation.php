@@ -14,8 +14,8 @@
             <li class="nav-item <?= $active_class ?>"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></li>
         <?php endforeach; ?>
         <li class="more-dropdown hidden m-0 position-relative">
-            <div class="dropdown">
-                <div class="dropdown-button">More ▼</div>
+            <div class="dropdown p-0">
+                <div class="dropdown-button p-0">More ▼</div>
                 <div class="dropdown-content-nav" id="moreMenu"></div>
             </div>
         </li>
