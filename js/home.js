@@ -338,29 +338,33 @@ $(document).ready(function() {
       dateFormat: "j M\\'y",
       minDate: "today",
       defaultDate: "today",
-      clickOpens: false,
-      position: "auto", // Ensures automatic positioning below the input
-      appendTo: document.querySelector("#departureDate"),
+      clickOpens: false, // Keep this false to manually trigger
+      position: "below", // Try forcing a position for better mobile behavior
+      appendTo: document.body, // Ensures proper positioning
+      disableMobile: true, // Uses Flatpickr UI instead of native mobile picker
       onReady: function(selectedDates, dateStr) {
-        if (selectedDates.length) {
-          const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
-          $("#departureDate .selected-value").text(dateStr);
-          $("#departureDate .sub-text").text(weekday);
-        }
+        updateDepartureDate(selectedDates, dateStr);
       },
       onChange: function(selectedDates, dateStr) {
-        if (selectedDates.length) {
-          const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
-          $("#departureDate .selected-value").text(dateStr);
-          $("#departureDate .sub-text").text(weekday);
-        }
+        updateDepartureDate(selectedDates, dateStr);
       }
     });
-  
-    $("#departureDate").on("click", function(e) {
+    
+    // Separate function to handle text updates
+    function updateDepartureDate(selectedDates, dateStr) {
+      if (selectedDates.length) {
+        const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
+        document.querySelector("#departureDate .selected-value").textContent = dateStr;
+        document.querySelector("#departureDate .sub-text").textContent = weekday;
+      }
+    }
+    
+    // Ensure the click event works properly on mobile
+    document.querySelector("#departureDate").addEventListener("click", function(e) {
       e.stopPropagation();
       departureFlatpickr.open();
     });
+    
   
     /************************
      *     Return Date      *
@@ -368,43 +372,49 @@ $(document).ready(function() {
     const returnFlatpickr = flatpickr("#returnDateInput", {
       dateFormat: "j M\\'y",
       minDate: "today",
-      clickOpens: false,
-      position: "auto", // Ensures automatic positioning below the input
-      appendTo: document.querySelector("#returnDate"),
-      onChange: function(selectedDates, dateStr) {
-        if (dateStr) {
-          if ($("#oneWay").is(":checked")) {
-            $("#roundTrip").prop("checked", true);
+      clickOpens: false, // We manually trigger it
+      position: "below", // Forces better positioning
+      appendTo: document.body, // Ensures correct display on mobile
+      disableMobile: true, // Uses Flatpickr UI instead of native mobile picker
+      onChange: function (selectedDates, dateStr) {
+        if (selectedDates.length) {
+          if (document.querySelector("#oneWay").checked) {
+            document.querySelector("#roundTrip").checked = true;
           }
+    
           const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
-          $("#returnDate .selected-value").text(dateStr);
-          $("#returnDate .sub-text").text(weekday);
-          $("#clearReturnDate").show();
+          document.querySelector("#returnDate .selected-value").textContent = dateStr;
+          document.querySelector("#returnDate .sub-text").textContent = weekday;
+          document.querySelector("#clearReturnDate").style.display = "block"; // Show clear button
         } else {
-          if ($("#roundTrip").is(":checked")) {
-            $("#oneWay").prop("checked", true);
+          if (document.querySelector("#roundTrip").checked) {
+            document.querySelector("#oneWay").checked = true;
           }
-          $("#returnDate .selected-value").text("");
-          $("#returnDate .sub-text").text("Tap to add a return date for bigger discounts");
-          $("#clearReturnDate").hide();
+    
+          document.querySelector("#returnDate .selected-value").textContent = "";
+          document.querySelector("#returnDate .sub-text").textContent = "Tap to add a return date for bigger discounts";
+          document.querySelector("#clearReturnDate").style.display = "none"; // Hide clear button
         }
       }
     });
-  
-    $("#returnDate").on("click", function(e) {
+    
+    // Ensure manual trigger works on mobile
+    document.querySelector("#returnDate").addEventListener("click", function (e) {
       e.stopPropagation();
       returnFlatpickr.open();
     });
-  
-    $("#clearReturnDate").click(function(e) {
+    
+    // Clear return date when clicking the clear button
+    document.querySelector("#clearReturnDate").addEventListener("click", function (e) {
       e.stopPropagation();
       returnFlatpickr.clear();
     });
-  
-    $("#oneWay").on("click", function() {
+    
+    // Clear return date when "One Way" is selected
+    document.querySelector("#oneWay").addEventListener("click", function () {
       returnFlatpickr.clear();
     });
-  
+    
     /************************
      * Travellers & Class   *
      ************************/
