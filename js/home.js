@@ -39,6 +39,8 @@ function handleNavOverflow() {
       }
   });
 
+  button.addEventListener('click', () => content.classList.toggle('show'));
+
   // Show/Hide "More" dropdown based on overflow
   moreDropdown.style.display = itemsMoved ? "block" : "none";
 
