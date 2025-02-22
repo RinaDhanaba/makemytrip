@@ -171,10 +171,10 @@
 
 
 
-<div style="display:flex; gap:10px; margin:50px auto; max-width:1200px;    justify-content: space-between; ">
-<div class="ad-card flex gap-1"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>Planning to book an international flight?<br><a href="">Check Travel Guidelines</a></p></div>
-<div class="ad-card flex gap-1"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>We are now available in हिंदी!<br><a href="">Change Language</a></p></div>
-<div class="ad-card flex gap-1"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>Complete your web check-in on MakeMyTrip in easy steps. <br><a href="">Know More</a></p></div>
+<div class="grid grid-3 container mt-5 p-0">
+<div class="ad-card flex gap-1" style="flex-direction: row;"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>Planning to book an international flight?<br><a href="">Check Travel Guidelines</a></p></div>
+<div class="ad-card flex gap-1" style="flex-direction: row;"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>We are now available in हिंदी!<br><a href="">Change Language</a></p></div>
+<div class="ad-card flex gap-1" style="flex-direction: row;"><img src="../media/Screenshot 2025-02-21 185501.png" alt=""><p>Complete your web check-in on MakeMyTrip in easy steps. <br><a href="">Know More</a></p></div>
 </div>
 
 
@@ -213,7 +213,7 @@
 
 
 
-<div style="max-width:1200px;margin: 50px auto;" class="terms-condition">
+<div style="max-width:1200px;margin: 50px auto;" class="terms-condition p-1">
 <b>MakeMyTrip</b>
 <p>About Us, Investor Relations, Careers, Sustainability, MMT Foundation, Legal Notices, CSR Policy & Committee, myPartner - Travel Agent Portal, List your hotel, Partners- Redbus, Partners- Goibibo, Advertise with Us, Holiday-Franchise
 </p>
@@ -237,7 +237,7 @@
 
 <div class="faq">
 
-<div class="grid grid-2 container" style="padding-bottom:20px; border-bottom: 1px solid #ccc; margin-bottom:20px">
+<div class="grid grid-2 container p-1" style="padding-bottom:20px; border-bottom: 1px solid #ccc; margin-bottom:20px">
     <div >
         <b>Q - How do I make a flight booking on MakeMyTrip?</b>
         <p>A: You can book a flight on MakeMyTrip in five easy steps: Head over to the MakeMyTrip flight booking page, Enter your departure and arrival destinations, Select your air travel dates, Choose from our wide range of cheap flights based on your airfare preferences, Click on ‘Book Now’ and your air flight booking is done. Alternatively, you can also use the MakeMyTrip app for your flight ticket booking. Download the MakeMyTrip app, Put in the details i.e. date of journey, departure and arrival destinations, travel class of your choice, Select on your best comfortable option and click on 'Book Now'.</p>
@@ -247,7 +247,7 @@
         <p>A: Of course, you can. While making domestic flight bookings, you can avail any special offer that is active at that time. In accordance with the offer selected, a listing of eligible cheapest flights would show up on your screen. You can then apply the price filter and click on the downwards arrow, following which budget-friendly flights would start showing up in ascending order from the top (lowest price on top).</p>
     </div>
 </div>
-<div class="grid grid-2 container">
+<div class="grid grid-2 container p-1">
     <div >
         <b>Q - How can I avail budget air tickets on MakeMyTrip?</b>
         <p>A: It’s super-easy to avail budget airfare while booking your cheap flight tickets on MakeMyTrip. Just select the ‘Price’ filter once the available flight options are displayed and adjust according to your convenience. On the MakeMyTrip app, you can select the downward arrow, which will show the lowest airfare at the top and continue downward in ascending order.</p>
