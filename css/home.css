@@ -30,6 +30,7 @@ display: block;
 @media (max-width: 1050px) {
   .navbar_inner {
       flex-direction:column;
+      gap: 5px;
   }
   .navbar .admin-controls {
       width:100%;
