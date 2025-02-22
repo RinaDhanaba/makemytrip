@@ -113,7 +113,7 @@ overflow-x: auto;
 
 .nav-menu {
 flex-direction: row;
-justify-content: flex-start;
+justify-content: flex-end;
 flex-wrap: nowrap;
 margin: 0;
 padding: 0;
