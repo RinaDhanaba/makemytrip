@@ -243,18 +243,18 @@ margin:30px auto;
 
 
 .booking-container{margin-top: 80px;}
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .booking-container{margin-top: 160px;}
 }
-@media (max-width: 768px) {
-  .booking-container{margin-top:130px;}
+@media (max-width: 900px) {
+  .booking-container{margin-top:220px;}
   .flight-card{padding: 25px 25px 0 !important;}
 }
 @media (max-width: 440px) {
   .booking-container{margin-top: 180px;}
 }
 @media (max-width: 350px) {
-  .booking-container{margin-top: 230px;}
+  .booking-container{margin-top: 330px;}
 }
 
 
