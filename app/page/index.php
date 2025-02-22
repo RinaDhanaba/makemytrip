@@ -125,11 +125,11 @@
 <div style="margin: 60px auto 20px auto;    color: #fff;    text-align: center;">>> Explore More >> </div>
 
 <div class="extra-info-banner row">
-    <div class="extra-info-banner-btn flex gap-2 col-sm-6 col-md-4 col-lg-3"> <i class="bi bi-airplane-engines"></i> <p>Where2Go</p> </div>
-    <div class="extra-info-banner-btn flex gap-2 col-sm-6 col-md-4 col-lg-3"> <i class="bi bi-airplane-engines"></i> <p>Insurance<br>For International Trips</p> </div>
-    <div class="extra-info-banner-btn flex gap-2 col-sm-6 col-md-4 col-lg-3"> <i class="bi bi-airplane-engines"></i> <p>Explore International Flights<br>Cheapest Flights to Paris, Bali, Tokyo & more</p> </div>
-    <div class="extra-info-banner-btn flex gap-2 col-sm-6 col-md-4 col-lg-3"> <i class="bi bi-airplane-engines"></i> <p>MICE<br>Offsites, Events & Meetings</p> </div>
-    <div class="extra-info-banner-btn flex gap-2 col-sm-6 col-md-4 col-lg-3"> <i class="bi bi-airplane-engines"></i> <p>Gift Cards</p> </div>
+    <div class="extra-info-banner-btn flex gap-2 col"> <i class="bi bi-airplane-engines"></i> <p>Where2Go</p> </div>
+    <div class="extra-info-banner-btn flex gap-2 col"> <i class="bi bi-airplane-engines"></i> <p>Insurance<br>For International Trips</p> </div>
+    <div class="extra-info-banner-btn flex gap-2 col"> <i class="bi bi-airplane-engines"></i> <p>Explore International Flights<br>Cheapest Flights to Paris, Bali, Tokyo & more</p> </div>
+    <div class="extra-info-banner-btn flex gap-2 col"> <i class="bi bi-airplane-engines"></i> <p>MICE<br>Offsites, Events & Meetings</p> </div>
+    <div class="extra-info-banner-btn flex gap-2 col"> <i class="bi bi-airplane-engines"></i> <p>Gift Cards</p> </div>
 </div>
 </div>  
 
