@@ -25,10 +25,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     for (let i = 0; i < navItems.length; i++) {
       totalWidth += navItems[i].offsetWidth;
+      console.log("Item:", navItems[i], "Running width:", totalWidth, "Menu width:", navMenuWidth);
       if (totalWidth > navMenuWidth) {
+        console.log("Overflow triggered at item:", navItems[i]);
         // We've exceeded available width, so show "More" and move the rest
         moreDropdown.classList.remove("hidden");
         for (let j = i; j < navItems.length; j++) {
+          console.log("Appending item:", navItems[j].innerText, "to #moreMenu");
           moreMenu.appendChild(navItems[j]);
         }
         break;
