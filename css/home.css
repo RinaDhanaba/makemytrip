@@ -233,10 +233,11 @@ margin:30px auto;
   .booking-container{margin-top:0px;}
 }
 @media (max-width: 440px) {
-  .booking-container{margin-top: 130px;}
+  .booking-container{margin-top: 180px;}
+  .flight-card{padding: 25px;}
 }
 @media (max-width: 350px) {
-  .booking-container{margin-top: 190px;}
+  .booking-container{margin-top: 230px;}
 }
 
 

@@ -341,7 +341,7 @@ $(document).ready(function() {
       minDate: "today",
       defaultDate: "today",
       clickOpens: false, 
-      position: isMobile ? "auto center" : "below", // Center picker on mobile
+      position: isMobile ? "center center" : "below", // Center picker on mobile
       appendTo: isMobile ? document.body : document.querySelector("#departureDate"), // Append to body only for mobile
       disableMobile: true, // Force Flatpickr UI instead of native mobile date picker
 
@@ -390,7 +390,7 @@ $(document).ready(function() {
       dateFormat: "j M\\'y",
       minDate: "today",
       clickOpens: false,
-      position: isMobile ? "auto center" : "below", // Center Flatpickr only on mobile
+      position: isMobile ? "center center" : "below", // Center Flatpickr only on mobile
       appendTo: isMobile ? document.body : document.querySelector("#returnDate"), // Append to body only on mobile
       disableMobile: true, // Force Flatpickr UI instead of native mobile picker
 
