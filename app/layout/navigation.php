@@ -90,7 +90,11 @@ $defaultCountry = $countries["IN"];
 
 
 <div class="nav-menu-home">
-        <?php foreach ($menu_items as $item => $data): ?>
+        <?php 
+            $current_page = basename($_SERVER['REQUEST_URI']); // Get the current page
+            foreach ($menu_items as $item => $data): 
+            $active_class = ($current_page == basename($data['link'])) ? 'active' : ''; 
+            ?>
             <div class="nav-item-home <?= $active_class ?>"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></div>
         <?php endforeach; ?>
 </div>

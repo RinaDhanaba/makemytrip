@@ -5,7 +5,11 @@
     <div class="logo">Beimond Travels</div>
 
     <ul class="nav-menu">
-        <?php foreach ($menu_items as $item => $data): ?>
+        <?php 
+        $current_page = basename($_SERVER['REQUEST_URI']); // Get the current page
+        foreach ($menu_items as $item => $data): 
+            $active_class = ($current_page == basename($data['link'])) ? 'active' : ''; 
+        ?>
             <li class="nav-item <?= $active_class ?>"><a href="<?= $data['link'] ?>"><i class="<?= $data['icon'] ?>"></i> <?= $item ?></a></li>
         <?php endforeach; ?>
         <li class="more-dropdown hidden">
