@@ -1,3 +1,4 @@
+// Function to handle the overflow of navigation items
 function handleNavOverflow() {
   const navbar = document.querySelector(".navbar_inner_nav");
   const moreDropdown = document.querySelector(".more-dropdown");
@@ -21,13 +22,16 @@ function handleNavOverflow() {
   let totalWidth = 0;
 
   navItems.forEach((item, index) => {
-      item.style.display = "inline-block"; // Reset before recalculating
+      // Reset display in case it was hidden previously
+      item.style.display = "inline-block";
       totalWidth += item.offsetWidth;
 
       if (totalWidth > availableSpace) {
           itemsMoved = true;
-          item.style.display = "none"; // Move to "More" dropdown
+          // Hide item from main navbar
+          item.style.display = "none";
 
+          // Clone and display the item in the More dropdown
           let clone = item.cloneNode(true);
           clone.style.display = "block";
 
@@ -38,60 +42,29 @@ function handleNavOverflow() {
       }
   });
 
-  // Select the dropdown content element (adjust this selector if needed)
-  const dropdownContent = moreDropdown.querySelector('.dropdown-content-nav');
-
-  // Add event listener to toggle the "show" class when the dropdown button is clicked.
-  const dropdownButton = moreDropdown.querySelector('.dropdown-button');
-  if (dropdownButton && dropdownContent) {
-      dropdownButton.addEventListener('click', (e) => {
-          // Prevent the click from triggering other handlers (like closing the dropdown)
-          e.stopPropagation();
-          dropdownContent.classList.toggle('show');
-      });
-  }
-
-  // Show/Hide "More" dropdown based on overflow
+  // Show/Hide "More" dropdown based on whether any items were moved
   moreDropdown.style.display = itemsMoved ? "block" : "none";
 
-  // Ensure navbar does not exceed container width
-  adjustNavbarWidth();
-}
+  // Hide More dropdown if there are no items to show
+  if (moreMenu.children.length === 0) {
+    moreDropdown.style.display = "none";
+  }
 
-
-function adjustNavbarWidth() {
-  const navbar = document.querySelector(".navbar_inner_nav"); // Use inner container
-  const moreDropdown = document.querySelector(".more-dropdown");
-
-  // Ensure navbar stays within its container
+  // Prevent horizontal scrolling if content overflows
   if (navbar.scrollWidth > navbar.clientWidth) {
-      navbar.style.overflowX = "hidden"; // Prevent horizontal scroll
+      navbar.style.overflowX = "hidden";
   } else {
       navbar.style.overflowX = "";
   }
-
-  // Handle sticky navbar effect when scrolling
-  window.addEventListener("scroll", () => {
-      const mainNavbar = document.querySelector(".navbar");
-      if (window.scrollY > 100) {
-          mainNavbar.classList.add("sticky");
-      } else {
-          mainNavbar.classList.remove("sticky");
-      }
-  });
-
-  // Hide "More" dropdown if empty
-  if (moreDropdown.querySelector(".dropdown-content-nav").children.length === 0) {
-      moreDropdown.style.display = "none";
-  }
 }
 
-// Run on page load, resize, and user interaction
+// Attach dropdown and sticky navbar event listeners once on DOM load
 document.addEventListener("DOMContentLoaded", () => {
   const moreDropdown = document.querySelector(".more-dropdown");
   const dropdownContent = moreDropdown.querySelector('.dropdown-content-nav');
   const dropdownButton = moreDropdown.querySelector('.dropdown-button');
   
+  // Toggle dropdown content when the dropdown button is clicked
   if (dropdownButton && dropdownContent) {
     dropdownButton.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -99,13 +72,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   
+  // Sticky navbar effect: attach listener once
+  window.addEventListener("scroll", () => {
+    const mainNavbar = document.querySelector(".navbar");
+    if (window.scrollY > 100) {
+      mainNavbar.classList.add("sticky");
+    } else {
+      mainNavbar.classList.remove("sticky");
+    }
+  });
+  
+  // Initial call to position nav items correctly
   handleNavOverflow();
 });
 
+// Attach handleNavOverflow on window events
 window.addEventListener("resize", handleNavOverflow);
 window.addEventListener("load", handleNavOverflow);
 window.addEventListener("click", handleNavOverflow);
 window.addEventListener("scroll", handleNavOverflow);
+
 
 
 
