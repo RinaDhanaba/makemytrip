@@ -57,7 +57,7 @@ function handleNavOverflow() {
 
   // Prevent horizontal scrolling if content overflows
   if (navbar.scrollWidth > navbar.clientWidth) {
-      navbar.style.overflowX = "hidden";
+      navbar.style.overflowX = "auto";
   } else {
       navbar.style.overflowX = "";
   }
