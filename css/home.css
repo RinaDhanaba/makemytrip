@@ -39,7 +39,7 @@ nav ul { list-style: none; display: flex; margin: 0; padding: 0; gap:10px}
 nav li { margin: 0 15px; }
 
 nav a, .nav-item-home a {text-decoration: none; font-size: 12px; display: flex; align-items: center;flex-direction: column; color:#000 }
-nav .active a:active, .nav-item-home.active a{color:var(--primary-color); font-weight: 600;}
+nav .active a, .nav-item-home.active a{color:var(--primary-color); font-weight: 600;}
 .nav-item-home i {font-size:22px}
 
 nav a i{font-size: 16px;}
