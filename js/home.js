@@ -5,7 +5,8 @@ function handleNavOverflow() {
   const moreMenu = document.getElementById("moreMenu");
   
   // Exclude the more-dropdown itself from nav items selection
-  const navItems = [...document.querySelectorAll(".navbar .nav-menu .nav-item:not(.more-dropdown)")];
+  const navItems = [...document.querySelectorAll(".navbar .nav-menu > li.nav-item:not(.more-dropdown)")];
+  
 
   let navbarWidth = navbar.clientWidth;
   // Start with the width of the moreDropdown (if visible) as used space
