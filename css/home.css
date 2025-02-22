@@ -145,12 +145,6 @@ row-gap: 30px;
   .top-navbar .admin-controls{display: none;}
 }
 
-@media (max-width: 480px) {
-  .flex-item {
-      flex: 1 1 100%; /* 1 column */
-  }
-}
-
 .nav-div-item{
     border-left:1px solid #ddd;
     padding-left: 10px;
@@ -230,7 +224,13 @@ margin:30px auto;
 @media (max-width: 768px) {
   .booking-container{margin-top:0px;}
 }
+@media (max-width: 440px) {
+  .booking-container{margin-top: 130px;}
+}
 
+@media (max-width: 350px) {
+  .booking-container{margin-top: 190px;}
+}
 
 
 .booking-container .flight-card {
