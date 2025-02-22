@@ -1,94 +1,63 @@
-// Function to handle overflowing nav items by moving them into the "More" dropdown
-function handleNavOverflow() {
-  // Select the container that holds the logo and navigation menu
-  const navbarNav = document.querySelector(".navbar_inner_nav");
-  // Select the logo element
-  const logo = navbarNav.querySelector(".logo");
-  // Get the nav menu (the UL containing nav items)
-  const navMenu = navbarNav.querySelector(".nav-menu");
-  // Select the "More" dropdown (its LI element within the nav menu)
-  const moreDropdown = navMenu.querySelector(".more-dropdown");
-  // Get the container where overflow items will be cloned
+document.addEventListener("DOMContentLoaded", function() {
+  const navMenu = document.querySelector(".nav-menu");
+  const moreDropdown = document.querySelector(".more-dropdown");
   const moreMenu = document.getElementById("moreMenu");
-  // Select all nav items (exclude the more-dropdown item)
-  const navItems = [...navMenu.querySelectorAll(".nav-item")];
+  const dropdownButton = document.querySelector(".dropdown-button");
+  const dropdownContent = document.querySelector(".dropdown-content");
 
-  // Reset: Ensure all nav items are visible and clear the dropdown list
-  navItems.forEach(item => item.style.display = "inline-block");
-  moreMenu.innerHTML = "";
+  function handleNavOverflow() {
+    // 1. Move any items that are currently in the "More" dropdown back to the main nav
+    while (moreMenu.firstChild) {
+      navMenu.insertBefore(moreMenu.firstChild, moreDropdown);
+    }
 
-  // Calculate available width for nav items by using the width of navbar_inner_nav,
-  // then subtracting the logo width so that only the nav-menu items are calculated.
-  let availableWidth = navbarNav.clientWidth;
-  if (logo) {
-    availableWidth -= logo.offsetWidth;
+    // 2. Temporarily hide the "More" dropdown to measure actual width
+    moreDropdown.classList.add("hidden");
+
+    // 3. Calculate how many items fit
+    let totalWidth = 0;
+    const navMenuWidth = navMenu.offsetWidth;
+    
+    // Gather all <li> except the .more-dropdown
+    const navItems = [...navMenu.children].filter(
+      (li) => !li.classList.contains("more-dropdown")
+    );
+
+    for (let i = 0; i < navItems.length; i++) {
+      totalWidth += navItems[i].offsetWidth;
+      if (totalWidth > navMenuWidth) {
+        // We've exceeded available width, so show "More" and move the rest
+        moreDropdown.classList.remove("hidden");
+        for (let j = i; j < navItems.length; j++) {
+          moreMenu.appendChild(navItems[j]);
+        }
+        break;
+      }
+    }
   }
-  // Reserve space for the More dropdown button.
-  // In case it's hidden and offsetWidth returns 0, assume a default width (e.g., 80px)
-  const reservedMoreWidth = moreDropdown.offsetWidth || 80;
-  availableWidth -= reservedMoreWidth;
 
-  // Start accumulating widths of nav items
-  let currentWidth = 0;
-  let itemsMoved = false;
+  // --- Toggle the dropdown on click ---
+  dropdownButton.addEventListener("click", function(e) {
+    e.stopPropagation(); 
+    // Toggle
+    dropdownContent.style.display = (dropdownContent.style.display === "block")
+      ? "none"
+      : "block";
+  });
 
-  // Loop through each nav item and decide whether it fits in the available space
-  navItems.forEach((item, index) => {
-    currentWidth += item.offsetWidth;
-    // If the total width exceeds available width, move this item to the More dropdown
-    if (currentWidth > availableWidth) {
-      itemsMoved = true;
-      item.style.display = "none"; // Hide from main nav
-
-      // Clone the nav item for the dropdown menu
-      let clone = item.cloneNode(true);
-      clone.style.display = "block";
-      clone.dataset.id = `item-${index}`;
-      moreMenu.appendChild(clone);
+  // Close the dropdown if user clicks outside
+  document.addEventListener("click", function(e) {
+    if (!moreDropdown.contains(e.target)) {
+      dropdownContent.style.display = "none";
     }
   });
 
-  // Show the More dropdown only if items have been moved
-  moreDropdown.style.display = itemsMoved ? "block" : "none";
-}
+  // --- Listen for resize to recalc overflow ---
+  window.addEventListener("resize", handleNavOverflow);
 
-// Function to adjust navbar overflow and add sticky effect if necessary
-function adjustNavbarWidth() {
-  // Select the container that holds the navigation items
-  const navbarNav = document.querySelector(".navbar_inner_nav");
-  
-  // Prevent horizontal overflow in case nav items exceed container width
-  navbarNav.style.overflowX = navbarNav.scrollWidth > navbarNav.clientWidth ? "hidden" : "";
-}
-
-// Function to set up hover events for the "More" dropdown on desktop
-function setupMoreDropdownHover() {
-  const moreDropdown = document.querySelector(".more-dropdown");
-  if (!moreDropdown) return;
-  // Get the inner dropdown container and its content container
-  const dropdown = moreDropdown.querySelector(".dropdown");
-  const dropdownContent = moreDropdown.querySelector(".dropdown-content");
-
-  // Show dropdown content on mouse enter (desktop behavior)
-  dropdown.addEventListener("mouseenter", () => {
-    dropdownContent.classList.add("show");
-  });
-  // Hide dropdown content on mouse leave
-  dropdown.addEventListener("mouseleave", () => {
-    dropdownContent.classList.remove("show");
-  });
-}
-
-// Run functions on page load and on various interactions (resize, click, scroll)
-document.addEventListener("DOMContentLoaded", () => {
+  // --- Initialize once on page load ---
   handleNavOverflow();
-  adjustNavbarWidth();
-  setupMoreDropdownHover();
 });
-window.addEventListener("resize", handleNavOverflow);
-window.addEventListener("load", handleNavOverflow);
-window.addEventListener("click", handleNavOverflow);
-window.addEventListener("scroll", handleNavOverflow);
 
 
 
