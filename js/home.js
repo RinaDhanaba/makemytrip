@@ -1,66 +1,77 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const navMenu = document.querySelector(".nav-menu");
+
+function handleNavOverflow() {
+  const navbar = document.querySelector(".navbar_inner"); // Use inner container instead of full navbar
   const moreDropdown = document.querySelector(".more-dropdown");
   const moreMenu = document.getElementById("moreMenu");
-  const dropdownButton = document.querySelector(".dropdown-button");
-  const dropdownContent = document.querySelector(".dropdown-content");
+  const navItems = [...document.querySelectorAll(".navbar .nav-menu .nav-item")];
 
-  function handleNavOverflow() {
-    // 1. Move any items that are currently in the "More" dropdown back to the main nav
-    while (moreMenu.firstChild) {
-      navMenu.insertBefore(moreMenu.firstChild, moreDropdown);
-    }
+  let navbarWidth = navbar.clientWidth; // Container width
+  let usedSpace = moreDropdown.clientWidth; // Start with "More" dropdown width
+  let itemsMoved = false;
 
-    // 2. Temporarily hide the "More" dropdown to measure actual width
-    moreDropdown.classList.add("hidden");
+  // Reset More Menu
+  moreMenu.innerHTML = "";
 
-    // 3. Calculate how many items fit
-    let totalWidth = 0;
-    const navMenuWidth = navMenu.offsetWidth;
-    
-    // Gather all <li> except the .more-dropdown
-    const navItems = [...navMenu.children].filter(
-      (li) => !li.classList.contains("more-dropdown")
-    );
+  // Calculate space used by elements other than the nav-menu
+  let otherElements = [...navbar.children].filter(el => !el.classList.contains("nav-menu"));
+  otherElements.forEach(el => {
+      usedSpace += el.getBoundingClientRect().width;
+  });
 
-    for (let i = 0; i < navItems.length; i++) {
-      totalWidth += navItems[i].offsetWidth;
-      console.log("Item:", navItems[i], "Running width:", totalWidth, "Menu width:", navMenuWidth);
-      if (totalWidth > navMenuWidth) {
-        console.log("Overflow triggered at item:", navItems[i]);
-        // We've exceeded available width, so show "More" and move the rest
-        moreDropdown.classList.remove("hidden");
-        for (let j = i; j < navItems.length; j++) {
-          console.log("Appending item:", navItems[j].innerText, "to #moreMenu");
-          moreMenu.appendChild(navItems[j]);
-        }
-        break;
+  let availableSpace = navbarWidth - usedSpace;
+  let totalWidth = 0;
+
+  navItems.forEach((item, index) => {
+      item.style.display = "inline-block"; // Reset before recalculating
+      totalWidth += item.offsetWidth;
+
+      if (totalWidth > availableSpace) {
+          itemsMoved = true;
+          item.style.display = "none"; // Move to "More" dropdown
+
+          let clone = item.cloneNode(true);
+          clone.style.display = "block";
+
+          if (!moreMenu.querySelector(`[data-id="item-${index}"]`)) {
+              clone.dataset.id = `item-${index}`;
+              moreMenu.appendChild(clone);
+          }
       }
-    }
+  });
+
+  // Show/Hide "More" dropdown based on overflow
+  moreDropdown.style.display = itemsMoved ? "block" : "none";
+
+  // Ensure navbar does not exceed container width
+  adjustNavbarWidth();
+}
+
+function adjustNavbarWidth() {
+  const navbar = document.querySelector(".navbar_inner"); // Use inner container
+  const moreDropdown = document.querySelector(".more-dropdown");
+
+  // Ensure navbar stays within its container
+  if (navbar.scrollWidth > navbar.clientWidth) {
+      navbar.style.overflowX = "hidden"; // Prevent horizontal scroll
+  } else {
+      navbar.style.overflowX = "";
   }
 
-  // --- Toggle the dropdown on click ---
-  dropdownButton.addEventListener("click", function(e) {
-    e.stopPropagation(); 
-    // Toggle
-    dropdownContent.style.display = (dropdownContent.style.display === "block")
-      ? "none"
-      : "block";
+  // Handle sticky navbar effect when scrolling
+  window.addEventListener("scroll", () => {
+      const mainNavbar = document.querySelector(".navbar");
+      if (window.scrollY > 100) {
+          mainNavbar.classList.add("sticky");
+      } else {
+          mainNavbar.classList.remove("sticky");
+      }
   });
 
-  // Close the dropdown if user clicks outside
-  document.addEventListener("click", function(e) {
-    if (!moreDropdown.contains(e.target)) {
-      dropdownContent.style.display = "none";
-    }
-  });
-
-  // --- Listen for resize to recalc overflow ---
-  window.addEventListener("resize", handleNavOverflow);
-
-  // --- Initialize once on page load ---
-  
-});
+  // Hide "More" dropdown if empty
+  if (moreDropdown.querySelector(".dropdown-content").children.length === 0) {
+      moreDropdown.style.display = "none";
+  }
+}
 
 // Run on page load, resize, and user interaction
 document.addEventListener("DOMContentLoaded", handleNavOverflow);
