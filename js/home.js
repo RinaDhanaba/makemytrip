@@ -334,23 +334,39 @@ $(document).ready(function() {
     /************************
      *    Departure Date    *
      ************************/
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
     const departureFlatpickr = flatpickr("#departureDateInput", {
       dateFormat: "j M\\'y",
       minDate: "today",
       defaultDate: "today",
-      clickOpens: false, // Keep this false to manually trigger
-      position: "below", // Try forcing a position for better mobile behavior
-      appendTo: document.body, // Ensures proper positioning
-      disableMobile: true, // Uses Flatpickr UI instead of native mobile picker
-      onReady: function(selectedDates, dateStr) {
+      clickOpens: false, 
+      position: isMobile ? "auto center" : "below", // Center picker on mobile
+      appendTo: isMobile ? document.body : document.querySelector("#departureDate"), // Append to body only for mobile
+      disableMobile: true, // Force Flatpickr UI instead of native mobile date picker
+
+      onReady: function (selectedDates, dateStr) {
         updateDepartureDate(selectedDates, dateStr);
       },
-      onChange: function(selectedDates, dateStr) {
+
+      onChange: function (selectedDates, dateStr) {
         updateDepartureDate(selectedDates, dateStr);
+      },
+
+      onOpen: function () {
+        if (isMobile) {
+          document.body.classList.add("flatpickr-mobile-center");
+        }
+      },
+
+      onClose: function () {
+        if (isMobile) {
+          document.body.classList.remove("flatpickr-mobile-center");
+        }
       }
     });
-    
-    // Separate function to handle text updates
+
+    // Function to update the displayed date and weekday
     function updateDepartureDate(selectedDates, dateStr) {
       if (selectedDates.length) {
         const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
@@ -358,63 +374,86 @@ $(document).ready(function() {
         document.querySelector("#departureDate .sub-text").textContent = weekday;
       }
     }
-    
-    // Ensure the click event works properly on mobile
-    document.querySelector("#departureDate").addEventListener("click", function(e) {
+
+    // Manually open the date picker when clicking #departureDate
+    document.querySelector("#departureDate").addEventListener("click", function (e) {
       e.stopPropagation();
       departureFlatpickr.open();
     });
-    
-  
+
     /************************
      *     Return Date      *
      ************************/
+    // const isMobile = window.matchMedia("(max-width: 768px)").matches; // define above
+
     const returnFlatpickr = flatpickr("#returnDateInput", {
       dateFormat: "j M\\'y",
       minDate: "today",
-      clickOpens: false, // We manually trigger it
-      position: "below", // Forces better positioning
-      appendTo: document.body, // Ensures correct display on mobile
-      disableMobile: true, // Uses Flatpickr UI instead of native mobile picker
+      clickOpens: false,
+      position: isMobile ? "auto center" : "below", // Center Flatpickr only on mobile
+      appendTo: isMobile ? document.body : document.querySelector("#returnDate"), // Append to body only on mobile
+      disableMobile: true, // Force Flatpickr UI instead of native mobile picker
+
       onChange: function (selectedDates, dateStr) {
-        if (selectedDates.length) {
-          if (document.querySelector("#oneWay").checked) {
-            document.querySelector("#roundTrip").checked = true;
-          }
-    
-          const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
-          document.querySelector("#returnDate .selected-value").textContent = dateStr;
-          document.querySelector("#returnDate .sub-text").textContent = weekday;
-          document.querySelector("#clearReturnDate").style.display = "block"; // Show clear button
-        } else {
-          if (document.querySelector("#roundTrip").checked) {
-            document.querySelector("#oneWay").checked = true;
-          }
-    
-          document.querySelector("#returnDate .selected-value").textContent = "";
-          document.querySelector("#returnDate .sub-text").textContent = "Tap to add a return date for bigger discounts";
-          document.querySelector("#clearReturnDate").style.display = "none"; // Hide clear button
+        updateReturnDate(selectedDates, dateStr);
+      },
+
+      onOpen: function () {
+        if (isMobile) {
+          document.body.classList.add("flatpickr-mobile-center");
+        }
+      },
+
+      onClose: function () {
+        if (isMobile) {
+          document.body.classList.remove("flatpickr-mobile-center");
         }
       }
     });
-    
-    // Ensure manual trigger works on mobile
+
+    // Function to update the return date display
+    function updateReturnDate(selectedDates, dateStr) {
+      const returnDateEl = document.querySelector("#returnDate .selected-value");
+      const returnSubTextEl = document.querySelector("#returnDate .sub-text");
+      const clearReturnBtn = document.querySelector("#clearReturnDate");
+
+      if (selectedDates.length) {
+        if (document.querySelector("#oneWay").checked) {
+          document.querySelector("#roundTrip").checked = true;
+        }
+
+        const weekday = selectedDates[0].toLocaleDateString("en-US", { weekday: "long" });
+        returnDateEl.textContent = dateStr;
+        returnSubTextEl.textContent = weekday;
+        clearReturnBtn.style.display = "block"; // Show the clear button
+      } else {
+        if (document.querySelector("#roundTrip").checked) {
+          document.querySelector("#oneWay").checked = true;
+        }
+
+        returnDateEl.textContent = "";
+        returnSubTextEl.textContent = "Tap to add a return date for bigger discounts";
+        clearReturnBtn.style.display = "none"; // Hide the clear button
+      }
+    }
+
+    // Open Flatpickr when clicking #returnDate
     document.querySelector("#returnDate").addEventListener("click", function (e) {
       e.stopPropagation();
       returnFlatpickr.open();
     });
-    
-    // Clear return date when clicking the clear button
+
+    // Clear the return date when clicking the clear button
     document.querySelector("#clearReturnDate").addEventListener("click", function (e) {
       e.stopPropagation();
       returnFlatpickr.clear();
     });
-    
-    // Clear return date when "One Way" is selected
+
+    // Clear the return date when "One Way" is selected
     document.querySelector("#oneWay").addEventListener("click", function () {
       returnFlatpickr.clear();
     });
-    
+
     /************************
      * Travellers & Class   *
      ************************/
