@@ -249,7 +249,7 @@ margin:30px auto;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
   .flight-form-main{
-    border:1px solid #ddd;    border-radius: 20px;margin: 30px 0;
+    border:1px solid #ddd;    border-radius: 20px;margin: 30px 0;    align-items: stretch;
   }
 
   .flight-form-main .flight-form-inner {
@@ -264,6 +264,17 @@ margin:30px auto;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
   }
+
+  @media screen and (max-width: 768px) {
+    .flight-form-main{border:0;border-radius:0px; gap:5px}
+    .flight-form-main .flight-form-inner{
+       border-radius: 20px;
+    }
+    .booking-container .swap-btn{
+      left:10px !important;
+    }
+    }
+
 
   .booking-container .dropdown, .dropdown-menu {
     display: none;
