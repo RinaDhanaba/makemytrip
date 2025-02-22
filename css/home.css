@@ -25,7 +25,18 @@ display: block;
     flex-wrap: nowrap;
     max-width: 1200px;
     margin: auto;
+    gap:30px;
 }
+@media (max-width: 1050px) {
+  .navbar_inner{
+      flex-direction:column;
+  }
+  nav .admin-controls {
+      width:100%;
+      order: -1;
+  }
+}
+
 
 .logo {
     font-size: 22px;
