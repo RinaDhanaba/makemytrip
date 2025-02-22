@@ -22,7 +22,7 @@
     </ul>
     </div>
 
-    <div class="flex gap-1 flex-row admin-controls">
+    <div class="flex gap-1 flex-row justify-content-center admin-controls">
     <div style="font-size:12px; text-align:center;">Login/ <br>Create account</div>
 
     <!-- Country Dropdown -->
