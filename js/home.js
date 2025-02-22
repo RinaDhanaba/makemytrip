@@ -47,7 +47,7 @@ function handleNavOverflow() {
 }
 
 function adjustNavbarWidth() {
-  const navbar = document.querySelector(".navbar_inner"); // Use inner container
+  const navbar = document.querySelector(".navbar_inner_nav"); // Use inner container
   const moreDropdown = document.querySelector(".more-dropdown");
 
   // Ensure navbar stays within its container
