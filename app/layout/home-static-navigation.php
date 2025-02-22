@@ -20,7 +20,7 @@
         </li>
     </ul>
 
-    <div style="flex gap-1 admin-controls" class="dropdown-nav-container">
+    <div class="flex gap-1 flex-row admin-controls">
     <div style="font-size:12px; text-align:center;">Login/ <br>Create account</div>
 
     <!-- Country Dropdown -->

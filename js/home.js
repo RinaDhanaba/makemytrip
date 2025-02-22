@@ -1,84 +1,112 @@
-
 function handleNavOverflow() {
-    const navbar = document.querySelector(".navbar_inner"); // Use inner container instead of full navbar
-    const moreDropdown = document.querySelector(".more-dropdown");
-    const moreMenu = document.getElementById("moreMenu");
-    const navItems = [...document.querySelectorAll(".navbar .nav-menu .nav-item")];
+  const navbar = document.querySelector(".navbar_inner");
+  const navMenu = document.querySelector(".nav-menu");
+  const moreDropdown = document.querySelector(".more-dropdown");
+  const moreMenu = document.getElementById("moreMenu");
 
-    let navbarWidth = navbar.clientWidth; // Container width
-    let usedSpace = moreDropdown.clientWidth; // Start with "More" dropdown width
-    let itemsMoved = false;
+  // 1) Grab all nav items EXCEPT the 'More' dropdown.
+  const navItems = [
+      ...document.querySelectorAll(".nav-menu .nav-item:not(.more-dropdown)")
+  ];
 
-    // Reset More Menu
-    moreMenu.innerHTML = "";
+  // Temporarily show the 'More' link so we can measure it.
+  moreDropdown.style.display = "inline-block";
 
-    // Calculate space used by elements other than the nav-menu
-    let otherElements = [...navbar.children].filter(el => !el.classList.contains("nav-menu"));
-    otherElements.forEach(el => {
-        usedSpace += el.getBoundingClientRect().width;
-    });
+  // Clear anything that might be in 'More'.
+  moreMenu.innerHTML = "";
 
-    let availableSpace = navbarWidth - usedSpace;
-    let totalWidth = 0;
+  // 2) Figure out how much horizontal space we have.
+  const navbarWidth = navbar.clientWidth;
 
-    navItems.forEach((item, index) => {
-        item.style.display = "inline-block"; // Reset before recalculating
-        totalWidth += item.offsetWidth;
+  // Calculate how much space is used by elements that are NOT part of the .nav-menu
+  const otherElements = [...navbar.children].filter(
+      el => !el.classList.contains("nav-menu")
+  );
+  let usedSpace = otherElements.reduce(
+      (acc, el) => acc + el.getBoundingClientRect().width,
+      0
+  );
 
-        if (totalWidth > availableSpace) {
-            itemsMoved = true;
-            item.style.display = "none"; // Move to "More" dropdown
+  // Measure the width of the 'More' dropdown itself.
+  const moreWidth = moreDropdown.getBoundingClientRect().width;
 
-            let clone = item.cloneNode(true);
-            clone.style.display = "block";
+  // The space left for actual nav items = total minus other stuff minus 'More' link.
+  let availableSpace = navbarWidth - usedSpace - moreWidth;
 
-            if (!moreMenu.querySelector(`[data-id="item-${index}"]`)) {
-                clone.dataset.id = `item-${index}`;
-                moreMenu.appendChild(clone);
-            }
-        }
-    });
+  // A small optional buffer to avoid borderline cutoffs (adjust if needed).
+  const buffer = 5; 
+  availableSpace -= buffer;
 
-    // Show/Hide "More" dropdown based on overflow
-    moreDropdown.style.display = itemsMoved ? "block" : "none";
+  // Ensure all real items are shown before measuring them.
+  navItems.forEach(item => {
+      item.style.display = "inline-block";
+  });
 
-    // Ensure navbar does not exceed container width
-    adjustNavbarWidth();
+  let totalWidth = 0;
+  let itemsMoved = false;
+
+  // 3) Loop through the items and move any that don't fit into 'More'.
+  navItems.forEach((item, index) => {
+      const itemWidth = item.getBoundingClientRect().width;
+      if (totalWidth + itemWidth > availableSpace) {
+          // Doesn't fit: move to 'More'
+          itemsMoved = true;
+          item.style.display = "none";
+
+          // Clone so the link still works in the dropdown
+          const clone = item.cloneNode(true);
+          clone.style.display = "block";
+          clone.dataset.id = `item-${index}`;
+          moreMenu.appendChild(clone);
+      } else {
+          // Fits: keep it in main nav
+          totalWidth += itemWidth;
+      }
+  });
+
+  // If nothing was moved, hide the 'More' link entirely
+  if (!itemsMoved) {
+      moreDropdown.style.display = "none";
+  }
+
+  adjustNavbarWidth();
 }
 
 function adjustNavbarWidth() {
-    const navbar = document.querySelector(".navbar_inner"); // Use inner container
-    const moreDropdown = document.querySelector(".more-dropdown");
+  const navbar = document.querySelector(".navbar_inner");
+  const moreDropdown = document.querySelector(".more-dropdown");
 
-    // Ensure navbar stays within its container
-    if (navbar.scrollWidth > navbar.clientWidth) {
-        navbar.style.overflowX = "hidden"; // Prevent horizontal scroll
-    } else {
-        navbar.style.overflowX = "";
-    }
+  // Prevent horizontal scroll if things still overflow
+  if (navbar.scrollWidth > navbar.clientWidth) {
+      navbar.style.overflowX = "hidden";
+  } else {
+      navbar.style.overflowX = "";
+  }
 
-    // Handle sticky navbar effect when scrolling
-    window.addEventListener("scroll", () => {
-        const mainNavbar = document.querySelector(".navbar");
-        if (window.scrollY > 100) {
-            mainNavbar.classList.add("sticky");
-        } else {
-            mainNavbar.classList.remove("sticky");
-        }
-    });
+  // Make navbar sticky after a certain scroll
+  window.addEventListener("scroll", () => {
+      const mainNavbar = document.querySelector(".navbar");
+      if (window.scrollY > 100) {
+          mainNavbar.classList.add("sticky");
+      } else {
+          mainNavbar.classList.remove("sticky");
+      }
+  });
 
-    // Hide "More" dropdown if empty
-    if (moreDropdown.querySelector(".dropdown-content").children.length === 0) {
-        moreDropdown.style.display = "none";
-    }
+  // Hide 'More' if it has no items
+  const moreMenu = document.getElementById("moreMenu");
+  if (!moreMenu.children.length) {
+      moreDropdown.style.display = "none";
+  }
 }
 
-// Run on page load, resize, and user interaction
+// Run on page load, resize, etc.
 document.addEventListener("DOMContentLoaded", handleNavOverflow);
 window.addEventListener("resize", handleNavOverflow);
 window.addEventListener("load", handleNavOverflow);
 window.addEventListener("click", handleNavOverflow);
 window.addEventListener("scroll", handleNavOverflow);
+
 
 
 
