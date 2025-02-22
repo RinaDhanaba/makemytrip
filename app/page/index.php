@@ -20,9 +20,9 @@
             </div>
 
             <!-- Fields: From → Swap → To → Departure → Return → Travellers & Class -->
-            <div class="row align-items-top flight-form-main">
+            <div class="flex align-items-top flight-form-main">
             <!-- From Location -->
-            <div class="col-md-2 position-relative flight-form-inner">
+            <div class="position-relative flight-form-inner">
                 <label>From</label>
                 <div id="from" class="input-box">
                 <div class="selected-value">Select Departure</div>
@@ -37,7 +37,7 @@
             </div>
 
             <!-- To Location -->
-            <div class="col-md-2 position-relative flight-form-inner" style="padding-left: 30px;">
+            <div class="position-relative flight-form-inner" style="padding-left: 30px;">
                 <label>To</label>
                 <div id="to" class="input-box">
                 <div class="selected-value">Select Destination</div>
@@ -47,7 +47,7 @@
             </div>
 
             <!-- Departure Date (with default "today") -->
-            <div class="col-md-2 position-relative flight-form-inner">
+            <div class="position-relative flight-form-inner">
                 <label>Departure</label>
                 <div id="departureDate" class="input-box">
                 <div class="selected-value">Select Date</div>
@@ -58,7 +58,7 @@
             </div>
 
             <!-- Return Date + Clear Button -->
-            <div class="col-md-2 position-relative flight-form-inner">
+            <div class="position-relative flight-form-inner">
                 <label>Return</label>
                 <div id="returnDate" class="input-box">
                 <div class="selected-value"></div>
@@ -70,7 +70,7 @@
             </div>
 
             <!-- Travellers & Class -->
-            <div class="col-md-2 position-relative flight-form-inner">
+            <div class="position-relative flight-form-inner">
                 <label>Travellers & Class</label>
                 <div id="travellers" class="input-box">
                 <span class="selected-value">1 Traveller</span>
