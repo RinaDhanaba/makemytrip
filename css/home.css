@@ -16,7 +16,7 @@ box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 display: block;
 }
 
-.navbar_inner{
+.navbar_inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,12 +28,18 @@ display: block;
     gap:30px;
 }
 @media (max-width: 1050px) {
-  .navbar_inner{
+  .navbar_inner {
       flex-direction:column;
   }
   .navbar .admin-controls {
       width:100%;
       order: -1;
+  }
+  .navbar_inner_nav{
+    width: 100%;
+  }
+  .navbar_inner_nav .nav-menu{
+    flex: 1;
   }
 }
 
