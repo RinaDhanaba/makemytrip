@@ -3,9 +3,12 @@ function handleNavOverflow() {
   const navbar = document.querySelector(".navbar_inner_nav");
   const moreDropdown = document.querySelector(".more-dropdown");
   const moreMenu = document.getElementById("moreMenu");
-  const navItems = [...document.querySelectorAll(".navbar .nav-menu .nav-item")];
+  
+  // Exclude the more-dropdown itself from nav items selection
+  const navItems = [...document.querySelectorAll(".navbar .nav-menu .nav-item:not(.more-dropdown)")];
 
   let navbarWidth = navbar.clientWidth;
+  // Start with the width of the moreDropdown (if visible) as used space
   let usedSpace = moreDropdown.clientWidth;
   let itemsMoved = false;
 
@@ -35,6 +38,7 @@ function handleNavOverflow() {
           let clone = item.cloneNode(true);
           clone.style.display = "block";
 
+          // Add a unique data attribute if not already present
           if (!moreMenu.querySelector(`[data-id="item-${index}"]`)) {
               clone.dataset.id = `item-${index}`;
               moreMenu.appendChild(clone);
