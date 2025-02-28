@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="./css/flight.css">
-
+    <link rel="stylesheet" href="./css/flights-listing.css">
     
 
     <!-- js files  -->
