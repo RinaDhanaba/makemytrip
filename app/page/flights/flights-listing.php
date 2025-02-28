@@ -1,5 +1,10 @@
 <!-- Include the header -->
-<?php include('../layout/header.php'); ?>
+<?php 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+
+include('../layout/header.php'); ?>
 
 <!-- Include the Home static navigation -->
 <?php include('../layout/home-static-navigation.php'); ?>
