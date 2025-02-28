@@ -5,23 +5,23 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Rewrite Nested Folders (Unlimited Levels 🔥)
+# Rewrite URLs with Unlimited Nested Folders
 RewriteRule ^(.+)/?$ app/page/$1.php [L,QSA]
 
 # Remove .php Extension Automatically
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.*)$ $1.php [L,QSA]
 
-# Block Direct Access to Layout Files
+# Block Direct Access to Layout Folder
 RewriteCond %{REQUEST_URI} ^/app/layout/.*$
 RewriteRule ^.*$ - [F,L]
 
-# Prevent Direct Access to Sensitive Files
+# Prevent Access to Sensitive Files
 <FilesMatch "\.(env|git|htpasswd|ini|log|bak)$">
     Require all denied
 </FilesMatch>
 
-# Prevent Access to .htaccess
+# Prevent Access to .htaccess File
 <Files .htaccess>
     Require all denied
 </Files>
@@ -29,5 +29,5 @@ RewriteRule ^.*$ - [F,L]
 # Custom 404 Page
 ErrorDocument 404 /app/page/404.php
 
-# Set Default Index Page
+# Default Index Page
 DirectoryIndex app/page/index.php
