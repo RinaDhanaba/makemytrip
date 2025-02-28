@@ -35,7 +35,6 @@
 
 <!-- Detailed flight info section -->
 <div class="container">
-  <h2>Flight Search Results</h2>
   <div id="flightDetails"></div>
 </div>
 
@@ -53,14 +52,13 @@
       document.getElementById("returnText").textContent     = flightData.returnDate ? flightData.returnDate : "N/A";
       document.getElementById("travellersText").textContent = flightData.travellers;
 
+      let returnInfo = flightData.returnDate 
+    ? `${flightData.returnDate}, and back` 
+    : "N/A";
+
       // Populate detailed info
       document.getElementById("flightDetails").innerHTML = `
-        <p><strong>From:</strong> ${flightData.from}</p>
-        <p><strong>To:</strong> ${flightData.to}</p>
-        <p><strong>Departure:</strong> ${flightData.departure}</p>
-        <p><strong>Return:</strong> ${flightData.returnDate ? flightData.returnDate : "N/A"}</p>
-        <p><strong>Travellers:</strong> ${flightData.travellers}</p>
-        <p><strong>Trip Type:</strong> ${flightData.tripType}</p>
+        <p><strong>Flights From:</strong> ${flightData.from} To:</strong> ${flightData.to}${returnInfo} </p>
       `;
     } else {
       // Fallback if no data is in localStorage
