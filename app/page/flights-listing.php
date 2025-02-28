@@ -53,9 +53,9 @@
       document.getElementById("travellersText").textContent = flightData.travellers;
 
         // Show return info only if trip type is Round Trip and return date exists
-        let returnInfo = (flightData.tripType === "Round Trip" && flightData.returnDate) 
-            ? `, ${flightData.returnDate} and back` 
-            : "";
+        let returnInfo = (tripType === "round trip" && flightData.returnDate)
+        ? `, ${flightData.returnDate} and back`
+        : "";
 
       // Populate detailed info
       document.getElementById("flightDetails").innerHTML = `
