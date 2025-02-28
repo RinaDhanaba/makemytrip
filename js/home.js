@@ -229,6 +229,44 @@ $(document).ready(function() {
       $("#travellersDropdown").hide();
     });
   });
+
+
+
+
+
+
+
+  function searchFlight() {
+    let from = document.getElementById("from").value;
+    let to = document.getElementById("to").value;
+    let departure = document.getElementById("departureDate").value;
+    let returnDate = document.getElementById("returnDate").value;
+    let travellers = document.getElementById("travellers").value;
+    let tripType = document.querySelector('input[name="tripType"]:checked').id;
+
+    if (from == "" || to == "" || departure == "") {
+        alert("Please Fill All Fields");
+        return false;
+    }
+
+    let flightData = {
+        from: from,
+        to: to,
+        departure: departure,
+        returnDate: returnDate,
+        travellers: travellers,
+        tripType: tripType
+    };
+
+    // Store in Local Storage
+    localStorage.setItem("flightData", JSON.stringify(flightData));
+
+    // Store in Session Storage
+    sessionStorage.setItem("flightData", JSON.stringify(flightData));
+
+    window.location.href = "flight-listing-page.php";
+}
+
   
 
 

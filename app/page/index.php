@@ -113,7 +113,7 @@
             <!-- Search Button BELOW, Centered -->
             <div class="row mt-4">
             <div class="col text-center">
-                <button class="btn-search">SEARCH</button>
+            <button class="btn-search" onclick="searchFlight()">SEARCH</button>
             </div>
             </div>
 
