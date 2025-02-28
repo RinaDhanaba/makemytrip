@@ -1,0 +1,427 @@
+
+
+.bgGradient{
+    background: #f2f2f2;
+    background-repeat: no-repeat;
+    background-image: url(../media/bg7.jpg), linear-gradient(to bottom, #f2f2f2, #f2f2f2);
+    min-height: 500px;
+    transition: background 0.1s linear;
+    margin: -60px 0 160px 0;
+    background-size: cover;
+    padding: 130px 0 0px 0;
+    }
+    
+    .card{
+    background: #fff;
+    min-height: 100px;
+    padding:10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width:1200px;
+    margin:30px auto;
+    }
+    
+    
+    /* Ensure Flatpickr is centered on mobile */
+    .flatpickr-mobile-center .flatpickr-calendar {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      z-index: 9999 !important;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Ensure no unwanted scroll on mobile */
+    .flatpickr-mobile-center {
+      overflow: hidden;
+    }
+    
+    
+    .booking-container{margin-top: 80px;}
+    @media (max-width: 1200px) {
+      .booking-container{margin-top: 160px;}
+    }
+    @media (max-width: 900px) {
+      .booking-container{margin-top:220px;}
+      .flight-card{padding: 25px 25px 0 !important;}
+    }
+    @media (max-width: 440px) {
+      .booking-container{margin-top: 250px;}
+    }
+    @media (max-width: 350px) {
+      .booking-container{margin-top: 330px;}
+    }
+    
+    
+    .booking-container .flight-card {
+        background: #fff;
+        padding: 80px 25px 0;
+        border-radius: 25px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .flight-form-main{
+        border:1px solid #ddd;    border-radius: 20px;margin: 30px 0;    align-items: stretch;
+      }
+    
+      .flight-form-main .flight-form-inner {
+      border:1px solid #ddd;flex: 1;padding: 15px;
+      }
+      .flight-form-main .flight-form-inner:first-child {
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+      }
+      
+      .flight-form-main .flight-form-inner:last-child {
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+      }
+    
+      @media screen and (max-width: 768px) {
+        .flight-form-main{border:0;border-radius:0px; gap:5px}
+        .flight-form-main .flight-form-inner{
+           border-radius: 20px;
+        }
+        .booking-container .swap-btn{
+          left:10px !important;
+        }
+        }
+    
+    
+      .booking-container .dropdown, .dropdown-menu {
+        display: none;
+        position: absolute;
+        background: #fff;
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+      }
+      .booking-container .dropdown-item {
+        cursor: pointer;
+        padding: 8px 12px;
+        border-bottom: 1px solid #ddd;
+        background: #fff;
+      }
+    
+      .btn-option {
+        cursor: pointer;
+        padding: 8px 12px;
+        margin: 4px 0;
+        border-radius: 6px;
+        background: #fff6ef;
+      }
+    
+      .booking-container .dropdown-item:hover {
+        background: #fff6ef;
+      }
+    
+      .btn-option:hover {
+        background: #f1f1f1;
+      }
+    
+      .booking-container .btn-option.selected {
+        background: var(--primary-color);
+        color: white;
+      }
+      .booking-container .btn-search {
+        background-color: var(--primary-color);
+        color: #fff;
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        position: relative;
+        top: 50%;
+      }
+      .booking-container .swap-btn {
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--primary-color);
+        left: -20px;
+        top: 50%;
+        transform: translatey(-50%);
+        background: #fff;
+        z-index: 1;
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+      }
+    
+      .booking-container .input-box .selected-value{
+        font-weight: 800;
+        font-size: 25px;
+      }
+    
+      .booking-container .sub-text {
+        font-size: 12px;
+        color: gray;
+        font-weight: normal;
+        display: block;
+        text-wrap: auto;
+      }
+    
+      .booking-container #travellersDropdown {
+        width: 100%;
+        min-width: 20vw;
+        font-size: 12px;
+    }
+    
+      /* Hidden inputs for flatpickr */
+      .booking-container  #departureDateInput, #returnDateInput {
+        display: none !important;
+      }
+      /* Clear (X) button for Return date */
+      .booking-container  .clear-btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        background: transparent;
+        border: none;
+        font-size: 18px;
+        color: #999;
+        cursor: pointer;
+        display: none; /* hidden by default, shown once a date is selected */
+      }
+     .booking-container .clear-btn:hover {
+        color: #000;
+      }
+    
+    
+    
+    
+    .extra-info-banner{
+    max-width: 1100px;
+    width: fit-content;
+    margin: 0px auto -50px auto;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 35px;
+    }
+    
+    .extra-info-banner-btn:not(:last-child) { border-right: 1px solid #ccc;}
+    
+    @media (max-width: 980px) {
+      .extra-info-banner{justify-content: left; padding: 15px 30px; border-radius:4px; gap:30px}
+      .extra-info-banner-btn:not(:last-child) { border-right: none;}
+    }
+    
+    .extra-info-banner-btn{ padding: 0 10px;}
+    
+    .extra-info-banner-btn p { font-size: 12px;  margin: 0;}
+    
+    .extra-info-banner-btn i{color: var(--primary-color)}
+    
+    
+    
+    
+    
+    .ad-bg-container1{
+        background: url('../media/Screenshot 2025-02-20 190926.png') no-repeat center center; 
+        background-size: contain;
+        width: 100%;
+        height: calc(100vw * (100 / 1200));
+        max-height: 100px;
+        border-radius: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        max-width: 1100px;
+        margin: 60px auto 30px auto;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    .offers-section {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+    }
+    
+    .offers-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    .tabs {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .tab {
+        cursor: pointer;
+        padding: 5px 10px;
+        font-weight: bold;
+        color: #888;
+        border-bottom: 3px solid transparent;
+    }
+    
+    .tab.active {
+        color: #007bff;
+        border-bottom: 3px solid #007bff;
+    }
+    
+    .view-all {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
+    .offers-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .offer-card {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        gap: 15px;
+    }
+    
+    .offer-card img {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+    
+    .offer-content {
+        flex-grow: 1;
+    }
+    
+    .offer-content h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    
+    .offer-content p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #555;
+    }
+    
+    .book-now {
+        color: #007bff;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    .ad-card{
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    flex:1;
+    justify-content: flex-start;
+    }
+    .ad-card img{ width: 90px;}
+    .ad-card p{ margin:0; font-size: 14px;}
+    
+    
+    
+    
+    
+    
+    .ad-bg-container{
+    background: url('../media/Screenshot 2025-02-20 185017.png') no-repeat center center; 
+    background-size: contain;
+    width: 100%;
+    height: calc(100vw * (200 / 1200));
+    max-height: 200px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    
+    
+    
+    
+    .flights-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+        gap: 20px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .flights-container .flight-card {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .flights-container  .flight-card img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    .flights-container  .flight-info h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #333;
+    }
+    
+    .flights-container  .flight-info p {
+        margin: 5px 0 0;
+        font-size: 14px;
+        color: #666;
+    }
+    
+    @media (max-width: 600px) {
+        .flights-container {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+
+    .terms-condition *{
+        font-size: 12px; 
+    }
+    
+    
+    .faq{
+        background: #fff;
+        padding: 60px 3px;
+        margin-top: 30px;
+    }
+    
+    .faq p{
+        font-size: 12px;
+    }
+    
+    .faq b{
+        font-size: 14px;
+    }
+        

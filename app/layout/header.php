@@ -27,10 +27,12 @@
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/flight.css">
+
     
 
     <!-- js files  -->
-    <script defer src="./js/home.js"></script>
+    <script defer src="./js/header.js"></script>
 </head>
 <body>
 
