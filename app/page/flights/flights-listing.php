@@ -1,8 +1,8 @@
 <!-- Include the header -->
-<?php include('.../layout/header.php'); ?>
+<?php include('./app/layout/header.php'); ?>
 
 <!-- Include the Home static navigation -->
-<?php include('.../layout/home-static-navigation.php'); ?>
+<?php include('./app/layout/home-static-navigation.php'); ?>
 
 
 
@@ -33,4 +33,4 @@
 
 
 <!-- Include the footer -->
-<?php include('.../layout/footer.php'); ?>
+<?php include('./app/layout/footer.php'); ?>
