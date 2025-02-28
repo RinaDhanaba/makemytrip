@@ -52,10 +52,13 @@
       document.getElementById("returnText").textContent     = flightData.returnDate ? flightData.returnDate : "N/A";
       document.getElementById("travellersText").textContent = flightData.travellers;
 
-        // Show return info only if trip type is Round Trip and return date exists
-        let returnInfo = (tripType === "round trip" && flightData.returnDate)
-        ? `, ${flightData.returnDate} and back`
-        : "";
+    // Normalize Trip Type
+    let tripType = flightData.tripType.toLowerCase();
+
+    // Show return info only if trip type is Round Trip and return date exists
+    let returnInfo = (tripType === "round trip" && flightData.returnDate)
+      ? `, ${flightData.returnDate} and back`
+      : "";
 
       // Populate detailed info
       document.getElementById("flightDetails").innerHTML = `
