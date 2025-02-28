@@ -1,3 +1,7 @@
+
+<!-- Include navigations -->
+<?php include('../layout/navigations.php'); ?>
+
 <!-- Responsive Navigation Bar -->
 <nav class="navbar">
     <div class="navbar_inner">
