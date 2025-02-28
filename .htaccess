@@ -8,10 +8,6 @@ RewriteRule ^app/layout/ - [F,L]
 # Prevent rewriting if URL is already pointing to app/page
 RewriteCond %{REQUEST_URI} !^/app/page/
 
-# If the requested file or folder doesn't exist in DocumentRoot
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
 # Rewrite every request to app/page/<requested>.php (trailing slash optional)
 RewriteRule ^(.*)/?$ app/page/$1.php [L,QSA]
 

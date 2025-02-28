@@ -1,12 +1,5 @@
 <!-- Include the header -->
-<?php 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-echo "✅ Debug is working: " . __FILE__;
-exit;
-
-
-include('../layout/header.php'); ?>
+<?php include('../layout/header.php'); ?>
 
 <!-- Include the Home static navigation -->
 <?php include('../layout/home-static-navigation.php'); ?>
