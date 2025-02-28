@@ -1,22 +1,21 @@
 # Enable Rewrite Engine
 RewriteEngine On
+RewriteBase /
 
-# Ensure the request is not for an existing file or directory
+# Ensure that the request is not for an existing file or directory
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Ensure the request to the root URL (/) points to app/page/index.php
-RewriteCond %{REQUEST_URI} ^/$
-RewriteRule ^$ /app/page/index.php [L]
+# Redirect root URL to app/page/index.php
+RewriteRule ^$ app/page/index.php [L]
 
-# Clean URLs: Redirects URLs to the corresponding .php files inside app/page/
-RewriteRule ^([a-zA-Z0-9_-]+)$ /app/page/$1.php [L]
+# Clean URLs: rewrite /something or /something/ to app/page/something.php
+RewriteRule ^([a-zA-Z0-9_-]+)/?$ app/page/$1.php [L,QSA]
 
-# Block direct access to layout files (header.php, footer.php)
-RewriteCond %{REQUEST_URI} !^/app/layout/.*$ 
-RewriteRule ^app/layout/.*$ - [F,L]
+# Block direct access to layout files
+RewriteRule ^app/layout/ - [F,L]
 
-# Prevent direct access to .htaccess itself
+# Prevent direct access to .htaccess
 <Files .htaccess>
     Require all denied
 </Files>
@@ -24,10 +23,10 @@ RewriteRule ^app/layout/.*$ - [F,L]
 # Custom 404 error page
 ErrorDocument 404 /app/page/404.php
 
-# Block access to sensitive files like .env, .git, .htpasswd
+# Block access to sensitive files
 <FilesMatch "\.(env|git|htpasswd|ini|log|bak)$">
     Require all denied
 </FilesMatch>
 
-# Set the default index page to home page (index.html or index.php)
+# Set default index page
 DirectoryIndex app/page/index.php
