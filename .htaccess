@@ -9,8 +9,8 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} ^/$
 RewriteRule ^$ app/page/index.php [L]
 
-# Dynamic Rewrite for Nested Folders Inside /page/
-RewriteRule ^([a-zA-Z0-9_-]+(?:/[a-zA-Z0-9_-]+)*)$ app/page/$1.php [L]
+# Dynamic Rewrite for Nested Folders Inside /page/ (Unlimited Levels 🔥)
+RewriteRule ^([a-zA-Z0-9_-]+(?:/[a-zA-Z0-9_-]+)*)$ app/page/$1.php [L,QSA]
 
 # Block direct access to layout files (header.php, footer.php)
 RewriteCond %{REQUEST_URI} ^/app/layout/.*$
