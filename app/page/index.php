@@ -264,6 +264,6 @@
 </div>
 
 
-<script defer src="./js/home.js"></script>
+<script defer src="../js/home.js"></script>
 <!-- Include the footer -->
 <?php include('../layout/footer.php'); ?>

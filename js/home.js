@@ -11,6 +11,9 @@ handleStickyNavbar();
 window.addEventListener("scroll", handleStickyNavbar);
 
 
+
+
+
 $(document).ready(function() {
     // Airport list
     const airports = [
