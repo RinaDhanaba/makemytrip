@@ -5,13 +5,11 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Rewrite Nested Folders and Files
-RewriteRule ^([^/]+)/?$ app/page/$1.php [L,QSA]
+# Rewrite URLs with Unlimited Nested Folders
+RewriteRule ^(.+)/?$ app/page/$1.php [L,QSA]
 
-# Rewrite Subfolder Pages Like /flights/flight-listings
-RewriteRule ^(.+)/(.+)/?$ app/page/$1/$2.php [L,QSA]
-
-# Remove .php Extension Automatically
+# Remove .php Extension Automatically if not already appended
+RewriteCond %{REQUEST_URI} !\.php$
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.*)$ $1.php [L,QSA]
 
@@ -19,12 +17,12 @@ RewriteRule ^(.*)$ $1.php [L,QSA]
 RewriteCond %{REQUEST_URI} ^/app/layout/.*$
 RewriteRule ^.*$ - [F,L]
 
-# Prevent Direct Access to Sensitive Files
+# Prevent Access to Sensitive Files
 <FilesMatch "\.(env|git|htpasswd|ini|log|bak)$">
     Require all denied
 </FilesMatch>
 
-# Prevent Access to .htaccess
+# Prevent Access to .htaccess File
 <Files .htaccess>
     Require all denied
 </Files>
@@ -32,5 +30,5 @@ RewriteRule ^.*$ - [F,L]
 # Custom 404 Page
 ErrorDocument 404 /app/page/404.php
 
-# Set Default Index Page
+# Default Index Page
 DirectoryIndex app/page/index.php
