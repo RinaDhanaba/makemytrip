@@ -52,13 +52,14 @@
       document.getElementById("returnText").textContent     = flightData.returnDate ? flightData.returnDate : "N/A";
       document.getElementById("travellersText").textContent = flightData.travellers;
 
-      let returnInfo = flightData.returnDate 
-    ? `${flightData.returnDate}, and back` 
-    : "N/A";
+        // Show return info only if trip type is Round Trip and return date exists
+        let returnInfo = (flightData.tripType === "Round Trip" && flightData.returnDate) 
+            ? `, ${flightData.returnDate} and back` 
+            : "";
 
       // Populate detailed info
       document.getElementById("flightDetails").innerHTML = `
-        <p><strong>Flights From:</strong> ${flightData.from} To:</strong> ${flightData.to}${returnInfo} </p>
+        <p>Flights From ${flightData.from} To ${flightData.to}${returnInfo} </p>
       `;
     } else {
       // Fallback if no data is in localStorage
