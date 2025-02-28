@@ -9,10 +9,10 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} ^/$
 RewriteRule ^$ /app/page/index.php [L]
 
-# New rule: Handle URLs with two segments (e.g., /flights/flight-listing)
-RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)$ /app/page/$1/$2.php [L]
+# New rule: Handle URLs with two segments (e.g., /flights/flight-listing or /hotel/hotel-listing)
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/?$ /app/page/$1/$2.php [L]
 
-# Clean URLs: Redirects single-segment URLs to the corresponding .php files inside app/page/
+# Clean URLs: Redirect single-segment URLs to the corresponding .php file inside app/page/
 RewriteRule ^([a-zA-Z0-9_-]+)$ /app/page/$1.php [L]
 
 # Block direct access to layout files (header.php, footer.php)
