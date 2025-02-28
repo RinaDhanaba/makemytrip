@@ -2,7 +2,7 @@
 <?php include('../../layout/header.php'); ?>
 
 <!-- Include the Home static navigation -->
-<?php include('../../app/layout/home-static-navigation.php'); ?>
+<?php include('../../layout/home-static-navigation.php'); ?>
 
 
 
@@ -33,4 +33,4 @@
 
 
 <!-- Include the footer -->
-<?php include('../../app/layout/footer.php'); ?>
+<?php include('../../layout/footer.php'); ?>
