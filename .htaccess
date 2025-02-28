@@ -9,14 +9,11 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} ^/$
 RewriteRule ^$ app/page/index.php [L]
 
-# Dynamic Rewrite for Any Depth Folders Inside /page/
+# Dynamic Rewrite for Nested Folders Inside /page/ (Unlimited Levels 🔥)
 RewriteRule ^([a-zA-Z0-9_-]+(?:/[a-zA-Z0-9_-]+)*)$ app/page/$1.php [L,QSA]
 
-# Clean URLs for Main Pages
-RewriteRule ^([a-zA-Z0-9_-]+)$ app/page/$1.php [L,QSA]
-
-# Block direct access to layout files
-RewriteCond %{REQUEST_URI} ^/app/layout/
+# Block direct access to layout files (header.php, footer.php)
+RewriteCond %{REQUEST_URI} ^/app/layout/.*$
 RewriteRule ^.*$ - [F,L]
 
 # Prevent direct access to .htaccess itself
@@ -24,13 +21,13 @@ RewriteRule ^.*$ - [F,L]
     Require all denied
 </Files>
 
-# Custom 404 Page
+# Custom 404 Error Page
 ErrorDocument 404 /app/page/404.php
 
-# Block sensitive files
+# Block access to sensitive files
 <FilesMatch "\.(env|git|htpasswd|ini|log|bak)$">
     Require all denied
 </FilesMatch>
 
-# Default Index
+# Set the default index page
 DirectoryIndex app/page/index.php
