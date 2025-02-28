@@ -2,17 +2,17 @@
 RewriteEngine On
 RewriteBase /
 
-# Block Direct Access to Layout Folder
+# Block direct access to layout folder
 RewriteRule ^app/layout/ - [F,L]
 
-# Prevent rewriting already rewritten URIs (inside app/page)
+# Prevent rewriting if URL is already pointing to app/page
 RewriteCond %{REQUEST_URI} !^/app/page/
 
-# Ignore existing files and directories (relative to DocumentRoot)
+# If the requested file or folder doesn't exist in DocumentRoot
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Rewrite everything to app/page/<requested>.php (allowing an optional trailing slash)
+# Rewrite every request to app/page/<requested>.php (trailing slash optional)
 RewriteRule ^(.*)/?$ app/page/$1.php [L,QSA]
 
 # Custom 404 Page
