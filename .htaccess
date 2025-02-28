@@ -6,7 +6,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 # Rewrite Nested Folders (Unlimited Levels 🔥)
-RewriteRule ^(.+)$ app/page/$1.php [L,QSA]
+RewriteRule ^(.+)$ app/page/$1 [L,QSA]
 
 # Allow Folder URLs Without Trailing Slash
 RewriteRule ^(.+)/$ app/page/$1.php [L,QSA]
