@@ -1,33 +1,35 @@
 # Enable Rewrite Engine
 RewriteEngine On
 
-# Ignore Existing Files & Folders
+# Ensure the request is not for an existing file or directory
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Dynamic Rewrite for Unlimited Nested Folders
-RewriteRule ^([a-zA-Z0-9_-]+(?:/[a-zA-Z0-9_-]+)*)/?$ app/page/$1.php [L,QSA]
+# Ensure the request to the root URL (/) points to app/page/index.php
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^$ app/page/index.php [L]
 
-# Remove .php Extension
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^(.*)$ $1.php [L,QSA]
+# Dynamic Rewrite for Nested Folders Inside /page/ (Unlimited Levels 🔥)
+RewriteRule ^(.+)/(.+)$ app/page/$1/$2.php [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+(?:/[a-zA-Z0-9_-]+)*)$ app/page/$1.php [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+(?:/[a-zA-Z0-9_-]+)*)/$ app/page/$1.php [L,QSA]
 
-# Block Direct Access to Layout Files
+# Block direct access to layout files (header.php, footer.php)
 RewriteCond %{REQUEST_URI} ^/app/layout/.*$
 RewriteRule ^.*$ - [F,L]
 
-# Prevent Access to Sensitive Files
-<FilesMatch "\.(env|git|htpasswd|ini|log|bak)$">
-    Require all denied
-</FilesMatch>
-
-# Custom 404 Page
-ErrorDocument 404 /app/page/404.php
-
-# Prevent Direct Access to .htaccess
+# Prevent direct access to .htaccess itself
 <Files .htaccess>
     Require all denied
 </Files>
 
-# Set Default Index Page
+# Custom 404 Error Page
+ErrorDocument 404 /app/page/404.php
+
+# Block access to sensitive files
+<FilesMatch "\.(env|git|htpasswd|ini|log|bak)$">
+    Require all denied
+</FilesMatch>
+
+# Set the default index page
 DirectoryIndex app/page/index.php
