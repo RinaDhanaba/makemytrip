@@ -44,6 +44,14 @@
     let flightData = JSON.parse(localStorage.getItem("flightData"));
 
     if (flightData) {
+
+    if (flightData.tripType.toLowerCase() === "one way") {
+      document.getElementById("oneWay").checked = true;
+    } else if (flightData.tripType.toLowerCase() === "round trip") {
+      document.getElementById("roundTrip").checked = true;
+    }
+
+
       // Populate top summary row
       document.getElementById("tripTypeText").textContent   = flightData.tripType;
       document.getElementById("fromText").textContent       = flightData.from;
@@ -55,15 +63,16 @@
     // Normalize Trip Type
     let tripType = flightData.tripType.toLowerCase();
 
-    // Show return info only if trip type is Round Trip and return date exists
-    let returnInfo = (tripType === "roundTrip" && flightData.returnDate)
+    // Show return info only if Round Trip
+    let returnInfo = (tripType === "round trip" && flightData.returnDate)
       ? `, ${flightData.returnDate} and back`
       : "";
 
-      // Populate detailed info
-      document.getElementById("flightDetails").innerHTML = `
-        <p>Flights From ${flightData.from} To ${flightData.to}${returnInfo} </p>
-      `;
+    // Populate detailed info
+    document.getElementById("flightDetails").innerHTML = `
+      <p>Flights From ${flightData.from} To ${flightData.to}${returnInfo}</p>
+    `;
+    
     } else {
       // Fallback if no data is in localStorage
       document.getElementById("flightDetails").innerHTML = `<p>No Flight Data Found</p>`;
