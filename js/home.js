@@ -274,7 +274,7 @@ $(document).ready(function() {
     // Store in Session Storage
     sessionStorage.setItem("flightData", JSON.stringify(flightData));
 
-    window.location.href = "/flight-listing-page";
+    window.location.href = "flights/flight-listings";
 }
 
   

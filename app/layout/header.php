@@ -35,6 +35,3 @@
     <script defer src="./js/header.js"></script>
 </head>
 <body>
-
-<!-- Include the Home static navigation -->
-<?php include('../layout/navigation.php'); ?>

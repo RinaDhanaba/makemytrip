@@ -1,6 +1,9 @@
 <!-- Include the header -->
 <?php include('../layout/header.php'); ?>
 
+<!-- Include the Home static navigation -->
+<?php include('../layout/navigation.php'); ?>
+
 <div class="bgGradient">
     <div class="booking-container">
 
