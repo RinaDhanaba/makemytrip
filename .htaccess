@@ -1,31 +1,18 @@
 # Enable Rewrite Engine
 RewriteEngine On
 
-# Ignore Existing Files & Folders
+# Block Direct Access to Layout Folder
+RewriteRule ^app/layout/ - [F,L]
+
+# Prevent rewriting already rewritten URIs (inside app/page)
+RewriteCond %{REQUEST_URI} !^/app/page/
+
+# Ignore existing files and directories (relative to DocumentRoot)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Rewrite URLs with Unlimited Nested Folders
-RewriteRule ^(.+)/?$ app/page/$1.php [L,QSA]
-
-# Remove .php Extension Automatically if not already appended
-RewriteCond %{REQUEST_URI} !\.php$
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^(.*)$ $1.php [L,QSA]
-
-# Block Direct Access to Layout Folder
-RewriteCond %{REQUEST_URI} ^/app/layout/.*$
-RewriteRule ^.*$ - [F,L]
-
-# Prevent Access to Sensitive Files
-<FilesMatch "\.(env|git|htpasswd|ini|log|bak)$">
-    Require all denied
-</FilesMatch>
-
-# Prevent Access to .htaccess File
-<Files .htaccess>
-    Require all denied
-</Files>
+# Rewrite everything to app/page/<requested>.php (allowing an optional trailing slash)
+RewriteRule ^(.*)/?$ app/page/$1.php [L,QSA]
 
 # Custom 404 Page
 ErrorDocument 404 /app/page/404.php
