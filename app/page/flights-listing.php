@@ -56,7 +56,7 @@
     let tripType = flightData.tripType.toLowerCase();
 
     // Show return info only if trip type is Round Trip and return date exists
-    let returnInfo = (tripType === "round trip" && flightData.returnDate)
+    let returnInfo = (tripType === "roundTrip" && flightData.returnDate)
       ? `, ${flightData.returnDate} and back`
       : "";
 
