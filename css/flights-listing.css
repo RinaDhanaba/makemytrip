@@ -1,5 +1,5 @@
 /* Top summary row (the "bar" with boxes) */
-.search-summary {
+#flightDetailsContainer {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
