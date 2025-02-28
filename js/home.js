@@ -1,3 +1,15 @@
+// Function to handle sticky navbar behavior
+function handleStickyNavbar() {
+  const navbar = document.querySelector(".navbar");
+  if (window.scrollY > 100) {
+      navbar.classList.add("sticky");
+  } else {
+      navbar.classList.remove("sticky");
+  }
+}
+handleStickyNavbar();
+window.addEventListener("scroll", handleStickyNavbar);
+
 
 $(document).ready(function() {
     // Airport list

@@ -77,16 +77,6 @@ function handleNavOverflow() {
       });
     }
     
-    // Sticky navbar effect: attach listener once
-    window.addEventListener("scroll", () => {
-      const mainNavbar = document.querySelector(".navbar");
-      if (window.scrollY > 100) {
-        mainNavbar.classList.add("sticky");
-      } else {
-        mainNavbar.classList.remove("sticky");
-      }
-    });
-    
     // Initial call to position nav items correctly
     handleNavOverflow();
   });
@@ -97,21 +87,6 @@ function handleNavOverflow() {
   window.addEventListener("click", handleNavOverflow);
   window.addEventListener("scroll", handleNavOverflow);
   
-  
-  
-  
-  
-  // Function to handle sticky navbar behavior
-  function handleStickyNavbar() {
-      const navbar = document.querySelector(".navbar");
-      if (window.scrollY > 100) {
-          navbar.classList.add("sticky");
-      } else {
-          navbar.classList.remove("sticky");
-      }
-  }
-  handleStickyNavbar();
-  window.addEventListener("scroll", handleStickyNavbar);
   
   
   // character limit
