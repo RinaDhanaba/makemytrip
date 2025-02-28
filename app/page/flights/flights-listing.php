@@ -2,6 +2,8 @@
 <?php 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+echo "✅ Debug is working: " . __FILE__;
+exit;
 
 
 include('../layout/header.php'); ?>
