@@ -6,11 +6,11 @@ RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Redirect root URL to app/page/index.php
+# Redirect root URL to the index page
 RewriteRule ^$ app/page/index.php [L]
 
-# Clean URLs: rewrite /something or /something/ to app/page/something.php
-RewriteRule ^([a-zA-Z0-9_-]+)/?$ app/page/$1.php [L,QSA]
+# Clean URLs: rewrite /something (or /something/) to app/page/something.php
+RewriteRule ^([-a-z0-9_]+)/?$ app/page/$1.php [L,QSA,NC]
 
 # Block direct access to layout files
 RewriteRule ^app/layout/ - [F,L]
