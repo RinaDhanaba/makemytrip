@@ -1,5 +1,6 @@
 # Enable Rewrite Engine
 RewriteEngine On
+RewriteBase /
 
 # Block Direct Access to Layout Folder
 RewriteRule ^app/layout/ - [F,L]
