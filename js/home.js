@@ -237,25 +237,35 @@ $(document).ready(function() {
 
 
   function searchFlight() {
-    let from = document.getElementById("from").value;
-    let to = document.getElementById("to").value;
-    let departure = document.getElementById("departureDate").value;
-    let returnDate = document.getElementById("returnDate").value;
-    let travellers = document.getElementById("travellers").value;
+    // Get Trip Type (One Way / Round Trip)
     let tripType = document.querySelector('input[name="tripType"]:checked').id;
+    // Get From Location
+    let from = document.querySelector("#from .selected-value").innerText;
+    // Get To Location
+    let to = document.querySelector("#to .selected-value").innerText;
+    // Get Departure Date
+    let departure = document.querySelector("#departureDate .selected-value").innerText;
+    // Get Return Date (If Available)
+    let returnDate = document.querySelector("#returnDate .selected-value").innerText;
+    // Get Travellers & Class
+    let travellers = document.querySelector("#travellers .selected-value").innerText;
+    let travelClass = document.querySelector("#travellers .sub-text").innerText;
 
-    if (from == "" || to == "" || departure == "") {
-        alert("Please Fill All Fields");
-        return false;
+    // Validation
+    if (from === "Select Departure" || to === "Select Destination" || departure === "Select Date") {
+        alert("Please fill all required fields.");
+        return;
     }
 
+    // Create Flight Data Object
     let flightData = {
+        tripType: tripType,
         from: from,
         to: to,
         departure: departure,
-        returnDate: returnDate,
+        returnDate: returnDate || "N/A",
         travellers: travellers,
-        tripType: tripType
+        class: travelClass,
     };
 
     // Store in Local Storage
