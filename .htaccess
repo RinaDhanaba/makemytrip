@@ -9,7 +9,10 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} ^/$
 RewriteRule ^$ /app/page/index.php [L]
 
-# Clean URLs: Redirects URLs to the corresponding .php files inside app/page/
+# New rule: Handle URLs with two segments (e.g., /flights/flight-listing)
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)$ /app/page/$1/$2.php [L]
+
+# Clean URLs: Redirects single-segment URLs to the corresponding .php files inside app/page/
 RewriteRule ^([a-zA-Z0-9_-]+)$ /app/page/$1.php [L]
 
 # Block direct access to layout files (header.php, footer.php)
@@ -24,7 +27,7 @@ RewriteRule ^app/layout/.*$ - [F,L]
 # Custom 404 error page
 ErrorDocument 404 /app/page/404.php
 
-# Block access to sensitive files like .env, .git, .htpasswd
+# Block access to sensitive files like .env, .git, .htpasswd, etc.
 <FilesMatch "\.(env|git|htpasswd|ini|log|bak)$">
     Require all denied
 </FilesMatch>
